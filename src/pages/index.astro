@@ -1,11 +1,42 @@
 ---
-import Welcome from '../components/Welcome.astro';
+// Ruiz Family Enterprises - Main Landing Page
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import HeroBanner from '../components/HeroBanner.astro';
+import ServicesOverview from '../components/ServicesOverview.astro';
+import BeforeAfterShowcase from '../components/BeforeAfterShowcase.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import ProcessSection from '../components/ProcessSection.astro';
+import FieldReels from '../components/FieldReels.astro';
+import ReviewsSection from '../components/ReviewsSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import QuoteBuilder from '../components/QuoteBuilder.astro';
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero Section -->
+  <HeroBanner />
+
+  <!-- Core Trade Services Overview -->
+  <ServicesOverview />
+
+  <!-- What It Looks Like to Work With Ruiz / Jobsite Experience -->
+  <BeforeAfterShowcase />
+
+  <!-- Why Choose Ruiz / The 3-Generation Family Story -->
+  <WhyChooseUs />
+
+  <!-- The 4-Step Build Process -->
+  <ProcessSection />
+
+  <!-- Field Chronicles & Candid Jobsite Reels -->
+  <FieldReels />
+
+  <!-- Verified Client Reviews & Testimonials -->
+  <ReviewsSection />
+
+  <!-- High-Value Accessible FAQ Accordion -->
+  <FaqSection />
+
+  <!-- Interactive Project Estimate Builder & Request Form -->
+  <QuoteBuilder />
 </Layout>
