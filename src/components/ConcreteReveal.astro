@@ -1,0 +1,140 @@
+<canvas class="concrete-reveal" aria-hidden="true" data-concrete-reveal></canvas>
+
+<noscript><style is:inline>[data-concrete-reveal] { display: none; }</style></noscript>
+
+<style>
+  .concrete-reveal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    background: #c9c9c5 url("/images/materials/concrete.png") repeat;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .concrete-reveal { display: none; }
+  }
+</style>
+
+<script>
+  async function castHero() {
+    const canvas = document.querySelector('[data-concrete-reveal]');
+    const hero = document.querySelector('[data-hero-banner]');
+    const heading = document.querySelector('#hero-heading');
+    if (!(canvas instanceof HTMLCanvasElement) || !(hero instanceof HTMLElement) || !(heading instanceof HTMLElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (preference.matches) { canvas.remove(); return; }
+    const texture = new Image();
+    texture.src = '/images/materials/concrete.png';
+    try { await texture.decode(); } catch { canvas.remove(); return; }
+    const pattern = ctx.createPattern(texture, 'repeat');
+    if (!pattern) { canvas.remove(); return; }
+    let frame = 0;
+    let started = 0;
+    let width = 0;
+    let height = 0;
+    let finished = false;
+    const mobile = window.matchMedia("(max-width: 640px)").matches;
+    const hold = mobile ? 80 : 140;
+    const runoff = mobile ? 1250 : 1650;
+    const duration = hold + runoff + 100;
+    const clamp = (value: number) => Math.max(0, Math.min(1, value));
+    const ease = (value: number) => value * value * (3 - 2 * value);
+
+    function measure() {
+      const bounds = hero.getBoundingClientRect();
+      width = bounds.width;
+      height = bounds.height;
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      cancelAnimationFrame(frame);
+      canvas.remove();
+      window.removeEventListener('resize', finish);
+      document.removeEventListener('visibilitychange', onVisibility);
+      preference.removeEventListener('change', finish);
+      observer.disconnect();
+    }
+
+    function onVisibility() {
+      if (document.hidden) finish();
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry && !entry.isIntersecting) finish();
+    });
+
+    function render(now: number) {
+      if (finished) return;
+      if (!started) started = now;
+      const elapsed = now - started;
+      if (elapsed >= duration) { finish(); return; }
+      const drain = ease(clamp((elapsed - hold) / runoff));
+      const bottom = height + 105;
+      const top = -95 + drain * (height + 240);
+      const time = elapsed / 1000;
+      const wave = (x: number, phase: number) =>
+        (Math.sin(x / 93 + phase) * 20 + Math.sin(x / 41 - phase * 0.7) * 9 + Math.sin(x / 177 + 2) * 23) * (mobile ? 0.45 : 1);
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, top + wave(0, time));
+      for (let x = 0; x <= width + 8; x += 8) ctx.lineTo(x, top + wave(x, time));
+      for (let x = width + 8; x >= 0; x -= 8) ctx.lineTo(x, bottom + wave(x, time * 0.65 + 1.8));
+      ctx.closePath();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.38)';
+      ctx.shadowBlur = 13;
+      ctx.shadowOffsetY = 8;
+      ctx.fillStyle = pattern;
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.clip();
+      const light = ctx.createLinearGradient(0, top, width * 0.35, bottom);
+      light.addColorStop(0, 'rgba(255, 255, 240, 0.16)');
+      light.addColorStop(0.65, 'rgba(67, 73, 68, 0.09)');
+      light.addColorStop(1, 'rgba(44, 49, 46, 0.26)');
+      ctx.fillStyle = light;
+      ctx.fillRect(0, 0, width, height);
+      // A narrow wet lip gives the moving surface thickness without a glow.
+      ctx.beginPath();
+      for (let x = 0; x <= width + 8; x += 8) {
+        const y = drain > 0 ? top + wave(x, time) + 2 : bottom + wave(x, time * 0.65 + 1.8) - 3;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(242, 240, 223, 0.4)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.restore();
+      canvas.style.background = 'none';
+      frame = requestAnimationFrame(render);
+    }
+
+    measure();
+    observer.observe(hero);
+    window.addEventListener('resize', finish, { once: true });
+    document.addEventListener('visibilitychange', onVisibility);
+    preference.addEventListener('change', finish, { once: true });
+    // Bound font loading so a slow font host never delays the reveal indefinitely.
+    Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 120))]).then(() => {
+      if (finished) return;
+      measure();
+      frame = requestAnimationFrame(render);
+    });
+  }
+
+  castHero();
+</script>

@@ -1,0 +1,46 @@
+---
+// Section.astro - Reusable standardized section wrapper for Ruiz Family Enterprises
+// Enforces harmonious vertical rhythm and container constraints across the site.
+interface Props {
+  id?: string;
+  variant?: 'white' | 'light' | 'light-inset' | 'dark' | 'dark-elevated' | 'transparent';
+  density?: 'default' | 'compact' | 'spacious';
+  container?: 'default' | 'narrow' | 'wide' | 'none';
+  class?: string;
+  ariaLabelledby?: string;
+  style?: string;
+}
+
+const {
+  id,
+  variant = 'white',
+  density = 'default',
+  container = 'default',
+  class: className = '',
+  ariaLabelledby,
+  style,
+} = Astro.props;
+
+const sectionClasses = [
+  'section',
+  variant !== 'transparent' && `section--${variant}`,
+  density !== 'default' && `section--${density}`,
+  className,
+].filter(Boolean).join(' ');
+
+const containerClasses = [
+  'container',
+  container === 'narrow' && 'container--narrow',
+  container === 'wide' && 'container--wide',
+].filter(Boolean).join(' ');
+---
+
+<section id={id} class={sectionClasses} aria-labelledby={ariaLabelledby} style={style}>
+  {container !== 'none' ? (
+    <div class={containerClasses}>
+      <slot />
+    </div>
+  ) : (
+    <slot />
+  )}
+</section>
