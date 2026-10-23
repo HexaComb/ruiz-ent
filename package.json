@@ -13,5 +13,8 @@
   },
   "dependencies": {
     "astro": "^7.4.2"
+  },
+  "devDependencies": {
+    "impeccable": "^4.7.0"
   }
 }
