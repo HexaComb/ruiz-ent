@@ -1,0 +1,410 @@
+---
+import ConcreteReveal from './ConcreteReveal.astro';
+// Ruiz Family Enterprises - Hero Banner with Background Working Video & Infinite Cycling Marquee
+const clientSectors = [
+  { name: "Commercial & Retail Developments", type: "Commercial Flatwork" },
+  { name: "Luxury Custom Home Builders", type: "Custom Estates" },
+  { name: "Municipal & Civic Public Works", type: "Infrastructure" },
+  { name: "Industrial Warehouses & Distribution Hubs", type: "Heavy Commercial" },
+  { name: "Agricultural & Cold Storage Facilities", type: "Ag Slabs" },
+  { name: "Wineries, Breweries & Tasting Rooms", type: "Hospitality" },
+  { name: "Residential Subdivisions & HOAs", type: "Master Communities" },
+  { name: "General Engineering Contractors", type: "Class A Civil" },
+  { name: "Architectural Hardscapes & Pool Specialists", type: "Specialty Concrete" }
+];
+---
+
+<section class="hero-banner" id="hero" aria-labelledby="hero-heading" data-hero-banner>
+  <!-- Background Live Video Stage of the Ruiz Crew Working (with fallback poster) -->
+  <div class="hero-bg-stage" aria-hidden="true">
+    <video
+      class="hero-bg-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/images/hero/hero-custom-home-pour.jpg"
+    >
+      <source src="/videos/hero_background_boomerang.webm" type="video/webm" />
+      <source src="/videos/hero_background_boomerang.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-scrim"></div>
+  </div>
+
+  <ConcreteReveal />
+  <div class="container hero-container">
+    <div class="hero-copy-block">
+      <!-- Credential Authority Line -->
+      <div class="hero-credential-bar">
+        <span>CSLB #1055499 &bull; Class A General Engineering &bull; 3rd Gen Heritage</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-title" id="hero-heading">
+        <span class="hero-title-line">Hardscapes Built for Generations.</span>
+      </h1>
+
+      <!-- Story Narrative -->
+      <p class="hero-description">
+        <span class="hero-description-detail">They said AI is taking over. Meanwhile, Jose &amp; the Ruiz crew are out here pouring what machines can’t. </span>
+        From luxury custom estates in Clovis and Madera to 1,570-foot split-face walls and City of Reedley pickleball courts<span class="hero-description-detail">—our 
+        trade was passed down from father, grandfather, and five uncles</span>. Real masonry heritage. Zero shortcuts.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-actions">
+        <a href="#quote-builder" class="btn btn-primary hero-btn-main">
+          <span>Request Free Estimate</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <a href="#our-work" class="btn btn-outline-light hero-btn-sub">
+          <span>See Our Transformations</span>
+          <span aria-hidden="true">&darr;</span>
+        </a>
+      </div>
+
+      <!-- Quick Direct Contact Line -->
+      <div class="hero-direct-call">
+        <span class="call-lead">Prefer to speak right now?</span>
+        <a href="tel:+15592441922" class="call-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+          </svg>
+          <span>Call Jose directly: (559) 244-1922</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Infinite Cycling Ticker: Types of Businesses & Clients Served -->
+  <div class="hero-sectors-bar" aria-label="Client sectors and businesses served by Ruiz Family Enterprises">
+    <div class="sectors-bar-inner">
+      <div class="sectors-lead">
+        <span class="lead-label">We build:</span>
+      </div>
+
+      <div class="sectors-viewport">
+        <!-- impeccable-disable-next-line marquee -- User requested continuous cycle bar of client business types -->
+        <div class="sectors-track">
+          <!-- Set 1 -->
+          {clientSectors.map((sector) => (
+            <div class="sector-entry">
+              <span class="sector-name">{sector.name}</span>
+              <span class="sector-tag">{sector.type}</span>
+              <span class="sector-sep" aria-hidden="true">&bull;</span>
+            </div>
+          ))}
+          <!-- Set 2 (Duplicated for seamless continuous scroll) -->
+          {clientSectors.map((sector) => (
+            <div class="sector-entry" aria-hidden="true">
+              <span class="sector-name">{sector.name}</span>
+              <span class="sector-tag">{sector.type}</span>
+              <span class="sector-sep">&bull;</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-banner {
+    position: relative;
+    min-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--bg-dark-deep);
+    color: #ffffff;
+    overflow: hidden;
+    padding-top: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  /* Background Video Stage */
+  .hero-bg-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.72) contrast(1.08);
+    pointer-events: none;
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(8, 13, 20, 0.88) 0%,
+      rgba(8, 13, 20, 0.92) 50%,
+      rgba(8, 13, 20, 0.98) 100%
+    );
+  }
+
+  @media (min-width: 900px) {
+    .hero-scrim {
+      background: linear-gradient(
+        90deg,
+        rgba(8, 13, 20, 0.96) 0%,
+        rgba(8, 13, 20, 0.88) 48%,
+        rgba(8, 13, 20, 0.45) 100%
+      );
+    }
+  }
+
+  /* Hero Content */
+  .hero-container {
+    position: relative;
+    z-index: 2;
+    padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .hero-copy-block {
+    max-width: 780px;
+  }
+
+  .hero-credential-bar {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #93c5fd;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title-line {
+    display: block;
+    background-image: url("/images/materials/concrete.png");
+    background-size: 320px 320px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.5));
+  }
+
+  .hero-description {
+    font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+    line-height: 1.65;
+    color: #e2e8f0;
+    margin-bottom: 2rem;
+    max-width: 65ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-btn-main {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+  }
+
+  .hero-btn-sub {
+    padding: 1rem 1.8rem;
+    font-size: 1.02rem;
+  }
+
+  .hero-direct-call {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    font-size: 0.94rem;
+  }
+
+  .call-lead {
+    color: #cbd5e1;
+  }
+
+  .call-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #93c5fd;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    transition: color 0.15s ease;
+  }
+
+  .call-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  /* Ultra-Premium Sectors Bar */
+  .hero-sectors-bar {
+    position: relative;
+    z-index: 10;
+    background: rgba(8, 13, 20, 0.84);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    height: 52px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sectors-bar-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 2rem);
+    height: 100%;
+    gap: 1.25rem;
+  }
+
+  .sectors-lead {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding-right: 1.25rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    height: 22px;
+  }
+
+  .lead-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #cbd5e1;
+    white-space: nowrap;
+  }
+
+  .sectors-viewport {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000000 24px,
+      #000000 calc(100% - 24px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000000 24px,
+      #000000 calc(100% - 24px),
+      transparent 100%
+    );
+  }
+
+  .sectors-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee 48s linear infinite;
+    will-change: transform;
+  }
+
+  .sectors-viewport:hover .sectors-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sectors-track {
+      animation: none;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+  }
+
+  .sector-entry {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .sector-name {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+  }
+
+  .sector-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.45rem;
+  }
+
+  .sector-sep {
+    color: rgba(245, 158, 11, 0.45);
+    font-size: 0.72rem;
+    margin-inline: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .sectors-lead {
+      padding-right: 0.75rem;
+      border-right: none;
+    }
+    .lead-label {
+      display: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .hero-banner { padding-top: 2rem; min-height: calc(100svh - 100px); }
+    .hero-credential-bar, .hero-description-detail { display: none; }
+    .hero-title { font-size: clamp(2rem, 9vw, 2.75rem); line-height: 1.08; margin-bottom: 1.25rem; }
+    .hero-description { font-size: 0.96rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .hero-actions { gap: 0.5rem; }
+    .hero-actions .btn { width: 100%; font-size: 0.96rem; }
+    .hero-actions .hero-btn-sub { padding-block: 0.75rem; border-color: transparent; }
+    .hero-direct-call { justify-content: center; }
+    .hero-direct-call .call-lead { display: none; }
+    .hero-direct-call .call-link { font-size: 0.78rem; }
+    .hero-bg-video { object-position: 65% center; }
+  }
+</style>

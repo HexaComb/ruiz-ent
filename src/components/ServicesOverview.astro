@@ -1,0 +1,757 @@
+---
+// Ruiz Family Enterprises - Services Overview Carousel Component
+// Redesigned with architectural underline tabs, clean photography captions, and strictly identical card sizing.
+// No pills, no status lights, no arbitrary numbering.
+import Section from './Section.astro';
+
+const services = [
+  {
+    id: "decorative-concrete",
+    tabLabel: "Decorative Concrete",
+    caption: "Kingsburg, CA · Laser-graded slate stamped patio & custom pool coping",
+    title: "Custom Decorative Concrete & Outdoor Living",
+    lead: "Patios, Pool Decks & Black Concrete Borders",
+    image: "/images/services/decorative-concrete-patio.jpg",
+    alt: "Custom decorative stamped concrete patio and pool deck by Ruiz Family Enterprises in Kingsburg CA",
+    tags: ["Stamped & Stained", "Pool Decks", "Water Cured", "Custom Colors"],
+    description: "Transform your backyard into an outdoor living retreat. From luxury slate stamped patios and non-slip pool coping to modern custom black concrete accents and architectural steps. Every slab is poured with laser-checked drainage slopes and essential multi-day water curing.",
+    bullets: [
+      "Custom slate, flagstone & modern plank stamped textures",
+      "Non-slip, heat-reflective pool deck surrounds",
+      "Essential multi-day water curing to eliminate micro-cracking",
+      "Laser-graded positive drainage slope away from foundations"
+    ],
+    quoteType: "Decorative Stamped Concrete Patio or Pool Deck"
+  },
+  {
+    id: "structural-masonry",
+    tabLabel: "Structural Masonry",
+    caption: "Selma & Fresno, CA · 1,570 LF engineered split-face perimeter wall",
+    title: "Precision Structural Masonry & Split-Face Walls",
+    lead: "Retaining Walls, Privacy Boundaries & Security",
+    image: "/images/services/split-face-block-walls.jpg",
+    alt: "1,570 linear feet split face block wall by Ruiz Family Enterprises in Selma CA",
+    tags: ["Split-Face Block", "Retaining Walls", "Steel Reinforced", "1,500+ LF Capacity"],
+    description: "Built straight, plumb, and engineered for lifetime durability. Whether constructing a heavy-duty hillside retaining wall or 1,570+ linear feet of split-face estate boundary wall, we install deep steel-reinforced footings with solid-grouted cells strictly to California code.",
+    bullets: [
+      "Heavy-duty split-face block walls with architectural caps",
+      "Engineered structural retaining walls with weep hole drainage",
+      "Full compliance with Central Valley setback & zoning requirements",
+      "Commercial, agricultural & custom residential estate perimeters"
+    ],
+    quoteType: "Split-Face Block or Retaining Wall"
+  },
+  {
+    id: "dry-stacked-stone",
+    tabLabel: "Stone Veneer & Firepits",
+    caption: "Clovis, CA · Hand-chiseled dry-stacked stone fireplace & facade",
+    title: "Dry-Stacked Architectural Stone & Fireplaces",
+    lead: "Modern Stone Veneers, Firepits & Brick Upgrades",
+    image: "/images/services/dry-stacked-stone.jpg",
+    alt: "Dry-stacked architectural stone fireplace and exterior facade in Clovis CA",
+    tags: ["Stone Masonry", "Brick Removal", "Outdoor Firepits", "Stone Veneer"],
+    description: "Replace tired 1970s and 80s red brick with stunning, hand-chiseled dry-stacked stone. We specialize in exterior home accents, luxury outdoor living firepits, raised garden planters, and custom pillar facades that elevate your property's value.",
+    bullets: [
+      "Removal of outdated brick accents and dry-stacked stone replacement",
+      "Custom outdoor firepits, sitting benches & BBQ surrounds",
+      "Hand-chiseled stone pillar caps and architectural details",
+      "Weatherproof moisture barriers and mortarless aesthetic"
+    ],
+    quoteType: "Dry-Stacked Stone & Firepit"
+  },
+  {
+    id: "foundations-line-pump",
+    tabLabel: "Foundations & Line Pump",
+    caption: "Reedley, CA · Civic sports flatwork & 3/8\" line pump service",
+    title: "Heavy Foundations, Flatwork & 3/8\" Line Pump Services",
+    lead: "Garage Slabs, Pickleball Courts & Tight Backyard Pumping",
+    image: "/images/services/foundations-line-pump.jpg",
+    alt: "Foundation flatwork and 3/8 inch concrete pump service on custom home in Reedley CA",
+    tags: ["3/8\" Line Pump", "Garage Slabs", "Pickleball Courts", "Concrete Removal"],
+    description: "Equipped to handle big commercial flatwork and tricky residential access. Our specialized 3/8\" concrete line pump lets us navigate narrow garden gates and tight side yards without heavy transit-mix trucks crushing your driveway or turf.",
+    bullets: [
+      "Workshop, garage & room addition structural foundations",
+      "Civic flatwork: City of Reedley pickleball courts and sidewalks",
+      "Specialized 3/8\" line pump for tight access and long-distance reaches",
+      "Full demolition, breakout and haul-away of broken concrete"
+    ],
+    quoteType: "Foundations, Garage Slab or Line Pump"
+  }
+];
+---
+
+<Section id="our-services" variant="light" ariaLabelledby="services-heading">
+  <!-- Section Header -->
+  <div class="section-header text-center">
+    <h2 class="section-title" id="services-heading">
+      Every Pour, Every Block, Every Joint Engineered to Endure.
+    </h2>
+    <p class="section-subtitle centered">
+      We don't cut corners with thin slabs or unreinforced block. Our work is built on three generations of hands-on field experience, structural engineering compliance, and genuine Central Valley grit.
+    </p>
+  </div>
+
+  <!-- Showcase Carousel Container -->
+  <div
+    class="showcase-carousel-wrapper"
+    id="services-carousel"
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Core Engineering & Masonry Services"
+  >
+    <!-- Top Bar: Underline Tabs + Arrow Controls -->
+    <div class="showcase-controls-bar">
+      <!-- Clean Architectural Underline Tabs (No pills, no numbers) -->
+      <nav class="showcase-tablist" role="tablist" aria-label="Trade Capabilities">
+        {services.map((service, index) => (
+          <button
+            type="button"
+            role="tab"
+            class={`showcase-tab-btn ${index === 0 ? 'is-active' : ''}`}
+            id={`service-tab-${index}`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`service-slide-${index}`}
+            tabindex={index === 0 ? 0 : -1}
+            data-slide-index={index}
+          >
+            {service.tabLabel}
+          </button>
+        ))}
+      </nav>
+
+      <!-- Desktop Arrow Controls (No number counters) -->
+      <div class="carousel-btn-group" aria-label="Slide controls">
+        <button
+          type="button"
+          class="carousel-nav-btn prev-btn"
+          id="services-carousel-prev"
+          aria-label="Previous service"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="carousel-nav-btn next-btn"
+          id="services-carousel-next"
+          aria-label="Next service"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel Slides Track (Native Scroll Snap, Identical Card Sizes) -->
+    <div
+      class="showcase-track"
+      id="services-carousel-track"
+      tabindex="0"
+      aria-label="Service slides scroller. Use left and right arrow keys to navigate."
+    >
+      {services.map((service, index) => (
+        <article
+          class="showcase-slide"
+          id={`service-slide-${index}`}
+          role="tabpanel"
+          aria-labelledby={`service-tab-${index}`}
+          aria-roledescription="slide"
+          aria-label={`${service.title}`}
+          data-slide-index={index}
+        >
+          <div class="slide-card-container">
+            <!-- Left Media Stage: Clean photo with architectural caption bar (No pills, no status lights) -->
+            <figure class="slide-media-stage">
+              <img
+                src={service.image}
+                alt={service.alt}
+                class="slide-img"
+                width="840"
+                height="560"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              <figcaption class="slide-photo-caption">
+                {service.caption}
+              </figcaption>
+            </figure>
+
+            <!-- Right Editorial Content Card -->
+            <div class="slide-content-stage">
+              <div class="slide-content-top">
+                <!-- Typographic Metadata Line (No pill boxes) -->
+                <p class="slide-tags-line">
+                  {service.tags.join(' · ')}
+                </p>
+
+                <div class="stack stack--sm">
+                  <h3 class="slide-title">{service.title}</h3>
+                  <span class="slide-lead">{service.lead}</span>
+                </div>
+
+                <p class="slide-desc">{service.description}</p>
+              </div>
+
+              <!-- Craftsmanship Checklist -->
+              <div class="slide-checklist-block">
+                <h4 class="checklist-heading">Craftsmanship &amp; Engineering Specs</h4>
+                <ul class="slide-checklist" aria-label={`Key engineering details of ${service.title}`}>
+                  {service.bullets.map(bullet => (
+                    <li class="checklist-item">
+                      <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Action Row -->
+              <div class="slide-actions-row">
+                <a
+                  href="#quote-builder"
+                  class="btn btn-primary slide-cta-btn"
+                  data-quote-type={service.quoteType}
+                >
+                  <span>Request Free Estimate for This Service</span>
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+                <a href="tel:+15592441922" class="slide-call-link" aria-label="Call Jose Daniel Ruiz at 559-244-1922">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+                  </svg>
+                  <span>(559) 244-1922</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Reassurance Banner -->
+    <div class="services-callout-strip">
+      <div class="callout-icon-col">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+      <div class="callout-text-col">
+        <h3 class="callout-heading">Well-Versed in California Zoning Laws &amp; Setback Requirements</h3>
+        <p class="callout-p">
+          Retaining walls, pool setbacks, and driveway approaches require strict engineering compliance. We ensure your project meets local building codes and inspections without a hitch.
+        </p>
+      </div>
+      <div class="callout-btn-col">
+        <a href="#quote-builder" class="btn btn-outline-dark">
+          <span>Discuss Your Specs</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* ==========================================================================
+     SHOWCASE CAROUSEL STYLES
+     Architectural Underline Tabs & Identical Uniform Card Heights
+     ========================================================================== */
+
+  .showcase-carousel-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* Top Bar with Underline Tabs and Controls */
+  .showcase-controls-bar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    border-bottom: 1.5px solid var(--border-light);
+  }
+
+  /* Clean Architectural Underline Tablist */
+  .showcase-tablist {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    margin-bottom: -1.5px; /* Overlap active border */
+  }
+
+  .showcase-tablist::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: var(--space-3) 0;
+    color: var(--text-dark-muted);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .showcase-tab-btn:hover {
+    color: var(--ruiz-blue);
+  }
+
+  .showcase-tab-btn.is-active {
+    color: var(--ruiz-blue);
+    font-weight: 700;
+    border-bottom-color: var(--ruiz-blue);
+  }
+
+  /* Arrow Buttons */
+  .carousel-btn-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    flex-shrink: 0;
+  }
+
+  .carousel-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-white);
+    border: 1.5px solid var(--border-light);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .carousel-nav-btn:hover {
+    background-color: var(--ruiz-blue);
+    border-color: var(--ruiz-blue);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Carousel Track (Native Scroll Snap) */
+  .showcase-track {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+    outline: none;
+    gap: 0;
+    width: 100%;
+  }
+
+  .showcase-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-track:focus-visible {
+    box-shadow: 0 0 0 3px var(--ruiz-blue);
+  }
+
+  /* Individual Slide: Strict 100% Flex & Equal Height */
+  .showcase-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+  }
+
+  /* Slide Card Container: Exactly Identical Size Across All Slides */
+  .slide-card-container {
+    width: 100%;
+    background-color: var(--bg-white);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 960px) {
+    .slide-card-container {
+      grid-template-columns: 1.15fr 1fr;
+      height: 560px; /* Strictly equal fixed height on desktop */
+    }
+  }
+
+  /* Media Stage: Clean Photo with Editorial Bottom Caption */
+  .slide-media-stage {
+    position: relative;
+    height: 280px;
+    margin: 0;
+    background-color: var(--bg-dark-deep);
+    overflow: hidden;
+  }
+
+  @media (min-width: 960px) {
+    .slide-media-stage {
+      height: 100%;
+    }
+  }
+
+  .slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .slide-card-container:hover .slide-img {
+    transform: scale(1.02);
+  }
+
+  /* Clean Photographic Bottom Caption Bar (No pills) */
+  .slide-photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-4) var(--space-4) var(--space-3);
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 100%);
+    color: #ffffff;
+    font-size: 0.86rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+
+  /* Content Stage */
+  .slide-content-stage {
+    padding: var(--space-card-p);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: var(--space-4);
+  }
+
+  .slide-content-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Clean Typographic Tags Line (No pills) */
+  .slide-tags-line {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ruiz-terracotta-dark);
+    margin-bottom: var(--space-1);
+  }
+
+  .slide-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    font-weight: 800;
+    line-height: 1.22;
+    color: var(--text-dark);
+  }
+
+  .slide-lead {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ruiz-blue);
+  }
+
+  .slide-desc {
+    font-size: 0.92rem;
+    color: var(--text-dark-secondary);
+    line-height: 1.55;
+    margin-top: var(--space-1);
+  }
+
+  /* Checklist Block */
+  .slide-checklist-block {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .checklist-heading {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-dark-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .slide-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: 0.9rem;
+    color: var(--text-dark-secondary);
+    line-height: 1.4;
+  }
+
+  .check-icon {
+    color: var(--ruiz-blue);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  /* Actions Row */
+  .slide-actions-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .slide-cta-btn {
+    font-size: 0.92rem;
+    border-radius: var(--radius-md);
+  }
+
+  .slide-call-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark-secondary);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .slide-call-link:hover {
+    color: var(--ruiz-blue);
+  }
+
+  /* Reassurance Banner */
+  .services-callout-strip {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    background: var(--bg-white);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-card-p);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .callout-icon-col {
+    color: var(--ruiz-blue);
+    flex-shrink: 0;
+  }
+
+  .callout-text-col {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .callout-heading {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: var(--space-1);
+  }
+
+  .callout-p {
+    font-size: 0.92rem;
+    color: var(--text-dark-secondary);
+    line-height: 1.55;
+    max-width: 70ch;
+  }
+
+  .callout-btn-col {
+    flex-shrink: 0;
+  }
+
+  /* Motion Preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-track {
+      scroll-behavior: auto;
+    }
+    .slide-img {
+      transition: none !important;
+    }
+    .showcase-tab-btn,
+    .carousel-nav-btn {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Ruiz Family Enterprises - Showcase Carousel Controller
+  function initServicesCarousel() {
+    const track = document.getElementById('services-carousel-track') as HTMLElement | null;
+    const prevBtn = document.getElementById('services-carousel-prev') as HTMLButtonElement | null;
+    const nextBtn = document.getElementById('services-carousel-next') as HTMLButtonElement | null;
+    const tabBtns = document.querySelectorAll<HTMLButtonElement>('.showcase-tab-btn');
+    const slides = document.querySelectorAll<HTMLElement>('.showcase-slide');
+    const ctaLinks = document.querySelectorAll<HTMLAnchorElement>('.slide-cta-btn');
+
+    if (!track || slides.length === 0) return;
+
+    const tablist = document.querySelector<HTMLElement>('.showcase-tablist');
+    let activeIndex = 0;
+    let isInitialLoad = true;
+    const totalSlides = slides.length;
+
+    function scrollTabIntoTablist(tab: HTMLElement) {
+      if (!tablist || tablist.scrollWidth <= tablist.clientWidth) return;
+
+      const tabLeft = tab.offsetLeft;
+      const tabRight = tabLeft + tab.offsetWidth;
+      const listScrollLeft = tablist.scrollLeft;
+      const listWidth = tablist.clientWidth;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+
+      if (tabLeft < listScrollLeft) {
+        tablist.scrollTo({ left: tabLeft, behavior });
+      } else if (tabRight > listScrollLeft + listWidth) {
+        tablist.scrollTo({ left: tabRight - listWidth, behavior });
+      }
+    }
+
+    function scrollToSlide(index: number) {
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
+
+      const targetSlide = slides[index];
+      if (!targetSlide) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      track.scrollTo({
+        left: targetSlide.offsetLeft,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+    }
+
+    function updateActiveState(index: number) {
+      activeIndex = index;
+
+      // Update Tabs
+      tabBtns.forEach((tab, i) => {
+        const isSelected = i === index;
+        tab.classList.toggle('is-active', isSelected);
+        tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+
+        if (isSelected && !isInitialLoad) {
+          scrollTabIntoTablist(tab);
+        }
+      });
+
+      isInitialLoad = false;
+    }
+
+    // Tab Button Click
+    tabBtns.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = parseInt(tab.getAttribute('data-slide-index') || '0', 10);
+        scrollToSlide(index);
+      });
+    });
+
+    // Arrow Buttons
+    prevBtn?.addEventListener('click', () => {
+      scrollToSlide(activeIndex - 1);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      scrollToSlide(activeIndex + 1);
+    });
+
+    // Keyboard Navigation
+    track.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        scrollToSlide(activeIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        scrollToSlide(activeIndex + 1);
+      }
+    });
+
+    // IntersectionObserver to sync active tab on scroll / swipe
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            const index = parseInt(entry.target.getAttribute('data-slide-index') || '0', 10);
+            updateActiveState(index);
+          }
+        });
+      },
+      {
+        root: track,
+        threshold: 0.5
+      }
+    );
+
+    slides.forEach((slide) => observer.observe(slide));
+
+    // Connect Quote CTAs to QuoteBuilder form
+    ctaLinks.forEach((cta) => {
+      cta.addEventListener('click', () => {
+        const quoteType = cta.getAttribute('data-quote-type');
+        if (!quoteType) return;
+
+        const radio = document.querySelector<HTMLInputElement>(`input[name="projectType"][value="${quoteType}"]`);
+        if (radio) {
+          radio.checked = true;
+          document.querySelectorAll<HTMLLabelElement>('.type-pill').forEach(pill => {
+            pill.classList.remove('is-selected');
+          });
+          const parentLabel = radio.closest<HTMLLabelElement>('.type-pill');
+          if (parentLabel) {
+            parentLabel.classList.add('is-selected');
+          }
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initServicesCarousel);
+  } else {
+    initServicesCarousel();
+  }
+
+  document.addEventListener('astro:page-load', initServicesCarousel);
+</script>
