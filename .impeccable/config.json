@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/components/HeroBanner.astro"
+        ],
+        "createdAt": "2026-10-23T08:00:39.722Z",
+        "reason": "User confirmed concrete casting reveal with textured concrete lettering; background clip renders the material texture."
+      }
+    ]
+  }
+}
