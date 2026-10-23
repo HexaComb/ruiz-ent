@@ -1,0 +1,264 @@
+---
+// Ruiz Family Enterprises - Customer Reviews & Testimonials Component
+const featuredReviews = [
+  {
+    author: "Alfredo Luviano",
+    role: "Verified Homeowner",
+    location: "Fresno County, CA",
+    scope: "Concrete Flatwork & Masonry",
+    quote: "If you are looking for good work, very professional and excellent work at a reasonable price, make sure you call Jose Daniel. He has great prices, a great attitude, and talks to you like a real person—not just like another job. Thank you for the great work, I will make sure I recommend you to all my family and\u00A0friends!"
+  },
+  {
+    author: "Kingsburg Estate Client",
+    role: "Homeowner & Dog Owner",
+    location: "Kingsburg, CA",
+    scope: "Backyard Patio & Block Wall",
+    quote: "We contacted Jose for concrete work and a wall. He and his crew were tremendous—we never even had to check on them! They worked diligently and were even friendly with our two dogs. They replanted our garden plants in another location without any extra charge and handled last-minute additions seamlessly. 100% recommend Jose!"
+  }
+];
+
+const standardReviews = [
+  {
+    author: "Exterior Remodel Client",
+    role: "Verified Homeowner",
+    location: "Central Valley, CA",
+    scope: "Brick Removal & Stone Veneer",
+    quote: "I had the brick accent areas removed from my house and replaced with dry-stacked stone. The end result is absolutely amazing! The crew was super friendly and seemed to genuinely enjoy their job. They worked quickly and cleaned up spotless after. Love the new look of my house!"
+  },
+  {
+    author: "Danny Runs",
+    role: "Property Owner",
+    location: "Selma, CA",
+    scope: "Two Structural Block Walls",
+    quote: "Very professional. Jose and his crew were friendly, work quality exceeded expectations. We added two block walls on our property and work was completed in half a day. Fast, clean, and built rock-solid. Highly recommended."
+  },
+  {
+    author: "Custom Home Client",
+    role: "Custom Homeowner",
+    location: "Clovis, CA",
+    scope: "Luxury Hardscapes & Steps",
+    quote: "We are extremely pleased with the work Jose Daniel did. Jose was available to answer all questions through the entirety of the project. They arrived on time, were detail-oriented, and completed within our budget. Jose is definitely our go-to\u00A0contractor."
+  }
+];
+---
+
+<section class="reviews-section" id="reviews" aria-labelledby="reviews-heading">
+  <div class="container">
+    <div class="reviews-header text-center">
+      <h2 class="section-title" id="reviews-heading">
+        Our customers say it best.
+      </h2>
+      <p class="section-subtitle centered">
+        Read unfiltered words from homeowners across Fresno, Clovis, Kingsburg, and Selma who trusted the Ruiz family with their homes.
+      </p>
+
+      <div class="rating-strip">
+        <span class="rating-highlight">5.0 Star Average</span>
+        <span class="rating-sep" aria-hidden="true">&bull;</span>
+        <span class="rating-caption">100% Owner Supervised by Jose &amp; Marlin Ruiz</span>
+      </div>
+    </div>
+
+    <!-- Editorial Reviews Layout -->
+    <div class="reviews-editorial">
+      <!-- Tier 1: Prominent In-Depth Client Stories -->
+      <div class="reviews-featured-row">
+        {featuredReviews.map((r) => (
+          <article class="review-card review-card-featured reveal-on-scroll">
+            <div class="card-inner">
+              <div class="card-meta-top">
+                <span class="project-scope">{r.scope}</span>
+              </div>
+
+              <blockquote class="review-quote">
+                &ldquo;{r.quote}&rdquo;
+              </blockquote>
+
+              <footer class="review-byline">
+                <span class="author-name">{r.author}</span>
+                <span class="author-meta">{r.role} &bull; {r.location}</span>
+              </footer>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Tier 2: Focused Trade Projects -->
+      <div class="reviews-standard-row">
+        {standardReviews.map((r) => (
+          <article class="review-card reveal-on-scroll">
+            <div class="card-inner">
+              <div class="card-meta-top">
+                <span class="project-scope">{r.scope}</span>
+              </div>
+
+              <blockquote class="review-quote">
+                &ldquo;{r.quote}&rdquo;
+              </blockquote>
+
+              <footer class="review-byline">
+                <span class="author-name">{r.author}</span>
+                <span class="author-meta">{r.role} &bull; {r.location}</span>
+              </footer>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    padding-block: var(--space-section-y);
+    background-color: #ffffff;
+  }
+
+  .reviews-header {
+    margin-bottom: clamp(2.5rem, 4.5vw, 3.5rem);
+  }
+
+  .rating-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+    font-size: 0.92rem;
+    color: var(--text-dark-secondary);
+  }
+
+  .rating-highlight {
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+  }
+
+  .rating-sep {
+    color: #94a3b8;
+    font-size: 0.65rem;
+  }
+
+  .rating-caption {
+    color: var(--text-dark-muted);
+    font-weight: 500;
+  }
+
+  /* Editorial Layout */
+  .reviews-editorial {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .reviews-featured-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 860px) {
+    .reviews-featured-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .reviews-standard-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .reviews-standard-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews-standard-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Review Card Styling - Restrained, Clean Architectural Aesthetic */
+  .review-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .review-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.07);
+  }
+
+  .review-card-featured {
+    background: #fbfcfe;
+    border-color: #dbe4ee;
+  }
+
+  .card-inner {
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .review-card-featured .card-inner {
+    padding: clamp(1.75rem, 3vw, 2.4rem);
+  }
+
+  .card-meta-top {
+    margin-bottom: 1rem;
+  }
+
+  .project-scope {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dark-muted);
+  }
+
+  .review-quote {
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #1e293b;
+    margin-bottom: 1.75rem;
+    text-wrap: pretty;
+  }
+
+  .review-card-featured .review-quote {
+    font-size: 1.05rem;
+    line-height: 1.72;
+    color: #0f172a;
+  }
+
+  .review-byline {
+    padding-top: 1.15rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .author-name {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .author-meta {
+    font-size: 0.82rem;
+    color: var(--text-dark-muted);
+  }
+</style>

@@ -1,0 +1,349 @@
+---
+// Ruiz Family Enterprises - Field Reels & Jobsite Realness Component (Polished per Impeccable guidelines)
+const reels = [
+  {
+    quote: "They said AI is taking over. Meanwhile, we’re out here building what AI can’t. 🦺💯",
+    tag: "#559concrete #hardscapes",
+    image: "/images/reels/reel-black-concrete.jpg",
+    alt: "Ruiz Family Enterprises custom black concrete project",
+    scope: "Custom Black Concrete & Modern Borders",
+    location: "Fresno, CA"
+  },
+  {
+    quote: "Some people see concrete. We see an opportunity to elevate the property.",
+    tag: "#luxuryhomes #clovis",
+    image: "/images/reels/reel-clovis-hardscape.jpg",
+    alt: "Custom luxury hardscape in Clovis CA",
+    scope: "Luxury Estate Patio & Multi-Tier Steps",
+    location: "Clovis, CA"
+  },
+  {
+    quote: "Pickleball courts for the City of Reedley. Laser-flat civic engineering.",
+    tag: "#reedley #pickleball",
+    image: "/images/reels/reel-pickleball-reedley.jpg",
+    alt: "Pickleball courts for City of Reedley",
+    scope: "Municipal Sports Courts & Flatwork",
+    location: "Reedley, CA"
+  },
+  {
+    quote: "Water cure on new concrete is essential! Never rush hydration in the Central Valley heat.",
+    tag: "#watercure #qualityfirst",
+    image: "/images/reels/reel-water-cure.jpg",
+    alt: "Water cure process on fresh concrete by Ruiz Family",
+    scope: "Multi-Day Hydration Curing",
+    location: "Kingsburg, CA"
+  },
+  {
+    quote: "No sleep. No shortcuts. Just the crew getting it done while the city’s out.",
+    tag: "#ruizfamilyent #earlybird",
+    image: "/images/story/crew-early-morning.jpg",
+    alt: "Ruiz crew early morning pour in the Central Valley",
+    scope: "Early Morning Large-Yard Pour",
+    location: "Selma, CA"
+  },
+  {
+    quote: "Country living firepit, raised stone planters & custom outdoor relaxation pads.",
+    tag: "#outdoorliving #firepit",
+    image: "/images/reels/reel-country-firepit.jpg",
+    alt: "Country living firepit and hardscapes",
+    scope: "Backyard Firepit & Raised Planters",
+    location: "Kingsburg, CA"
+  }
+];
+---
+
+<section class="reviews-reels-section" id="field-reels" aria-labelledby="reels-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title" id="reels-heading">
+        Real People. Real Results. Unfiltered Jobsite Reality.
+      </h2>
+      <p class="section-subtitle centered">
+        Follow our real daily progress directly from the jobsite. No corporate actors or stock photos—just honest Central Valley craft, sweat, and personality.
+      </p>
+    </div>
+
+    <!-- Reels Grid -->
+    <div class="reels-grid">
+      {reels.map((reel) => (
+        <article class="reel-card reveal-on-scroll">
+          <div class="reel-media-box">
+            <img
+              src={reel.image}
+              alt={reel.alt}
+              class="reel-img"
+              width="640"
+              height="360"
+              loading="lazy"
+            />
+            <div class="reel-media-scrim"></div>
+
+            <div class="reel-play-indicator" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+
+            <div class="reel-bottom-info">
+              <span class="reel-scope">{reel.scope}</span>
+              <span class="reel-location">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                {reel.location}
+              </span>
+            </div>
+          </div>
+
+          <div class="reel-quote-content">
+            <p class="reel-quote-p">&ldquo;{reel.quote}&rdquo;</p>
+            <div class="reel-creator-line">
+              <span class="creator-name">Jose Ruiz &bull; Field Dispatch</span>
+              <a href="https://www.instagram.com/ruiz_family_ent/" target="_blank" rel="noopener noreferrer" class="ig-link">
+                <span>Watch on IG</span>
+                <span aria-hidden="true">&nearr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Social Proof Action Banner -->
+    <div class="reels-footer-banner">
+      <div class="banner-badge-group">
+        <a href="https://www.instagram.com/ruiz_family_ent/" target="_blank" rel="noopener noreferrer" class="social-follow-pill">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Follow @ruiz_family_ent on Instagram</span>
+        </a>
+
+        <a href="https://www.youtube.com/@RuizFamilyEnterprisesInc" target="_blank" rel="noopener noreferrer" class="social-follow-pill yt-pill">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>YouTube: @RuizFamilyEnterprisesInc</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews-reels-section {
+    padding-block: var(--space-section-y);
+    background-color: var(--bg-light);
+  }
+
+  .reels-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 640px) {
+    .reels-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reels-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .reel-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border-light);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .reel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--ruiz-blue);
+  }
+
+  .reel-media-box {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-color: var(--bg-dark-deep);
+    overflow: hidden;
+  }
+
+  .reel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .reel-card:hover .reel-img {
+    transform: scale(1.04);
+  }
+
+  .reel-media-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8, 13, 20, 0.4) 0%, transparent 40%, rgba(8, 13, 20, 0.88) 100%);
+  }
+
+  .reel-badge-top {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    z-index: 2;
+  }
+
+  .reel-tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .reel-play-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--ruiz-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 2;
+  }
+
+  .reel-card:hover .reel-play-indicator {
+    transform: translate(-50%, -50%) scale(1.08);
+    background: var(--ruiz-blue);
+    color: #ffffff;
+  }
+
+  .reel-bottom-info {
+    position: absolute;
+    bottom: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.8rem;
+    color: #ffffff;
+  }
+
+  .reel-scope {
+    font-weight: 700;
+  }
+
+  .reel-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    color: #e2e8f0;
+  }
+
+  .reel-quote-content {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .reel-quote-p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-dark);
+    margin-bottom: 1.25rem;
+  }
+
+  .reel-creator-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.84rem;
+  }
+
+  .creator-name {
+    font-family: var(--font-mono);
+    color: var(--text-dark-secondary);
+  }
+
+  .ig-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 700;
+    color: var(--ruiz-blue);
+  }
+
+  .ig-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Social proof bar */
+  .reels-footer-banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .banner-badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .social-follow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    border: 1.5px solid var(--border-light);
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s ease;
+  }
+
+  .social-follow-pill:hover {
+    border-color: var(--ruiz-blue);
+    color: var(--ruiz-blue);
+  }
+
+  .yt-pill:hover {
+    border-color: #dc2626;
+    color: #dc2626;
+  }
+</style>

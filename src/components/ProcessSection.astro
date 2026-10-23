@@ -1,0 +1,209 @@
+---
+// Ruiz Family Enterprises - 4-Step Build Process Component (Polished per Impeccable guidelines)
+const steps = [
+  {
+    phase: "Discovery & Elevations",
+    title: "On-Site Laser Transit & Consultation",
+    desc: "Jose visits your property in person to evaluate ground elevations, water runoff patterns, property lines, and zoning setbacks. You receive a transparent, itemized written proposal with no hidden fees.",
+    highlights: ["Laser transit grading check", "Soil & drainage inspection", "Firm, transparent quote"]
+  },
+  {
+    phase: "Groundwork & Steel",
+    title: "Excavation, Base Compaction & Rebar Grid",
+    desc: "We never pour on uncompacted dirt. We excavate to proper depth, roll out road base, and tie heavy-duty steel rebar grids elevated on chairs so reinforcement sits dead-center in the pour.",
+    highlights: ["Deep base compaction", "Rebar grid tied on chairs", "Laser-plumb edge forms"]
+  },
+  {
+    phase: "The Pour & Finish",
+    title: "Precision Pour, 3/8\" Line Pump & Water Cure",
+    desc: "Concrete mixed to exact PSI specifications. Our 3/8\" line pump routes concrete into tight yards without rutting your turf. Hand troweled, stamped, and locked in with essential multi-day water curing.",
+    highlights: ["Tight yard pump access", "Hand-tooled stamp/broom finish", "Essential water curing"]
+  },
+  {
+    phase: "Handover & Clean",
+    title: "Control Joints, Washdown & Final Walkthrough",
+    desc: "Control joints cleanly saw-cut to relieve thermal stress. Forms stripped, yard immaculately cleaned and garden beds restored, followed by an in-person walkthrough with Jose to guarantee your satisfaction.",
+    highlights: ["Stress-relief control cuts", "Spotless property cleanup", "Final sign-off with Jose"]
+  }
+];
+---
+
+<section class="process-section" id="our-process" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title" id="process-heading">
+        Simple, Stress-Free, From Groundwork to Final Broom Stroke.
+      </h2>
+      <p class="section-subtitle centered">
+        Concrete and masonry require discipline and precise timing. Here is how Jose, Marlin, and the Ruiz crew deliver reliable, lasting results on every single project.
+      </p>
+    </div>
+
+    <!-- Steps Timeline Grid -->
+    <div class="process-steps-grid">
+      {steps.map((s) => (
+        <article class="process-step-card reveal-on-scroll">
+          <div class="step-header">
+            <span class="step-phase">{s.phase}</span>
+          </div>
+
+          <h3 class="step-title">{s.title}</h3>
+          <p class="step-desc">{s.desc}</p>
+
+          <ul class="step-bullets">
+            {s.highlights.map(h => (
+              <li class="bullet-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <!-- Process Bottom Action -->
+    <div class="process-cta-banner">
+      <div class="banner-text">
+        <h3 class="banner-title">Ready to get your on-site estimate scheduled?</h3>
+        <p class="banner-sub">Jose will visit your property, inspect the layout, and discuss options with zero pressure.</p>
+      </div>
+      <div class="banner-actions">
+        <a href="#quote-builder" class="btn btn-primary">
+          <span>Book an On-Site Consultation</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-section {
+    padding-block: var(--space-section-y);
+    background-color: var(--bg-white);
+  }
+
+  .process-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 680px) {
+    .process-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .process-steps-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process-step-card {
+    background: var(--bg-light);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.4rem, 2.5vw, 1.85rem);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .process-step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--ruiz-blue);
+  }
+
+  .step-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .step-phase {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ruiz-blue);
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-dark);
+    margin-bottom: 0.85rem;
+  }
+
+  .step-desc {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--text-dark-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 65ch;
+  }
+
+  .step-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .bullet-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--text-dark-secondary);
+  }
+
+  .bullet-item svg {
+    color: var(--ruiz-blue);
+    flex-shrink: 0;
+  }
+
+  /* CTA Banner */
+  .process-cta-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background: #0d1520;
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .banner-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+  }
+
+  .banner-sub {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    max-width: 65ch;
+  }
+</style>
