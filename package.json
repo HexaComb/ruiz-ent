@@ -9,6 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:worker": "astro build && wrangler dev",
+    "deploy": "astro build && wrangler deploy",
+    "deploy:preview": "astro build && wrangler preview",
     "astro": "astro",
     "generate-types": "wrangler types"
   },
