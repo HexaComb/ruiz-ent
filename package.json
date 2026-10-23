@@ -9,12 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
-    "astro": "^7.4.2"
+    "@astrojs/cloudflare": "^14.4.2",
+    "astro": "^7.4.2",
+    "wrangler": "^4.152.0"
   },
   "devDependencies": {
+    "@types/node": "^26.6.5",
     "impeccable": "^4.7.0"
   }
 }
