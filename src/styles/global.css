@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&family=Schibsted+Grotesk:wght@600;700;800;900&display=swap');
+
+:root {
+  /* Brand Palette: Grounded Royal Blue, Deep Terracotta, Slate & Amber */
+  --ruiz-blue: #0f3fab;
+  --ruiz-blue-dark: #0a2d7d;
+  --ruiz-blue-light: #2563eb;
+  --ruiz-terracotta: #b84818; /* High contrast: 5.2:1 on white */
+  --ruiz-terracotta-dark: #96350f;
+  --ruiz-terracotta-light: #ea580c;
+  --ruiz-sandstone: #d97706;
+  --ruiz-sandstone-light: #f59e0b;
+  --ruiz-slate: #334155;
+  --ruiz-slate-dark: #1e293b;
+
+  /* Neutrals & Surfaces - Solid, High-Contrast */
+  --bg-white: #ffffff;
+  --bg-light: #f8fafc;
+  --bg-light-inset: #f1f5f9;
+  --bg-dark: #0d1520;
+  --bg-dark-deep: #080d14;
+  --bg-dark-elevated: #141f2e;
+  --bg-dark-card: #182536;
+  --bg-dark-border: rgba(255, 255, 255, 0.14);
+
+  /* Typography Colors - Guaranteed WCAG AA 4.5:1+ */
+  --text-dark: #0f172a;
+  --text-dark-secondary: #334155;
+  --text-dark-muted: #475569;
+  --text-light: #ffffff;
+  --text-light-secondary: #e2e8f0;
+  --text-light-muted: #cbd5e1;
+
+  /* Functional Accents */
+  --accent-primary: var(--ruiz-blue);
+  --accent-primary-hover: var(--ruiz-blue-dark);
+  --accent-secondary: var(--ruiz-terracotta);
+  --state-success: #15803d;
+  --state-error: #b91c1c;
+
+  /* Borders & Dividers */
+  --border-light: #cbd5e1;
+  --border-light-strong: #94a3b8;
+  --border-dark: rgba(255, 255, 255, 0.16);
+  --border-dark-strong: rgba(255, 255, 255, 0.28);
+
+  /* Typography */
+  --font-display: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Layout & Viewport */
+  --container-max: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  /* ==========================================================================
+     SPACING SYSTEM - TOKENS
+     Harmonious 4px base scale + fluid responsive layout tokens.
+     Designed for fool-proof composition by automated agents and developers.
+     ========================================================================== */
+
+  /* Micro Scale: Fixed 4px (0.25rem) increments */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px  - Hairline offsets, inline tags */
+  --space-2: 0.5rem;    /* 8px  - Icon gaps, badge padding, micro-spacing */
+  --space-3: 0.75rem;   /* 12px - Button content gap, compact list gap */
+  --space-4: 1rem;      /* 16px - Base rhythm: standard gap, paragraph gap */
+  --space-5: 1.25rem;   /* 20px - Medium element gap */
+  --space-6: 1.5rem;    /* 24px - Subheading margins, card sub-blocks */
+  --space-8: 2rem;      /* 32px - Content group separation */
+  --space-10: 2.5rem;   /* 40px - Subsection spacing */
+  --space-12: 3rem;     /* 48px - Major component rhythm */
+  --space-16: 4rem;     /* 64px - Landmark spacing */
+  --space-20: 5rem;     /* 80px - High-impact separation */
+  --space-24: 6rem;     /* 96px - Hero/large band spacing */
+  --space-32: 8rem;     /* 128px - Extreme boundary spacing */
+
+  /* Macro / Responsive Fluid Layout Spacing (scales smoothly 320px -> 1440px) */
+  --space-gutter: var(--gutter);
+  --space-section-y: clamp(4.5rem, 7.5vw, 7rem);          /* Default section vertical padding */
+  --space-section-y-compact: clamp(3rem, 5vw, 4.5rem);    /* Compact bands / sub-sections */
+  --space-section-y-spacious: clamp(5.5rem, 9vw, 8.5rem); /* Major showcase / hero sections */
+  --space-header-mb: clamp(2.5rem, 5vw, 3.75rem);         /* Space below .section-header */
+  --space-card-p: clamp(1.25rem, 2.5vw, 2rem);            /* Card interior padding */
+  --space-card-p-compact: clamp(1rem, 2vw, 1.5rem);       /* Compact card interior padding */
+  --space-card-gap: clamp(1.25rem, 2.5vw, 2rem);          /* Gap between cards in grid */
+  --space-grid-gap: clamp(1.25rem, 2.5vw, 2rem);          /* Standard grid gap */
+  --space-grid-gap-lg: clamp(1.75rem, 3.5vw, 2.75rem);    /* Spacious grid gap */
+
+  /* Semantic Component Rhythm Tokens */
+  --space-stack-xs: var(--space-1);  /* 4px */
+  --space-stack-sm: var(--space-2);  /* 8px */
+  --space-stack-md: var(--space-4);  /* 16px */
+  --space-stack-lg: var(--space-6);  /* 24px */
+  --space-stack-xl: var(--space-8);  /* 32px */
+  --space-stack-2xl: var(--space-12);/* 48px */
+
+  --space-cluster-gap: var(--space-3); /* 12px */
+  --space-btn-gap: var(--space-3);     /* 12px */
+  --space-text-gap: var(--space-3);    /* 12px */
+
+  /* Directional Elevation Shadows (Offset + Blur, Zero-Halo) */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.12), 0 2px 4px -1px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.16), 0 4px 8px -2px rgba(15, 23, 42, 0.08);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms ease;
+  --transition-normal: 240ms var(--ease-out);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Browser Surface Theming */
+::selection {
+  background-color: var(--ruiz-blue);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080d14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 5px;
+  border: 2px solid #080d14;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ruiz-blue);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ruiz-blue);
+  outline-offset: 3px;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 100%;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Accessibility Skip Link */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--ruiz-blue);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ==========================================================================
+   LAYOUT PRIMITIVES & SPACING SYSTEM
+   Fool-proof components for consistent page composition by agents & devs.
+   ========================================================================== */
+
+/* 1. Base Section Primitive */
+.section {
+  position: relative;
+  width: 100%;
+  padding-block: var(--space-section-y);
+}
+
+.section--compact {
+  padding-block: var(--space-section-y-compact);
+}
+
+.section--spacious {
+  padding-block: var(--space-section-y-spacious);
+}
+
+/* Section Surface Variations */
+.section--white {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+}
+
+.section--light {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.section--light-inset {
+  background-color: var(--bg-light-inset);
+  color: var(--text-dark);
+}
+
+.section--dark {
+  background-color: var(--bg-dark);
+  color: #ffffff;
+}
+
+.section--dark-elevated {
+  background-color: var(--bg-dark-elevated);
+  color: #ffffff;
+}
+
+/* 2. Container Utility & Size Variants */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.container--narrow {
+  max-width: 860px;
+}
+
+.container--wide {
+  max-width: 1400px;
+}
+
+/* 3. Section Header Typography & Rhythm */
+.section-header {
+  margin-bottom: var(--space-header-mb);
+}
+
+.section-header.text-center {
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-dark);
+  margin-bottom: var(--space-4);
+}
+
+.section-title.on-dark {
+  color: #ffffff;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: var(--text-dark-secondary);
+  max-width: 58ch;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.section-subtitle.centered {
+  margin-inline: auto;
+}
+
+.section-subtitle.on-dark {
+  color: var(--text-light-secondary);
+}
+
+/* 4. Vertical Flow / Stack Primitive (Manages rhythm between children) */
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--stack-gap, var(--space-stack-md));
+}
+
+.stack--xs  { --stack-gap: var(--space-stack-xs); }  /* 4px */
+.stack--sm  { --stack-gap: var(--space-stack-sm); }  /* 8px */
+.stack--md  { --stack-gap: var(--space-stack-md); }  /* 16px */
+.stack--lg  { --stack-gap: var(--space-stack-lg); }  /* 24px */
+.stack--xl  { --stack-gap: var(--space-stack-xl); }  /* 32px */
+.stack--2xl { --stack-gap: var(--space-stack-2xl); } /* 48px */
+
+/* 5. Horizontal Cluster Primitive (Auto-wrapping row with rhythm) */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-cluster-gap));
+}
+
+.cluster--xs { --cluster-gap: var(--space-1); }
+.cluster--sm { --cluster-gap: var(--space-2); }
+.cluster--md { --cluster-gap: var(--space-3); }
+.cluster--lg { --cluster-gap: var(--space-4); }
+.cluster--xl { --cluster-gap: var(--space-6); }
+.cluster--center { justify-content: center; }
+.cluster--between { justify-content: space-between; }
+
+/* 6. Responsive Grid Primitives */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min-width, 300px)), 1fr));
+  gap: var(--space-card-gap);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-grid-gap);
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-grid-gap);
+}
+
+@media (min-width: 640px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-grid-gap);
+}
+
+@media (min-width: 640px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 7. Card Surface Primitives */
+.card-surface {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-card-p);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.card-surface--compact {
+  padding: var(--space-card-p-compact);
+}
+
+.card-surface--dark {
+  background-color: var(--bg-dark-card);
+  border-color: var(--border-dark);
+  color: #ffffff;
+}
+
+/* 8. Spacing Utility Classes (Zero-friction composition) */
+.gap-0 { gap: 0; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+.gap-10 { gap: var(--space-10); }
+.gap-12 { gap: var(--space-12); }
+
+.m-0 { margin: 0; }
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-5 { margin-bottom: var(--space-5); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mb-header { margin-bottom: var(--space-header-mb); }
+
+.pt-0 { padding-top: 0; }
+.pb-0 { padding-bottom: 0; }
+.py-section { padding-block: var(--space-section-y); }
+.py-section-compact { padding-block: var(--space-section-y-compact); }
+.p-card { padding: var(--space-card-p); }
+.p-card-compact { padding: var(--space-card-p-compact); }
+
+/* Button Component Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.88rem 1.65rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--ruiz-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(15, 63, 171, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--ruiz-blue-dark);
+  box-shadow: 0 4px 8px rgba(15, 63, 171, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-outline-light {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-outline-dark {
+  background: #ffffff;
+  color: var(--text-dark);
+  border: 1.5px solid var(--border-light-strong);
+}
+
+.btn-outline-dark:hover {
+  background: var(--bg-light);
+  border-color: var(--ruiz-blue);
+  color: var(--ruiz-blue);
+}
+
+/* Ruiz 4-Color Signature Spectrum Bar */
+.spectrum-bar {
+  display: flex;
+  height: 5px;
+  width: 100%;
+}
+
+.spectrum-bar span {
+  flex: 1;
+  height: 100%;
+}
+
+.spectrum-bar span:nth-child(1) {
+  background-color: var(--ruiz-blue);
+}
+
+.spectrum-bar span:nth-child(2) {
+  background-color: var(--ruiz-terracotta);
+}
+
+.spectrum-bar span:nth-child(3) {
+  background-color: var(--ruiz-slate);
+}
+
+.spectrum-bar span:nth-child(4) {
+  background-color: var(--ruiz-sandstone);
+}
+
+/* Subtle Scroll Reveal */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
