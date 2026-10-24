@@ -2,17 +2,15 @@
 // Ruiz Family Enterprises - Interactive Quote Builder & Estimate Form Component (Polished per Impeccable guidelines)
 ---
 
-<section class="estimate-cta-section" id="quote-builder" aria-labelledby="quote-heading">
+<section class="section section--dark estimate-cta-section" id="quote-builder" aria-labelledby="quote-heading">
   <div class="container">
     <div class="estimate-layout-grid">
       <!-- Left Column: Value Proposition & Direct Contact -->
       <div class="estimate-info-col">
         <h2 class="section-title on-dark" id="quote-heading">
-          Request Your Free On-Site Project Estimate.
+          Discuss Your Project
         </h2>
-        <p class="estimate-lead-p">
-          Tell us about your property and goals. Jose Daniel will come out, evaluate the laser elevations, discuss concrete stamps or split-face masonry options, and prepare an honest, itemized estimate.
-        </p>
+        <p class="estimate-lead-p">Tell us what you have in mind. Call for a free on-site estimate and discuss the masonry or concrete services that fit your project.</p>
 
         <!-- Direct Contact Cards -->
         <div class="estimate-contacts-list">
@@ -23,7 +21,7 @@
               </svg>
             </div>
             <div class="contact-details">
-              <span class="contact-sub">Direct Line to Jose Ruiz</span>
+              <span class="contact-sub">Phone</span>
               <a href="tel:+15592441922" class="contact-val">(559) 244-1922</a>
             </div>
           </div>
@@ -35,7 +33,7 @@
               </svg>
             </div>
             <div class="contact-details">
-              <span class="contact-sub">Office &amp; Plans Email</span>
+              <span class="contact-sub">Email</span>
               <a href="mailto:ruizfamilyent@gmail.com" class="contact-val">ruizfamilyent@gmail.com</a>
             </div>
           </div>
@@ -47,17 +45,17 @@
               </svg>
             </div>
             <div class="contact-details">
-              <span class="contact-sub">Headquarters &amp; Service Region</span>
-              <span class="contact-val-static">Kingsburg &bull; Selma &bull; Fresno &bull; Clovis</span>
+              <span class="contact-sub">Contact Location</span>
+              <span class="contact-val-static">Kingsburg, California 93631</span>
             </div>
           </div>
         </div>
 
         <!-- Trust Badges -->
         <div class="estimate-trust-footer">
-          <span class="trust-item">&check; CSLB #1055499 Licensed &amp; Bonded</span>
-          <span class="trust-item">&check; 100% Free, No-Obligation Consultation</span>
-          <span class="trust-item">&check; Commercial Liability &amp; Workers&rsquo; Comp</span>
+          <span class="trust-item">License #1055499</span>
+          <span class="trust-item">Free on-site estimates</span>
+          <span class="trust-item">Three generations in the trade</span>
         </div>
       </div>
 
@@ -66,7 +64,7 @@
         <form class="quote-form-card" id="quoteForm" novalidate>
           <div class="form-header">
             <h3 class="form-title">Tell Us About Your Hardscape Project</h3>
-            <p class="form-sub">Select your project type and details below.</p>
+            <p class="form-sub">Preview only — this form does not send requests. Call or email us to request an estimate.</p>
           </div>
 
           <!-- Step 1: Project Type Selection -->
@@ -74,27 +72,27 @@
             <label class="step-label">Select Project Type</label>
             <div class="type-pill-grid" role="radiogroup" aria-label="Project Type">
               <label class="type-pill is-selected">
-                <input type="radio" name="projectType" value="Decorative Concrete Patio & Pool Deck" checked />
+                <input type="radio" name="projectType" value="Concrete Patio & Pool Deck" checked />
                 <span class="pill-title">Concrete Patio &amp; Pool Deck</span>
-                <span class="pill-desc">Stamped, colored, or broom finish</span>
+                <span class="pill-desc">Patios, pool decks & stamped concrete</span>
               </label>
 
               <label class="type-pill">
-                <input type="radio" name="projectType" value="Split-Face Block or Retaining Wall" />
+                <input type="radio" name="projectType" value="Block or Retaining Wall" />
                 <span class="pill-title">Block or Retaining Wall</span>
                 <span class="pill-desc">Privacy, perimeter, or soil retention</span>
               </label>
 
               <label class="type-pill">
-                <input type="radio" name="projectType" value="Dry-Stacked Stone & Firepit" />
-                <span class="pill-title">Stone Veneer &amp; Firepit</span>
-                <span class="pill-desc">Brick replacement &amp; outdoor living</span>
+                <input type="radio" name="projectType" value="Architectural Stone & Brick Work" />
+                <span class="pill-title">Stone &amp; Brick Work</span>
+                <span class="pill-desc">Decorative &amp; architectural stone</span>
               </label>
 
               <label class="type-pill">
-                <input type="radio" name="projectType" value="Foundations, Garage Slab or Line Pump" />
-                <span class="pill-title">Foundation &amp; Line Pump</span>
-                <span class="pill-desc">Garage slabs, sports courts &amp; pumping</span>
+                <input type="radio" name="projectType" value="Concrete Pump Service" />
+                <span class="pill-title">Concrete Pumping</span>
+                <span class="pill-desc">3/8-inch concrete pump service</span>
               </label>
             </div>
           </div>
@@ -141,7 +139,7 @@
               </div>
 
               <div class="form-group">
-                <label for="clientCity" class="input-label">City or Address in Central Valley *</label>
+                <label for="clientCity" class="input-label">Project City or Address *</label>
                 <input type="text" id="clientCity" name="city" class="form-input" required placeholder="Kingsburg, Fresno, Clovis, Selma..." />
                 <span class="field-error" id="cityError" hidden>Please enter your city.</span>
               </div>
@@ -155,7 +153,7 @@
 
           <!-- Submit Button -->
           <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
-            <span>Request My Free On-Site Estimate</span>
+            <span>Preview Project Details</span>
             <span aria-hidden="true">&rarr;</span>
           </button>
 
@@ -169,7 +167,6 @@
 
 <style>
   .estimate-cta-section {
-    padding-block: var(--space-section-y);
     background-color: var(--bg-dark);
     color: #ffffff;
     position: relative;
@@ -507,7 +504,6 @@
 
   const form = document.getElementById('quoteForm') as HTMLFormElement;
   const statusBox = document.getElementById('formStatus') as HTMLElement;
-  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -553,24 +549,9 @@
 
     if (hasError) return;
 
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Sending Request to Jose & Marlin...</span>';
+    statusBox.hidden = false;
+    statusBox.className = 'form-status';
+    statusBox.textContent = 'Preview only — your request has not been sent. Call (559) 244-1922 or email ruizfamilyent@gmail.com to request an estimate.';
 
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<span>Request Sent &check;</span>';
-      
-      const refNumber = 'RF-' + Math.floor(1000 + Math.random() * 9000);
-      statusBox.hidden = false;
-      statusBox.className = 'form-status is-success';
-      statusBox.innerHTML = `
-        <strong>Estimate Request Received (Ref #${refNumber}):</strong><br/>
-        Thank you, ${nameInput.value.trim()}! Jose or Marlin Ruiz will review your project details and call you at ${phoneInput.value.trim()} within 24 hours to schedule your on-site walkthrough. If you need immediate assistance, call Jose directly at (559) 244-1922.
-      `;
-
-      form.reset();
-      document.querySelectorAll<HTMLLabelElement>('.type-pill')[0].classList.add('is-selected');
-      document.querySelectorAll<HTMLLabelElement>('.scope-pill')[0].classList.add('is-selected');
-    }, 600);
   });
 </script>

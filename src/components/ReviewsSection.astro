@@ -2,60 +2,48 @@
 // Ruiz Family Enterprises - Customer Reviews & Testimonials Component
 const featuredReviews = [
   {
-    author: "Alfredo Luviano",
-    role: "Verified Homeowner",
-    location: "Fresno County, CA",
-    scope: "Concrete Flatwork & Masonry",
-    quote: "If you are looking for good work, very professional and excellent work at a reasonable price, make sure you call Jose Daniel. He has great prices, a great attitude, and talks to you like a real person—not just like another job. Thank you for the great work, I will make sure I recommend you to all my family and\u00A0friends!"
+    "author": "Rachel Jacobsen",
+    "scope": "Dry-Stacked Stone",
+    "quote": "Rachel describes replacing brick accents with dry-stacked stone and praises the result, friendly crew and cleanup."
   },
   {
-    author: "Kingsburg Estate Client",
-    role: "Homeowner & Dog Owner",
-    location: "Kingsburg, CA",
-    scope: "Backyard Patio & Block Wall",
-    quote: "We contacted Jose for concrete work and a wall. He and his crew were tremendous—we never even had to check on them! They worked diligently and were even friendly with our two dogs. They replanted our garden plants in another location without any extra charge and handled last-minute additions seamlessly. 100% recommend Jose!"
+    "author": "Ravi Somayajulu",
+    "scope": "Concrete & Wall",
+    "quote": "Ravi praises Jose and the crew for completing concrete and wall work according to plan and accommodating project changes."
   }
 ];
 
 const standardReviews = [
   {
-    author: "Exterior Remodel Client",
-    role: "Verified Homeowner",
-    location: "Central Valley, CA",
-    scope: "Brick Removal & Stone Veneer",
-    quote: "I had the brick accent areas removed from my house and replaced with dry-stacked stone. The end result is absolutely amazing! The crew was super friendly and seemed to genuinely enjoy their job. They worked quickly and cleaned up spotless after. Love the new look of my house!"
+    "author": "Danny Runs",
+    "scope": "Block Walls",
+    "quote": "Danny reports adding two block walls and praises the friendly crew and workmanship."
   },
   {
-    author: "Danny Runs",
-    role: "Property Owner",
-    location: "Selma, CA",
-    scope: "Two Structural Block Walls",
-    quote: "Very professional. Jose and his crew were friendly, work quality exceeded expectations. We added two block walls on our property and work was completed in half a day. Fast, clean, and built rock-solid. Highly recommended."
+    "author": "Alfredo Luviano",
+    "scope": "Customer Experience",
+    "quote": "Alfredo highlights the professional work, pricing and approachable communication."
   },
   {
-    author: "Custom Home Client",
-    role: "Custom Homeowner",
-    location: "Clovis, CA",
-    scope: "Luxury Hardscapes & Steps",
-    quote: "We are extremely pleased with the work Jose Daniel did. Jose was available to answer all questions through the entirety of the project. They arrived on time, were detail-oriented, and completed within our budget. Jose is definitely our go-to\u00A0contractor."
+    "author": "Patty Mendoza",
+    "scope": "Customer Experience",
+    "quote": "Patty praises the communication, attention to detail, budget and timely completion."
   }
 ];
 ---
 
-<section class="reviews-section" id="reviews" aria-labelledby="reviews-heading">
+<section class="section section--white reviews-section" id="reviews" aria-labelledby="reviews-heading">
   <div class="container">
     <div class="reviews-header text-center">
       <h2 class="section-title" id="reviews-heading">
-        Our customers say it best.
+        Customer Reviews
       </h2>
-      <p class="section-subtitle centered">
-        Read unfiltered words from homeowners across Fresno, Clovis, Kingsburg, and Selma who trusted the Ruiz family with their homes.
-      </p>
+      <p class="section-subtitle centered">Summaries of customer testimonials published on our previous website.</p>
 
       <div class="rating-strip">
-        <span class="rating-highlight">5.0 Star Average</span>
+        <a class="rating-highlight" href="https://ruizfamilyhardscapes.biz/testimonials">Read the original testimonials</a>
         <span class="rating-sep" aria-hidden="true">&bull;</span>
-        <span class="rating-caption">100% Owner Supervised by Jose &amp; Marlin Ruiz</span>
+        <span class="rating-caption">Customer stories</span>
       </div>
     </div>
 
@@ -70,13 +58,13 @@ const standardReviews = [
                 <span class="project-scope">{r.scope}</span>
               </div>
 
-              <blockquote class="review-quote">
-                &ldquo;{r.quote}&rdquo;
-              </blockquote>
+              <p class="review-quote">
+                {r.quote}
+              </p>
 
               <footer class="review-byline">
                 <span class="author-name">{r.author}</span>
-                <span class="author-meta">{r.role} &bull; {r.location}</span>
+                <span class="author-meta">Testimonial summary</span>
               </footer>
             </div>
           </article>
@@ -92,13 +80,13 @@ const standardReviews = [
                 <span class="project-scope">{r.scope}</span>
               </div>
 
-              <blockquote class="review-quote">
-                &ldquo;{r.quote}&rdquo;
-              </blockquote>
+              <p class="review-quote">
+                {r.quote}
+              </p>
 
               <footer class="review-byline">
                 <span class="author-name">{r.author}</span>
-                <span class="author-meta">{r.role} &bull; {r.location}</span>
+                <span class="author-meta">Testimonial summary</span>
               </footer>
             </div>
           </article>
@@ -110,7 +98,6 @@ const standardReviews = [
 
 <style>
   .reviews-section {
-    padding-block: var(--space-section-y);
     background-color: #ffffff;
   }
 

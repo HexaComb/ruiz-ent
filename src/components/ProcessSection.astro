@@ -2,41 +2,51 @@
 // Ruiz Family Enterprises - 4-Step Build Process Component (Polished per Impeccable guidelines)
 const steps = [
   {
-    phase: "Discovery & Elevations",
-    title: "On-Site Laser Transit & Consultation",
-    desc: "Jose visits your property in person to evaluate ground elevations, water runoff patterns, property lines, and zoning setbacks. You receive a transparent, itemized written proposal with no hidden fees.",
-    highlights: ["Laser transit grading check", "Soil & drainage inspection", "Firm, transparent quote"]
+    "phase": "Getting Started",
+    "title": "Free On-Site Estimate",
+    "desc": "Tell us about your project. We offer a free on-site estimate to help you take the next step.",
+    "highlights": [
+      "Discuss your ideas",
+      "Free on-site estimate"
+    ]
   },
   {
-    phase: "Groundwork & Steel",
-    title: "Excavation, Base Compaction & Rebar Grid",
-    desc: "We never pour on uncompacted dirt. We excavate to proper depth, roll out road base, and tie heavy-duty steel rebar grids elevated on chairs so reinforcement sits dead-center in the pour.",
-    highlights: ["Deep base compaction", "Rebar grid tied on chairs", "Laser-plumb edge forms"]
+    "phase": "Pre-Construction",
+    "title": "Plan the Work",
+    "desc": "We coordinate budgets, schedules and material deliveries, working with the design team on your vision.",
+    "highlights": [
+      "Budget coordination",
+      "Scheduling & materials"
+    ]
   },
   {
-    phase: "The Pour & Finish",
-    title: "Precision Pour, 3/8\" Line Pump & Water Cure",
-    desc: "Concrete mixed to exact PSI specifications. Our 3/8\" line pump routes concrete into tight yards without rutting your turf. Hand troweled, stamped, and locked in with essential multi-day water curing.",
-    highlights: ["Tight yard pump access", "Hand-tooled stamp/broom finish", "Essential water curing"]
+    "phase": "Construction",
+    "title": "Bring It to Life",
+    "desc": "Our team coordinates the build sequence and production, with attention to quality throughout construction.",
+    "highlights": [
+      "Build coordination",
+      "Quality control"
+    ]
   },
   {
-    phase: "Handover & Clean",
-    title: "Control Joints, Washdown & Final Walkthrough",
-    desc: "Control joints cleanly saw-cut to relieve thermal stress. Forms stripped, yard immaculately cleaned and garden beds restored, followed by an in-person walkthrough with Jose to guarantee your satisfaction.",
-    highlights: ["Stress-relief control cuts", "Spotless property cleanup", "Final sign-off with Jose"]
+    "phase": "Post-Construction",
+    "title": "Clean Up & Walk Through",
+    "desc": "After construction, we clean the site and carry out a final walkthrough with you.",
+    "highlights": [
+      "Site cleanup",
+      "Final walkthrough"
+    ]
   }
 ];
 ---
 
-<section class="process-section" id="our-process" aria-labelledby="process-heading">
+<section class="section section--white process-section" id="our-process" aria-labelledby="process-heading">
   <div class="container">
     <div class="section-header text-center">
       <h2 class="section-title" id="process-heading">
-        Simple, Stress-Free, From Groundwork to Final Broom Stroke.
+        Project Process
       </h2>
-      <p class="section-subtitle centered">
-        Concrete and masonry require discipline and precise timing. Here is how Jose, Marlin, and the Ruiz crew deliver reliable, lasting results on every single project.
-      </p>
+      <p class="section-subtitle centered">From the first estimate to the final walkthrough, we work with you to plan and complete your project.</p>
     </div>
 
     <!-- Steps Timeline Grid -->
@@ -67,12 +77,12 @@ const steps = [
     <!-- Process Bottom Action -->
     <div class="process-cta-banner">
       <div class="banner-text">
-        <h3 class="banner-title">Ready to get your on-site estimate scheduled?</h3>
-        <p class="banner-sub">Jose will visit your property, inspect the layout, and discuss options with zero pressure.</p>
+        <h3 class="banner-title">Have a project in mind?</h3>
+        <p class="banner-sub">Call us to discuss your ideas and arrange a free on-site estimate.</p>
       </div>
       <div class="banner-actions">
         <a href="#quote-builder" class="btn btn-primary">
-          <span>Book an On-Site Consultation</span>
+          <span>Discuss a Project</span>
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -82,7 +92,6 @@ const steps = [
 
 <style>
   .process-section {
-    padding-block: var(--space-section-y);
     background-color: var(--bg-white);
   }
 
