@@ -1,332 +1,201 @@
 ---
-// Ruiz Family Enterprises - Why Choose Us / The Ruiz Family Story (Polished per Impeccable guidelines)
+// Replace placeholders only with company-approved, verified information.
+const placeholder = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 const pillars = [
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>`,
-    title: "3 Generations of Wisdom You Can't Buy",
-    desc: "Jose learned this trade as a young boy trailing his father, grandfather, and five uncles. Decades of trade secrets on Central Valley expansive clay soils, moisture curing, and crack-free control joint placement that textbooks simply cannot teach."
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
-    title: "Husband-and-Wife Team Ownership",
-    desc: "Jose and Marlin Ruiz own and operate the company together. Marlin directs daily operations, clear client scheduling, and budgeting; Jose leads the field crew on every pour. No disconnected middle managers or surprise sub-contractors."
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`,
-    title: "Class A General Engineering + C-8 & C-29",
-    desc: "Fully licensed, bonded, and insured (CSLB #1055499). We don't just pour flat pads; we handle full structural civil grading, hillside retaining walls, and commercial engineering permits across Fresno, Tulare, and Madera counties."
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
-    title: "Respectful, Dog-Friendly & Spotless Jobsites",
-    desc: "Homeowners rave that our crews are courteous, welcoming to family pets, and replant relocated garden shrubs without extra charges. We wash down our work areas daily and treat your home with genuine family respect."
-  }
+  { title: "Three Generations", desc: "Our trade has been passed down through three generations, with an interest in the work that began in childhood." },
+  { title: "Our Team", desc: placeholder },
+  { title: "Masonry & Concrete", desc: "Our company website lists contractor license #1055499 and services in both masonry and concrete." },
+  { title: "Working Together", desc: "We work closely with clients, combining communication, budgeting and craftsmanship to bring their ideas to life." }
 ];
 ---
 
-<section class="why-choose-section" id="our-story" aria-labelledby="why-heading">
-  <div class="container">
-    <div class="why-grid">
-      <!-- Left Column: Rich Founder & Team Story -->
-      <div class="story-copy-col">
-        <h2 class="section-title on-dark" id="why-heading">
-          This Trade Isn't Just Business. It's In Our Blood.
+<section class="section section--dark family-story" id="our-story" aria-labelledby="why-heading">
+  <div class="container stack stack--2xl">
+    <div class="story-layout">
+      <figure class="founders-photo stack stack--md">
+        <img
+          src="/images/story/jose-marlin-ruiz-legacy.jpg"
+          alt="Two people standing outdoors; identities pending confirmation"
+          width="700" height="933" loading="lazy"
+        />
+        <figcaption class="stack stack--xs">
+          <span class="photo-name">Lorem ipsum</span>
+          <span class="photo-caption">Ruiz Family Enterprises</span>
+        </figcaption>
+      </figure>
+
+      <div class="story-copy stack stack--xl">
+        <h2 id="why-heading" class="story-heading">
+          Meet the People<br />
+          <span>Behind the Work.</span>
         </h2>
-
-        <!-- Inset Editorial Quote (No thick colored border-left side tab) -->
-        <blockquote class="story-lead-quote">
-          <p class="quote-text">
-            &ldquo;As a child, my father, grandpa, and uncles would bring me along to work with them. I found my passion in concrete and masonry from the time I was small. Carrying on this legacy alongside my wife Marlin is the honor of our lives.&rdquo;
-          </p>
-          <footer class="quote-author-row">
-            <span class="author-name">Jose &amp; Marlin Ruiz</span>
-            <span class="author-title">Founders &bull; Ruiz Family Enterprises</span>
-          </footer>
-        </blockquote>
-
-        <div class="story-body-text">
-          <p>
-            When you hire Ruiz Family Enterprises, you aren’t dealing with a revolving door of sales reps or anonymous crews. You are inviting a family whose name and reputation are on the line with every yard of concrete pumped and every split-face block leveled.
-          </p>
-          <p>
-            From hot 5:00 AM Central Valley pours before the summer sun blazes to late afternoon water cures, we take pride in doing things the right way. We believe in honest pricing, seamless communication from Marlin, and building hardscapes that your grandchildren will walk on.
-          </p>
+        <div class="story-intro stack stack--md">
+          <p>Our family has carried this trade through three generations. Learning alongside a father, grandfather and uncles sparked a lifelong interest in masonry and concrete.</p>
         </div>
-
-        <!-- Founder Portrait & Crew Mini Stage -->
-        <div class="story-image-duo">
-          <div class="story-image-card">
-            <img
-              src="/images/story/jose-marlin-ruiz-legacy.jpg"
-              alt="Jose Ruiz and family carrying on three generations of masonry"
-              class="story-img"
-              width="700"
-              height="933"
-              loading="lazy"
-            />
-            <div class="story-img-overlay">
-              <span class="overlay-badge">Jose &amp; Marlin Ruiz</span>
-              <span class="overlay-sub">Husband &amp; Wife Leadership</span>
-            </div>
-          </div>
-
-          <div class="story-image-card">
-            <img
-              src="/images/story/ruiz-crew-on-site.jpg"
-              alt="Ruiz Family Enterprises hardscape crew on site"
-              class="story-img"
-              width="700"
-              height="704"
-              loading="lazy"
-            />
-            <div class="story-img-overlay">
-              <span class="overlay-badge">Dedicated Ruiz Crew</span>
-              <span class="overlay-sub">Trained, Respectful &amp; Courteous</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: 4 Core Pillars (Solid, High-Contrast Cards) -->
-      <div class="pillars-col">
-        <div class="pillars-card-stack">
-          {pillars.map((p, i) => (
-            <article class="pillar-card reveal-on-scroll">
-              <div class="pillar-icon-box" set:html={p.icon}></div>
-              <div class="pillar-content">
-                <h3 class="pillar-title">{p.title}</h3>
-                <p class="pillar-desc">{p.desc}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <!-- Real Field Motto Banner (Solid surface, clear contrast, no uppercase text) -->
-        <div class="field-motto-box">
-          <span class="motto-tag">Field Creed</span>
-          <p class="motto-text">
-            &ldquo;No sleep. No shortcuts. Just the crew getting it done while the city’s out.&rdquo;
-          </p>
-          <span class="motto-sub">&mdash; Ruiz Family Enterprises Jobsite Log</span>
+        <div class="story-body stack stack--md">
+          <p>We enjoy bringing lasting beauty to homes and commercial spaces. Our work ranges from smaller improvements to luxury custom homes and larger commercial projects.</p>
+          <p>Our aim is to keep the craft moving forward for the next generation.</p>
         </div>
       </div>
     </div>
+
+    <div class="story-principles grid-2">
+      {pillars.map((pillar) => (
+        <article class="principle stack stack--sm">
+          <h3>{pillar.title}</h3>
+          <p>{pillar.desc}</p>
+        </article>
+      ))}
+    </div>
+
+    <figure class="crew-note">
+      <img
+        src="/images/story/ruiz-crew-on-site.jpg"
+        alt="People working on concrete; project provenance pending verification"
+        width="700" height="704" loading="lazy"
+      />
+      <figcaption class="stack stack--md">
+        <p class="crew-description">{placeholder}</p>
+        <div class="stack stack--xs">
+          <span class="photo-name">On the Jobsite</span>
+          <span class="photo-caption">Lorem ipsum dolor sit amet</span>
+        </div>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 <style>
-  .why-choose-section {
-    padding-block: var(--space-section-y);
-    background-color: var(--bg-dark);
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
+  .family-story {
+    color: var(--text-light);
   }
 
-  .why-grid {
+  .story-layout {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: var(--space-16);
   }
 
-  @media (min-width: 960px) {
-    .why-grid {
-      grid-template-columns: 1.15fr 1fr;
-      gap: 4.5rem;
-    }
-  }
-
-  /* Story Column */
-  .story-copy-col {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Inset Quote (Subtle inset border, high contrast) */
-  .story-lead-quote {
-    background: #141f2e;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+  .founders-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
     border-radius: var(--radius-md);
-    padding: 1.5rem 1.75rem;
-    margin-block: 1.25rem 1.75rem;
   }
 
-  .quote-text {
-    font-size: 1.12rem;
-    font-style: italic;
-    line-height: 1.6;
-    color: #ffffff;
-    margin-bottom: 0.85rem;
-  }
-
-  .quote-author-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .author-name {
-    font-family: var(--font-display);
-    font-size: 0.98rem;
+  .photo-name {
     font-weight: 700;
-    color: #ffffff;
+    font-size: 0.9375rem;
   }
 
-  .author-title {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: #f59e0b;
+  .photo-caption {
+    color: var(--text-light-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
   }
 
-  .story-body-text {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    font-size: 1.02rem;
-    line-height: 1.7;
-    color: #e2e8f0;
-    margin-bottom: 2.5rem;
+  .story-heading {
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .story-heading span {
+    color: var(--ruiz-sandstone-light);
+  }
+
+  .story-intro > p:last-child {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+
+  .placeholder-label {
+    color: var(--ruiz-sandstone-light);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .story-body {
+    color: var(--text-light-muted);
+    line-height: 1.75;
     max-width: 65ch;
   }
 
-  /* Duo Photos */
-  .story-image-duo {
+  .story-principles {
+    column-gap: var(--space-16);
+    row-gap: var(--space-8);
+  }
+
+  .principle {
+    border-block-start: 1px solid var(--border-dark-strong);
+    padding-block-start: var(--space-6);
+  }
+
+  .principle h3 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--text-light);
+  }
+
+  .principle p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-light-muted);
+    max-width: 65ch;
+  }
+
+  .crew-note {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-
-  .story-image-card {
-    position: relative;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    background-color: var(--bg-dark-deep);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
-  .story-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-
-  .story-image-card:hover .story-img {
-    transform: scale(1.03);
-  }
-
-  .story-img-overlay {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 1.2rem 1rem 0.85rem 1rem;
-    background: linear-gradient(180deg, transparent 0%, rgba(8, 13, 20, 0.95) 100%);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .overlay-badge {
-    font-family: var(--font-display);
-    font-size: 0.94rem;
-    font-weight: 700;
-    color: #ffffff;
-  }
-
-  .overlay-sub {
-    font-size: 0.78rem;
-    color: #cbd5e1;
-  }
-
-  /* Pillars Stack (Solid #141f2e surface with WCAG AA >7:1 contrast) */
-  .pillars-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-
-  .pillars-card-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .pillar-card {
-    display: flex;
-    gap: 1.25rem;
-    background: #141f2e;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-md);
-    padding: 1.4rem;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-
-  .pillar-card:hover {
-    border-color: rgba(147, 197, 253, 0.4);
-    transform: translateY(-2px);
-  }
-
-  .pillar-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    background: rgba(15, 63, 171, 0.3);
-    color: #93c5fd;
-    border: 1px solid rgba(147, 197, 253, 0.25);
-    display: flex;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .pillar-content {
-    flex: 1;
-  }
-
-  .pillar-title {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 0.35rem;
-  }
-
-  .pillar-desc {
-    font-size: 0.94rem;
-    line-height: 1.6;
-    color: #e2e8f0;
-  }
-
-  /* Creed / Motto Box */
-  .field-motto-box {
-    background: #182536;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    gap: var(--space-8);
+    padding: var(--space-card-p);
+    background: var(--bg-dark-elevated);
     border-radius: var(--radius-md);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
-  .motto-tag {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #f59e0b;
-    letter-spacing: 0.02em;
+  .crew-note img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
   }
 
-  .motto-text {
+  .crew-description {
     font-family: var(--font-display);
-    font-size: 1.18rem;
-    font-weight: 700;
-    font-style: italic;
-    color: #ffffff;
+    font-size: clamp(1.125rem, 2vw, 1.625rem);
+    font-weight: 600;
     line-height: 1.45;
+    text-wrap: pretty;
   }
 
-  .motto-sub {
-    font-size: 0.84rem;
-    color: #cbd5e1;
+  @media (max-width: 959px) {
+    .story-layout {
+      gap: var(--space-8);
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+  }
+
+  @media (max-width: 699px) {
+    .story-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .founders-photo img {
+      aspect-ratio: 4 / 3;
+      object-position: center 38%;
+    }
+
+    .story-principles,
+    .crew-note {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

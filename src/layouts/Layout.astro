@@ -3,6 +3,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import '../styles/trade-motion.css';
 
 interface Props {
   title?: string;
@@ -10,98 +11,15 @@ interface Props {
 }
 
 const {
-  title = "Ruiz Family Enterprises | 3rd Gen Concrete & Masonry Contractors (CSLB #1055499)",
-  description = "Setting the standard of quality for three generations. Class A General Engineering & C-8 / C-29 masonry contractor specializing in custom stamped concrete, luxury pool decks, split-face walls & line pump services across Kingsburg, Fresno & the Central Valley. Call Jose at (559) 244-1922."
+  title = "Ruiz Family Enterprises",
+  description = "Ruiz Family Enterprises Inc. Masonry and concrete contractor in Kingsburg, California. Patios, pool decks, walls, stonework and concrete pumping. Call (559) 244-1922."
 } = Astro.props;
 
 const siteUrl = "https://ruizfamilyhardscapes.biz";
 const ogImageUrl = `${siteUrl}/images/hero/hero-custom-home-pour.jpg`;
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": ["GeneralContractor", "HomeAndConstructionBusiness", "LocalBusiness"],
-  "@id": `${siteUrl}/#organization`,
-  "name": "Ruiz Family Enterprises Inc",
-  "alternateName": "Ruiz Family Hardscapes",
-  "slogan": "Setting the Standard of Quality for Three Generations",
-  "description": description,
-  "url": siteUrl,
-  "logo": `${siteUrl}/images/brand/ruiz-family-logo-web.png`,
-  "telephone": "+15592441922",
-  "email": "ruizfamilyent@gmail.com",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Kingsburg",
-    "addressRegion": "CA",
-    "postalCode": "93631",
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "36.5138",
-    "longitude": "-119.5540"
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Kingsburg, CA" },
-    { "@type": "City", "name": "Selma, CA" },
-    { "@type": "City", "name": "Fresno, CA" },
-    { "@type": "City", "name": "Clovis, CA" },
-    { "@type": "City", "name": "Reedley, CA" },
-    { "@type": "City", "name": "Sanger, CA" },
-    { "@type": "City", "name": "Madera, CA" },
-    { "@type": "City", "name": "Dinuba, CA" },
-    { "@type": "City", "name": "Visalia, CA" },
-    { "@type": "City", "name": "Hanford, CA" }
-  ],
-  "founder": [
-    { "@type": "Person", "name": "Jose Daniel Ruiz", "jobTitle": "Lead General Engineering Contractor" },
-    { "@type": "Person", "name": "Marlin Ruiz", "jobTitle": "Co-Owner & Operations Director" }
-  ],
-  "sameAs": [
-    "https://www.instagram.com/ruiz_family_ent/",
-    "https://www.youtube.com/@RuizFamilyEnterprisesInc"
-  ]
-};
+// Business and FAQ structured data withheld until claims have verified sources.
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Do you offer free on-site project estimates?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Jose Daniel Ruiz will personally visit your property to evaluate elevations with a laser transit, inspect soil conditions and drainage slopes, discuss options, and provide a comprehensive, transparent written estimate."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why is water curing so essential on new concrete in the Central Valley?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Concrete cures through chemical hydration between Portland cement and water. In the hot Central Valley climate, surface moisture evaporates rapidly, leading to micro-cracking and weak surfaces. Ruiz Family Enterprises performs multi-day water curing to maximize durability and structural PSI strength."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How does your 3/8\" concrete line pump service work for tight yards?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Our specialized 3/8\" line pump routes fresh concrete through narrow 3-to-4 foot side gates and around mature landscaping directly to the pour zone without heavy equipment ever touching your lawn or cracking driveways."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What licensing, bonding, and insurance do you hold?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ruiz Family Enterprises Inc is licensed under California CSLB #1055499 as a Class A General Engineering Contractor, with specialty C-8 Concrete and C-29 Masonry classifications, plus full commercial liability and workers' compensation."
-      }
-    }
-  ]
-};
 ---
 
 <!doctype html>
@@ -138,8 +56,6 @@ const faqSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </head>
   <body>
     <!-- Skip to main content for accessibility -->
@@ -153,23 +69,35 @@ const faqSchema = {
 
     <Footer />
 
-    <!-- IntersectionObserver Scroll Animations Fallback -->
     <script>
-      const scrollObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              scrollObserver.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12 }
-      );
+      const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const accents = document.querySelectorAll('.section-header, .process-steps-grid');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('trade-in-view');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+      accents.forEach(element => observer.observe(element));
 
-      document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
-        scrollObserver.observe(el);
-      });
+      // Background footage rests when it cannot be seen or motion is reduced.
+      const video = document.querySelector<HTMLVideoElement>('.hero-bg-video');
+      if (video) {
+        let inView = false;
+        const syncPlayback = () => {
+          if (preference.matches || document.hidden || !inView) video.pause();
+          else video.play().catch(() => {});
+        };
+        const videoObserver = new IntersectionObserver(([entry]) => {
+          inView = entry?.isIntersecting ?? false;
+          syncPlayback();
+        });
+        videoObserver.observe(video);
+        preference.addEventListener('change', syncPlayback);
+        document.addEventListener('visibilitychange', syncPlayback);
+        syncPlayback();
+      }
     </script>
   </body>
 </html>

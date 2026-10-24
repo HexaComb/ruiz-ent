@@ -1,0 +1,168 @@
+---
+// An orthographic construction model: all faces share the same projection.
+const project = (x: number, y: number, z: number) => `${300 + (x - y) * 0.88},${180 + (x + y) * 0.44 - z}`;
+const solid = (x: number, y: number, z: number, w: number, d: number, h: number, delay: number, material = 'stone') => ({
+  top: [project(x, y, z + h), project(x + w, y, z + h), project(x + w, y + d, z + h), project(x, y + d, z + h)].join(' '),
+  front: [project(x, y + d, z + h), project(x + w, y + d, z + h), project(x + w, y + d, z), project(x, y + d, z)].join(' '),
+  side: [project(x + w, y, z + h), project(x + w, y + d, z + h), project(x + w, y + d, z), project(x + w, y, z)].join(' '),
+  delay, material,
+});
+const foundation = solid(-5, -5, -22, 310, 310, 18, 100, 'base');
+const terrace = Array.from({ length: 5 }, (_, i) => solid(i * 60, 0, -4, 58, 88, 8, 300 + i * 80));
+const courses = Array.from({ length: 3 }, (_, row) => {
+  const widths = row % 2 ? [29, 59, 59, 59, 59, 29] : [59, 59, 59, 59, 59];
+  let x = 0;
+  return widths.map((width, column) => {
+    const block = solid(x, 0, 4 + row * 24, width, 22, 22, 850 + row * 280 + column * 50, 'wall');
+    x += width + 1;
+    return block;
+  });
+}).flat();
+const caps = Array.from({ length: 5 }, (_, i) => solid(i * 60 - 2, -3, 76, 59, 28, 7, 1750 + i * 50, 'pale'));
+const pool = [
+  solid(60, 90, -14, 180, 150, 4, 2300, 'pool-bed'),
+  solid(70, 100, -7, 160, 130, 1, 2840, 'water'),
+  // The coping occludes the recessed water, independently of assembly timing.
+  solid(60, 90, -10, 180, 10, 18, 2460, 'pale'),
+  solid(60, 100, -10, 10, 130, 18, 2540, 'pale'),
+  solid(230, 100, -10, 10, 130, 18, 2620, 'pale'),
+  solid(60, 230, -10, 180, 10, 18, 2700, 'pale'),
+];
+// The path connects the rear terrace, both pool edges, and the foreground entry.
+const walkway = [
+  ...Array.from({ length: 3 }, (_, i) => solid(0, 90 + i * 50, -4, 58, 48, 8, 3300 + i * 80)),
+  ...Array.from({ length: 5 }, (_, i) => solid(i * 60, 240, -4, 58, 58, 8, 3540 + i * 80, 'pale')),
+  ...Array.from({ length: 3 }, (_, i) => solid(240, 190 - i * 50, -4, 58, 48, 8, 3940 + i * 80)),
+];
+const pieces = [foundation, ...terrace, ...walkway, ...pool, ...courses, ...caps];
+---
+
+<figure class="hardscape-build stack stack--sm" data-hardscape-build>
+  <svg class="build-model" viewBox="0 55 600 440" role="img" aria-label="An outdoor space assembles in stages: a foundation and terrace, a stone wall, a pool, then a walkway connecting the space">
+    <g class="setting-out" fill="none" stroke="currentColor" stroke-width="1">
+      <path class="build-guide" pathLength="1" d="M20 320 300 180 580 320 300 460Z" />
+      <path class="build-guide" pathLength="1" d="M20 338 300 478 580 338 M20 331v14 M300 471v14 M580 331v14" />
+      <path class="build-guide" pathLength="1" d="M300 180V77 M285 84H315" />
+    </g>
+    {pieces.map(piece => (
+      <g class={`build-piece build-piece--${piece.material}`} style={`--build-delay: ${piece.delay}ms`}>
+        <polygon class="face-front" points={piece.front} />
+        <polygon class="face-side" points={piece.side} />
+        <polygon class="face-top" points={piece.top} />
+        {piece.material === 'water' && (
+          <g class="water-reflections" fill="none" stroke="#bceaf1" stroke-width="1" opacity="0.6">
+            <path d={`M${project(82, 116, -5)}L${project(216, 116, -5)} M${project(82, 124, -5)}L${project(180, 124, -5)} M${project(124, 211, -5)}L${project(218, 211, -5)}`} />
+          </g>
+        )}
+      </g>
+    ))}
+  </svg>
+  <figcaption class="build-caption cluster cluster--between">
+    <span>From the ground up.</span>
+    <button class="build-replay cluster cluster--sm" type="button" aria-label="Replay the hardscape build animation" hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 10a9 9 0 1 1 1 7M3 4v6h6" /></svg>
+      Replay build
+    </button>
+  </figcaption>
+</figure>
+
+<script>
+  const scene = document.querySelector<HTMLElement>('[data-hardscape-build]');
+  if (scene) {
+    const replay = scene.querySelector<HTMLButtonElement>('.build-replay');
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let inView = false;
+    let started = false;
+    const syncMotion = () => {
+      if (replay) replay.hidden = preference.matches;
+      if (preference.matches) {
+        scene.classList.remove('is-building');
+        started = false;
+        return;
+      }
+      if (inView && !document.hidden && !started) {
+        scene.classList.add('is-building');
+        started = true;
+      }
+      scene.getAnimations({ subtree: true }).forEach(animation => {
+        if (!inView || document.hidden) animation.pause();
+        else if (animation.playState === 'paused') animation.play();
+      });
+    };
+    replay?.addEventListener('click', () => {
+      if (preference.matches) return;
+      scene.getAnimations({ subtree: true }).forEach(animation => {
+        animation.currentTime = 0;
+        animation.play();
+      });
+    });
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      syncMotion();
+    }, { threshold: 0.2 }).observe(scene);
+    preference.addEventListener('change', syncMotion);
+    document.addEventListener('visibilitychange', syncMotion);
+    syncMotion();
+  }
+</script>
+
+<style>
+  .hardscape-build {
+    min-width: 0;
+    width: 100%;
+    align-self: center;
+    --stack-gap: var(--space-stack-sm);
+  }
+  .build-model { display: block; width: 100%; height: auto; overflow: visible; }
+  .setting-out { color: #8aa0b7; opacity: 0.5; }
+  .build-piece { --top: #c5c8c6; --front: #8c9498; --side: #68747d; }
+  .build-piece--base { --top: #657280; --front: #384958; --side: #283b4b; }
+  .build-piece--pale { --top: #e1e1da; --front: #a9b0af; --side: #829098; }
+  .build-piece--wall { --top: #cbd0ce; --front: #a7b0b2; --side: #788891; }
+  .build-piece--pool-bed { --top: #1d4f66; --front: #677f87; --side: #385b6a; }
+  .build-piece--water { --top: #398fa8; --front: #276b83; --side: #276b83; }
+  .build-piece--water .face-top { stroke: #78becb; }
+  .face-top { fill: var(--top); stroke: #edf0e8; stroke-width: 0.45; }
+  .face-front { fill: var(--front); }
+  .face-side { fill: var(--side); }
+  .build-caption {
+    border-top: 1px solid var(--border-dark-strong);
+    padding-block-start: var(--space-3);
+    color: var(--text-light-muted);
+    font-size: 0.85rem;
+  }
+  .build-replay {
+    background: transparent;
+    border: 0;
+    color: var(--text-light);
+    font: inherit;
+    cursor: pointer;
+    min-height: var(--space-12);
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: color 150ms ease;
+  }
+  .build-replay[hidden] { display: none; }
+  .build-replay:hover { color: #93c5fd; }
+  .build-replay:focus-visible { outline: 2px solid #93c5fd; outline-offset: var(--space-1); }
+  @media (prefers-reduced-motion: no-preference) {
+    .is-building .build-piece {
+      animation: assemble-stone 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: var(--build-delay);
+    }
+    .is-building .build-guide { animation: draw-plan 850ms ease-out both; }
+  }
+  @keyframes assemble-stone {
+    from { opacity: 0; transform: translateY(calc(-1 * var(--space-24))); }
+    35% { opacity: 1; }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes draw-plan {
+    from { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+    to { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: 1; }
+  }
+  @media (max-width: 999px) {
+    .hardscape-build { max-width: calc(var(--space-32) * 4); margin-inline: auto; }
+    .build-model { margin-block-start: calc(-1 * var(--space-8)); }
+  }
+</style>

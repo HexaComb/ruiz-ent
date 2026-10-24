@@ -1,0 +1,74 @@
+/* Setting-out lines and masonry courses carry the trade through the page. */
+:root { --trade-ease: cubic-bezier(0.16, 1, 0.3, 1); }
+
+.section-header::after {
+  content: '';
+  display: block;
+  width: var(--space-20);
+  height: var(--space-2);
+  margin: var(--space-6) auto 0;
+  border-inline: 1px solid var(--ruiz-terracotta);
+  background: linear-gradient(var(--ruiz-terracotta), var(--ruiz-terracotta)) center / 100% 1px no-repeat;
+  transform-origin: center;
+}
+.process-step-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--space-1);
+  background: var(--ruiz-terracotta);
+  transform-origin: left;
+}
+.process-step-card:nth-child(2) { --course-delay: 100ms; }
+.process-step-card:nth-child(3) { --course-delay: 200ms; }
+.process-step-card:nth-child(4) { --course-delay: 300ms; }
+
+.btn svg, .carousel-nav-btn svg { transition: transform 180ms var(--trade-ease); }
+.btn:active, .carousel-nav-btn:active { transform: translateY(0) scale(0.98); }
+.showcase-tab-btn { position: relative; }
+.showcase-tab-btn::after {
+  content: '';
+  position: absolute;
+  inset: auto var(--space-4) 0;
+  height: var(--space-1);
+  background: var(--ruiz-terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms var(--trade-ease);
+}
+.showcase-tab-btn[aria-selected='true']::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-header.trade-in-view::after { animation: set-line 650ms var(--trade-ease) both; }
+  .trade-in-view .process-step-card::before { animation: set-line 650ms var(--trade-ease) both; animation-delay: var(--course-delay, 0ms); }
+  .faq-item[open] .faq-answer-panel { animation: open-answer 200ms ease-out; }
+  .btn:is(:hover, :focus-visible) svg { transform: translateX(var(--space-1)); }
+  .next-btn:is(:hover, :focus-visible) svg { transform: translateX(var(--space-1)); }
+  .prev-btn:is(:hover, :focus-visible) svg { transform: translateX(calc(-1 * var(--space-1))); }
+}
+@keyframes set-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes open-answer { from { opacity: 0.3; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .btn:active, .carousel-nav-btn:active { transform: none; }
+  .hero-bg-video { visibility: hidden; }
+  .hero-mobile-image { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+}
+
+/* A finishing pass travels across the selected project photograph. */
+.slide-media-stage { position: relative; overflow: hidden; }
+.slide-media-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--ruiz-sandstone);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .showcase-slide.is-current .slide-media-stage::after { animation: finishing-pass 700ms var(--trade-ease); }
+}
+@keyframes finishing-pass {
+  0% { opacity: 0.35; clip-path: inset(0 100% 0 0); }
+  30% { opacity: 0.35; }
+  100% { opacity: 0; clip-path: inset(0 0 0 100%); }
+}
