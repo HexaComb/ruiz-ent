@@ -1,0 +1,81 @@
+name: Hero preview validation
+on:
+  pull_request:
+    paths:
+      - 'src/components/HeroBanner.astro'
+      - 'src/components/MasonryAccent.astro'
+      - '.github/workflows/hero-preview.yml'
+permissions:
+  contents: read
+jobs:
+  hero-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install isolated browser test dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/hero-qa" --no-package-lock --ignore-scripts playwright@1.64.1
+          "$RUNNER_TEMP/hero-qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Check desktop and mobile hero without submitting forms
+        run: |
+          test -f dist/client/index.html
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist/client > /tmp/hero-server.log 2>&1 &
+          mkdir -p hero-preview
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { createRequire } from 'node:module';
+          const require = createRequire(`${process.env.RUNNER_TEMP}/hero-qa/package.json`);
+          const { chromium } = require('playwright');
+          const browser = await chromium.launch();
+          try {
+            for (const [name, width, height] of [['desktop',1440,1000],['mobile',390,844],['small-mobile',320,740]]) {
+              const page = await browser.newPage({ viewport: { width, height } });
+              const errors = [];
+              page.on('pageerror', error => errors.push(error.message));
+              await page.goto('http://127.0.0.1:4321', { waitUntil: 'networkidle' });
+              await page.evaluate(() => document.fonts.ready);
+              assert.equal(await page.locator('[data-hardscape-build], .build-model').count(), 0);
+              assert.equal(await page.locator('#hero-heading').innerText(), 'Hardscapes Built for Generations.');
+              assert.equal(await page.locator('.hero-btn-main').getAttribute('href'), '#quote-builder');
+              assert.equal(await page.locator('.hero-btn-sub').getAttribute('href'), '#our-work');
+              assert.equal(await page.locator('.hero-direct-call a').getAttribute('href'), 'tel:+15592441922');
+              assert.ok(await page.locator('#quote-builder').count());
+              assert.ok(await page.locator('#our-work').count());
+              assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+              assert.ok(await page.locator('.hero-mobile-image').evaluate(img => img.complete && img.naturalWidth > 0));
+              await page.screenshot({ path: `hero-preview/${name}.png`, fullPage: false });
+              await page.locator('.hero-btn-sub').click();
+              assert.equal(new URL(page.url()).hash, '#our-work');
+              await page.goBack();
+              await page.locator('.hero-btn-main').click();
+              assert.equal(new URL(page.url()).hash, '#quote-builder');
+              await page.goBack();
+              await page.emulateMedia({ reducedMotion: 'reduce' });
+              await page.evaluate(() => scrollTo(0, 0));
+              await page.screenshot({ path: `hero-preview/${name}-reduced-motion.png` });
+              assert.deepEqual(errors, []);
+              console.log(`PASS ${name}: illustration absent; content, images, overflow and CTA/back navigation checked`);
+              await page.close();
+            }
+          } finally { await browser.close(); }
+          JS
+      - name: Save review screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: hero-preview-${{ github.event.pull_request.head.sha }}
+          path: hero-preview/
+          if-no-files-found: warn
+          retention-days: 7
