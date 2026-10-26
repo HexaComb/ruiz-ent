@@ -1,5 +1,4 @@
 ---
-import MasonryAccent from './MasonryAccent.astro';
 // Ruiz Family Enterprises - Hero Banner with Background Working Video & Infinite Cycling Marquee
 // Service names published at https://ruizfamilyhardscapes.biz/ (checked October 24, 2026).
 const services = [
@@ -28,7 +27,7 @@ const services = [
     <div class="hero-scrim"></div>
   </div>
 
-  <div class="container hero-container grid-2">
+  <div class="container hero-container">
     <div class="hero-copy-block stack stack--lg">
       <!-- Credential Authority Line -->
       <div class="hero-credential-bar">
@@ -70,7 +69,6 @@ const services = [
         </a>
       </div>
     </div>
-    <MasonryAccent />
   </div>
 </section>
 
@@ -165,13 +163,6 @@ const services = [
   .hero-container {
     position: relative;
     z-index: 2;
-    align-items: center;
-    gap: var(--space-grid-gap-lg);
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  }
-
-  @media (max-width: 999px) {
-    .hero-container { grid-template-columns: minmax(0, 1fr); }
   }
 
   .hero-copy-block {
