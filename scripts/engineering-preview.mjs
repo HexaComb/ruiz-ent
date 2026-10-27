@@ -8,6 +8,8 @@ const { chromium } = require('playwright');
 const base = 'http://127.0.0.1:4321';
 const anchor = '#engineering-public-works';
 const output = 'engineering-preview';
+// Element-only captures exclude sticky chrome; header captures remain unmodified.
+const isolatedCapture = { style: '[data-site-header] { visibility: hidden !important; }' };
 await mkdir(output, { recursive: true });
 for (let attempt = 0; ; attempt++) {
   try {
@@ -97,7 +99,7 @@ try {
     const mediaBytes = (await Promise.all(sources.map(src => stat(`public${src}`)))).reduce((sum, file) => sum + file.size, 0);
     assert.ok(mediaBytes < 750_000, `Selected media budget: ${mediaBytes} bytes`);
     assert.ok(await section.evaluate(element => element.scrollWidth <= element.clientWidth), `${width}: section overflow`);
-    await section.screenshot({ path: `${output}/${width}-section.png` });
+    await section.screenshot({ ...isolatedCapture, path: `${output}/${width}-section.png` });
     await page.goBack();
     assert.equal(new URL(page.url()).hash, '');
     if (mobile) {
@@ -117,13 +119,13 @@ try {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(`${base}/${anchor}`, { waitUntil: 'networkidle' });
     await section.scrollIntoViewIfNeeded();
-    await section.screenshot({ path: `${output}/${width}-reduced-motion.png` });
+    await section.screenshot({ ...isolatedCapture, path: `${output}/${width}-reduced-motion.png` });
     const footerLogo = page.locator('.footer-logo-img');
     await footerLogo.scrollIntoViewIfNeeded();
     await footerLogo.evaluate(image => image.decode());
     assert.equal(await footerLogo.getAttribute('src'), '/images/brand/ruiz-full-logo.webp');
     assert.ok(await footerLogo.evaluate(image => Math.abs(image.clientWidth / image.clientHeight - image.naturalWidth / image.naturalHeight) < 0.02), 'Footer logo aspect ratio');
-    await page.locator('.footer-top').screenshot({ path: `${output}/${width}-footer.png` });
+    await page.locator('.footer-top').screenshot({ ...isolatedCapture, path: `${output}/${width}-footer.png` });
     assert.deepEqual(errors, []);
     results.push({ width, mobileNavigation: mobile, mediaBytes, status: 'passed' });
     console.log(`PASS ${width}: content, anchor/back, navigation, media, overflow, metadata and reduced motion`);
