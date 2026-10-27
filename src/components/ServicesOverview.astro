@@ -1,6 +1,6 @@
 ---
 // Ruiz Family Enterprises - Services Overview Carousel Component
-// Redesigned with architectural underline tabs, clean photography captions, and strictly identical card sizing.
+// Service carousel with architectural underline tabs and consistent card sizing.
 // No pills, no status lights, no arbitrary numbering.
 import Section from './Section.astro';
 
@@ -8,31 +8,30 @@ const services = [
   {
     "id": "decorative-concrete",
     "tabLabel": "Concrete",
-    "title": "Patios, Pool Decks & Concrete",
-    "lead": "Outdoor spaces, paths and driveways",
+    "title": "Concrete Flatwork & Finishes",
+    "lead": "Make room for more life outside",
     "tags": [
       "Concrete"
     ],
-    "description": "Choose from concrete patios, porches, pool decks, driveways, sidewalks, steps and stamped concrete. Concrete removal and drain and gutter work are also available.",
+    "description": "From patios and pool decks to driveways, sidewalks and steps, we build concrete for everyday use. Porches, stamped finishes, drain and gutter work, and concrete removal are available too.",
     "bullets": [
       "Patios, porches & pool decks",
       "Driveways, sidewalks & steps",
       "Stamped concrete & concrete removal"
     ],
-    "quoteType": "Concrete Patio & Pool Deck",
+    "quoteType": "Concrete Flatwork & Finishes",
     "image": "/images/services/decorative-concrete-patio.jpg",
-    "alt": "Service image; project details pending verification",
-    "caption": "Project details: Lorem ipsum dolor sit amet."
+    "alt": "Concrete patio work"
   },
   {
     "id": "structural-masonry",
     "tabLabel": "Walls & Masonry",
     "title": "Block Walls & Retaining Walls",
-    "lead": "Masonry for residential and commercial projects",
+    "lead": "Give the edge of your property purpose",
     "tags": [
       "Masonry"
     ],
-    "description": "Block walls and retaining walls are part of our masonry services. Our previous project gallery also features split-face block wall construction.",
+    "description": "A wall should do more than mark a line. Talk with us about block walls, retaining walls and split-face block work for your property.",
     "bullets": [
       "Block walls",
       "Retaining walls",
@@ -40,19 +39,18 @@ const services = [
     ],
     "quoteType": "Block or Retaining Wall",
     "image": "/images/services/split-face-block-walls.jpg",
-    "alt": "Service image; project details pending verification",
-    "caption": "Project details: Lorem ipsum dolor sit amet."
+    "alt": "Split-face block wall work"
   },
   {
     "id": "dry-stacked-stone",
     "tabLabel": "Stone & Brick",
     "title": "Architectural Stone & Brick Work",
-    "lead": "Decorative finishes for your property",
+    "lead": "Details that make the whole place",
     "tags": [
       "Stonework",
       "Brick"
     ],
-    "description": "Our masonry work includes decorative stone, architectural stone and brick work. Published customer feedback also describes replacing brick accents with dry-stacked stone.",
+    "description": "Stone and brick can change the character of a space. Explore decorative stone, architectural stone and brick work with our masonry team.",
     "bullets": [
       "Decorative stone",
       "Architectural stone",
@@ -60,26 +58,24 @@ const services = [
     ],
     "quoteType": "Architectural Stone & Brick Work",
     "image": "/images/services/dry-stacked-stone.jpg",
-    "alt": "Service image; project details pending verification",
-    "caption": "Project details: Lorem ipsum dolor sit amet."
+    "alt": "Decorative stonework"
   },
   {
     "id": "foundations-line-pump",
     "tabLabel": "Concrete Pumping",
     "title": "3/8″ Concrete Pump Service",
-    "lead": "Concrete pumping for your next project",
+    "lead": "Get the concrete where it needs to go",
     "tags": [
       "Concrete pumping"
     ],
-    "description": "We offer 3/8-inch concrete pump service. Call to discuss your project and the pumping service you need.",
+    "description": "Need concrete pumping on your job? Ask us about our 3/8-inch concrete pump service and what your project requires.",
     "bullets": [
       "3/8-inch concrete pump service",
       "Call to discuss project requirements"
     ],
     "quoteType": "Concrete Pump Service",
     "image": "/images/services/foundations-line-pump.jpg",
-    "alt": "Service image; project details pending verification",
-    "caption": "Project details: Lorem ipsum dolor sit amet."
+    "alt": "Concrete pumping equipment"
   }
 ];
 ---
@@ -88,9 +84,59 @@ const services = [
   <!-- Section Header -->
   <div class="section-header text-center">
     <h2 class="section-title" id="services-heading">
-      Explore Concrete &amp; Masonry
+      Explore All Services
     </h2>
-    <p class="section-subtitle centered">Masonry and concrete work for residential, commercial, retail and industrial projects—from smaller jobs to custom homes and larger builds.</p>
+    <p class="section-subtitle centered">Concrete, masonry and general engineering for residential, commercial, retail, industrial and custom projects.</p>
+  </div>
+
+  <div class="services-directory stack stack--lg" aria-label="All services">
+    <div class="grid-4">
+      <article class="card-surface stack stack--md">
+        <h3>Masonry</h3>
+        <ul class="service-list stack stack--sm">
+          <li>Block walls</li>
+          <li>Retaining walls</li>
+          <li>Decorative stone</li>
+          <li>Brick work</li>
+          <li>Architectural stone</li>
+        </ul>
+      </article>
+      <article class="card-surface stack stack--md">
+        <h3>Concrete Construction</h3>
+        <ul class="service-list stack stack--sm">
+          <li>Concrete patios</li>
+          <li>Concrete porches</li>
+          <li>Pool decks</li>
+          <li>Concrete driveways</li>
+          <li>Sidewalks</li>
+          <li>Concrete steps</li>
+        </ul>
+      </article>
+      <article class="card-surface stack stack--md">
+        <h3>Concrete Finishes &amp; Support</h3>
+        <ul class="service-list stack stack--sm">
+          <li>Stamped concrete</li>
+          <li>Drain and gutter work</li>
+          <li>Concrete removal</li>
+          <li>3/8-inch concrete pump service</li>
+        </ul>
+      </article>
+      <article class="card-surface stack stack--md">
+        <h3>General Engineering &amp; Public Works</h3>
+        <ul class="service-list stack stack--sm">
+          <li>Concrete flatwork</li>
+          <li>Sidewalks, curb and gutter</li>
+          <li>Grading and trenching</li>
+          <li>Paving and site improvements</li>
+        </ul>
+      </article>
+    </div>
+    <p class="services-directory-note">Planning a larger site project? <a href="#engineering-public-works">See general engineering and public works projects</a>, or call <a href="tel:+15592441922">(559) 244-1922</a> to discuss your scope.</p>
+  </div>
+
+  <div class="featured-services-intro stack stack--sm">
+    <h3>Featured Service Details</h3>
+    <p>Explore the materials, finishes and work behind a few of our core services.</p>
   </div>
 
   <!-- Showcase Carousel Container -->
@@ -164,7 +210,7 @@ const services = [
           data-slide-index={index}
         >
           <div class="slide-card-container">
-            <!-- Left Media Stage: Clean photo with architectural caption bar (No pills, no status lights) -->
+            <!-- Left media stage -->
             <figure class="slide-media-stage">
               <img
                 src={service.image}
@@ -175,9 +221,6 @@ const services = [
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
               />
-              <figcaption class="slide-photo-caption">
-                {service.caption}
-              </figcaption>
             </figure>
 
             <!-- Right Editorial Content Card -->
@@ -198,7 +241,7 @@ const services = [
 
               <!-- Craftsmanship Checklist -->
               <div class="slide-checklist-block">
-                <h4 class="checklist-heading">Specifications</h4>
+                <h4 class="checklist-heading">What we build</h4>
                 <ul class="slide-checklist" aria-label={`Available services for ${service.title}`}>
                   {service.bullets.map(bullet => (
                     <li class="checklist-item">
@@ -242,8 +285,8 @@ const services = [
         </svg>
       </div>
       <div class="callout-text-col">
-        <h3 class="callout-heading">Planning Your Project</h3>
-        <p class="callout-p">Bring us your ideas. We work with clients on communication, budgeting and project planning, with knowledge of zoning requirements.</p>
+        <h3 class="callout-heading">Bring us the idea. We’ll talk through the build.</h3>
+        <p class="callout-p">From budgets to zoning questions, we help you think through the work before it begins.</p>
       </div>
       <div class="callout-btn-col">
         <a href="#quote-builder" class="btn btn-outline-dark">
@@ -255,6 +298,14 @@ const services = [
 </Section>
 
 <style>
+  .services-directory h3 { font-family: var(--font-display); color: var(--text-dark); font-size: 1.15rem; }
+  .services-directory p, .service-list { color: var(--text-dark-secondary); }
+  .service-list { padding-left: var(--space-5); line-height: 1.5; }
+  .services-directory-note a { color: var(--ruiz-blue); text-decoration: underline; text-underline-offset: var(--space-1); }
+  .featured-services-intro { margin-top: var(--space-16); margin-bottom: var(--space-6); }
+  .featured-services-intro h3 { font-family: var(--font-display); color: var(--text-dark); font-size: clamp(1.5rem, 2.5vw, 2rem); }
+  .featured-services-intro p { color: var(--text-dark-secondary); }
+
   /* ==========================================================================
      SHOWCASE CAROUSEL STYLES
      Architectural Underline Tabs & Identical Uniform Card Heights
