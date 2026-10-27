@@ -46,7 +46,7 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
     </div>
 
     <div class="conversation-scene">
-      <div class="conversation-bubbles grid-2" role="region" aria-label="Featured customer reviews" tabindex="0">
+      <div class="conversation-bubbles grid-2">
         {reviews.slice(0, 2).map((review) => (
           <article class="conversation-bubble stack stack--md">
             <div class="reviewer">
@@ -129,13 +129,13 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
-    overflow: hidden;
     padding: var(--space-card-p);
     border-radius: var(--radius-lg);
     background: #eef3fb;
   }
 
   .conversation-bubbles {
+    min-width: 0;
     align-items: stretch;
   }
 
@@ -170,6 +170,11 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
     display: flex;
     align-items: center;
     gap: var(--space-3);
+  }
+
+  .reviewer > .stack {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .review-avatar {
@@ -283,24 +288,14 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
 
   @media (max-width: 767px) {
     .conversation-bubbles {
-      display: flex;
-      gap: var(--space-4);
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
       padding-block-end: var(--space-4);
     }
 
-    .conversation-bubbles::-webkit-scrollbar {
-      display: none;
-    }
-
     .conversation-bubble {
-      flex: 0 0 86%;
       padding: var(--space-card-p-compact);
-      scroll-snap-align: start;
     }
-
   }
 
   @media (min-width: 900px) {
