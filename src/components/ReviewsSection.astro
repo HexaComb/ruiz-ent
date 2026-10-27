@@ -1,251 +1,323 @@
 ---
-// Ruiz Family Enterprises - Customer Reviews & Testimonials Component
-const featuredReviews = [
+const sourceUrl = 'https://ruizfamilyhardscapes.biz/testimonials';
+const reviews = [
   {
-    "author": "Rachel Jacobsen",
-    "scope": "Dry-Stacked Stone",
-    "quote": "Rachel describes replacing brick accents with dry-stacked stone and praises the result, friendly crew and cleanup."
+    author: 'Rachel Jacobsen',
+    scope: 'Dry-Stacked Stone',
+    excerpt: 'The end result is absolutely amazing!',
+    summary: 'Rachel describes replacing brick accents with dry-stacked stone and praises the result, friendly crew and cleanup.'
   },
   {
-    "author": "Ravi Somayajulu",
-    "scope": "Concrete & Wall",
-    "quote": "Ravi praises Jose and the crew for completing concrete and wall work according to plan and accommodating project changes."
+    author: 'Ravi Somayajulu',
+    scope: 'Concrete & Wall',
+    excerpt: 'He and his crew were tremendous',
+    summary: 'Ravi praises Jose and the crew for completing concrete and wall work according to plan and accommodating project changes.'
+  },
+  {
+    author: 'Danny Runs',
+    scope: 'Block Walls',
+    excerpt: 'Highly recommended.',
+    summary: 'Danny reports adding two block walls and praises the friendly crew and workmanship.'
+  },
+  {
+    author: 'Alfredo Luviano',
+    scope: 'Customer Experience',
+    excerpt: 'He has great prices',
+    summary: 'Alfredo highlights the professional work, pricing and approachable communication.'
+  },
+  {
+    author: 'Patty Mendoza',
+    scope: 'Customer Experience',
+    excerpt: 'They arrived on time',
+    summary: 'Patty praises the communication, attention to detail, budget and timely completion.'
   }
 ];
-
-const standardReviews = [
-  {
-    "author": "Danny Runs",
-    "scope": "Block Walls",
-    "quote": "Danny reports adding two block walls and praises the friendly crew and workmanship."
-  },
-  {
-    "author": "Alfredo Luviano",
-    "scope": "Customer Experience",
-    "quote": "Alfredo highlights the professional work, pricing and approachable communication."
-  },
-  {
-    "author": "Patty Mendoza",
-    "scope": "Customer Experience",
-    "quote": "Patty praises the communication, attention to detail, budget and timely completion."
-  }
-];
+const initials = (author: string) => author.split(' ').map((part) => part[0]).slice(0, 2).join('');
 ---
 
-<section class="section section--white reviews-section" id="reviews" aria-labelledby="reviews-heading">
+<section class="section section--dark reviews-section" id="reviews" aria-labelledby="reviews-heading">
   <div class="container">
-    <div class="reviews-header text-center">
-      <h2 class="section-title" id="reviews-heading">
-        Customer Reviews
+    <div class="reviews-header grid-2">
+      <h2 class="section-title on-dark" id="reviews-heading">
+        <span>Their Words.</span>
+        <span>Our Work.</span>
       </h2>
-      <p class="section-subtitle centered">Summaries of customer testimonials published on our previous website.</p>
+      <p class="section-subtitle on-dark">Hear from customers who trusted us with their concrete and masonry projects.</p>
+    </div>
 
-      <div class="rating-strip">
-        <a class="rating-highlight" href="https://ruizfamilyhardscapes.biz/testimonials">Read the original testimonials</a>
-        <span class="rating-sep" aria-hidden="true">&bull;</span>
-        <span class="rating-caption">Customer stories</span>
+    <div class="conversation-scene">
+      <div class="conversation-bubbles grid-2" role="region" aria-label="Featured customer reviews" tabindex="0">
+        {reviews.slice(0, 2).map((review) => (
+          <article class="conversation-bubble stack stack--md">
+            <div class="reviewer">
+              <span class="review-avatar" aria-hidden="true">{initials(review.author)}</span>
+              <div class="stack stack--xs">
+                <h3 class="reviewer-name">{review.author}</h3>
+                <p class="reviewer-type">Customer testimonial</p>
+              </div>
+            </div>
+            <p class="review-scope">{review.scope}</p>
+            <blockquote class="review-excerpt">“{review.excerpt}”</blockquote>
+          </article>
+        ))}
+      </div>
+      <div class="scene-art">
+        <!-- unDraw Construction workers: https://undraw.co/illustration/construction-workers_z99i -->
+        <img src="/images/reviews/construction-workers-undraw.svg" alt="" width="800" height="484" loading="lazy" />
       </div>
     </div>
 
-    <!-- Editorial Reviews Layout -->
-    <div class="reviews-editorial">
-      <!-- Tier 1: Prominent In-Depth Client Stories -->
-      <div class="reviews-featured-row">
-        {featuredReviews.map((r) => (
-          <article class="review-card review-card-featured reveal-on-scroll">
-            <div class="card-inner">
-              <div class="card-meta-top">
-                <span class="project-scope">{r.scope}</span>
-              </div>
-
-              <p class="review-quote">
-                {r.quote}
-              </p>
-
-              <footer class="review-byline">
-                <span class="author-name">{r.author}</span>
-                <span class="author-meta">Testimonial summary</span>
-              </footer>
+    <div class="reviews-grid grid-3">
+      {reviews.slice(2).map((review) => (
+        <article class="review-card stack stack--lg">
+          <div class="reviewer">
+            <span class="review-avatar" aria-hidden="true">{initials(review.author)}</span>
+            <div class="stack stack--xs">
+              <h3 class="reviewer-name">{review.author}</h3>
+              <p class="reviewer-type">Customer testimonial</p>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+          <blockquote class="review-card-excerpt">“{review.excerpt}”</blockquote>
+          <p class="review-card-text">{review.summary}</p>
+          <p class="review-scope">{review.scope}</p>
+        </article>
+      ))}
+    </div>
 
-      <!-- Tier 2: Focused Trade Projects -->
-      <div class="reviews-standard-row">
-        {standardReviews.map((r) => (
-          <article class="review-card reveal-on-scroll">
-            <div class="card-inner">
-              <div class="card-meta-top">
-                <span class="project-scope">{r.scope}</span>
-              </div>
-
-              <p class="review-quote">
-                {r.quote}
-              </p>
-
-              <footer class="review-byline">
-                <span class="author-name">{r.author}</span>
-                <span class="author-meta">Testimonial summary</span>
-              </footer>
-            </div>
-          </article>
-        ))}
-      </div>
+    <div class="reviews-source cluster cluster--between">
+      <p>Review excerpts and summaries from published testimonials.</p>
+      <a href={sourceUrl}>
+        Read the original testimonials
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
   .reviews-section {
-    background-color: #ffffff;
+    scroll-margin-block-start: var(--space-20);
   }
 
   .reviews-header {
-    margin-bottom: clamp(2.5rem, 4.5vw, 3.5rem);
+    align-items: end;
+    margin-block-end: var(--space-header-mb);
   }
 
-  .rating-strip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
-    margin-top: 1.25rem;
-    font-size: 0.92rem;
-    color: var(--text-dark-secondary);
+  .reviews-header .section-title {
+    margin-block: var(--space-0);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.03;
   }
 
-  .rating-highlight {
-    font-weight: 700;
-    color: var(--text-dark);
-    letter-spacing: -0.01em;
-  }
-
-  .rating-sep {
-    color: #94a3b8;
-    font-size: 0.65rem;
-  }
-
-  .rating-caption {
-    color: var(--text-dark-muted);
-    font-weight: 500;
-  }
-
-  /* Editorial Layout */
-  .reviews-editorial {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  .reviews-featured-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
-
-  @media (min-width: 860px) {
-    .reviews-featured-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .reviews-standard-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
-
-  @media (min-width: 640px) {
-    .reviews-standard-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .reviews-standard-row {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* Review Card Styling - Restrained, Clean Architectural Aesthetic */
-  .review-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .review-card:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.07);
-  }
-
-  .review-card-featured {
-    background: #fbfcfe;
-    border-color: #dbe4ee;
-  }
-
-  .card-inner {
-    padding: clamp(1.5rem, 2.4vw, 2rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-
-  .review-card-featured .card-inner {
-    padding: clamp(1.75rem, 3vw, 2.4rem);
-  }
-
-  .card-meta-top {
-    margin-bottom: 1rem;
-  }
-
-  .project-scope {
+  .reviews-header .section-title span {
     display: block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-dark-muted);
   }
 
-  .review-quote {
-    font-family: var(--font-sans);
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: #1e293b;
-    margin-bottom: 1.75rem;
+  .reviews-header .section-title span:last-child {
+    color: #b5c9fb;
+  }
+
+  .reviews-header .section-subtitle {
+    max-width: 36ch;
+    padding-block-end: var(--space-2);
+  }
+
+  .conversation-scene {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    overflow: hidden;
+    padding: var(--space-card-p);
+    border-radius: var(--radius-lg);
+    background: #eef3fb;
+  }
+
+  .conversation-bubbles {
+    align-items: stretch;
+  }
+
+  .conversation-bubble,
+  .review-card {
+    min-width: 0;
+    padding: var(--space-card-p);
+    border-radius: var(--radius-lg);
+    background: var(--bg-white);
+    color: var(--text-dark);
+  }
+
+  .conversation-bubble {
+    position: relative;
+    border: 1px solid #c6d5eb;
+  }
+
+  .conversation-bubble::after {
+    content: '';
+    position: absolute;
+    inset-block-end: calc(-1 * var(--space-3));
+    inset-inline-start: var(--space-8);
+    width: var(--space-6);
+    height: var(--space-6);
+    border-inline-end: 1px solid #c6d5eb;
+    border-block-end: 1px solid #c6d5eb;
+    background: var(--bg-white);
+    transform: rotate(45deg);
+  }
+
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .review-avatar {
+    display: grid;
+    place-items: center;
+    width: var(--space-12);
+    height: var(--space-12);
+    flex: none;
+    border-radius: 50%;
+    background: #e0eaff;
+    color: var(--ruiz-blue-dark);
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+
+  .reviewer-name {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .reviewer-type {
+    color: var(--text-dark-muted);
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .review-scope {
+    color: var(--ruiz-blue-dark);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .review-excerpt {
+    color: var(--text-dark);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.38;
+    text-wrap: balance;
+  }
+
+  .scene-art {
+    justify-self: end;
+    width: 42%;
+    max-width: 18rem;
+  }
+
+  .scene-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    margin-block-start: var(--space-12);
+  }
+
+  .review-card {
+    border: 1px solid var(--border-light);
+  }
+
+  .review-card-text {
+    flex: 1;
+    color: var(--text-dark-secondary);
+    font-size: 1rem;
+    line-height: 1.65;
     text-wrap: pretty;
   }
 
-  .review-card-featured .review-quote {
-    font-size: 1.05rem;
-    line-height: 1.72;
-    color: #0f172a;
-  }
-
-  .review-byline {
-    padding-top: 1.15rem;
-    border-top: 1px solid #f1f5f9;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .author-name {
-    font-family: var(--font-display);
-    font-size: 0.98rem;
-    font-weight: 700;
+  .review-card-excerpt {
     color: var(--text-dark);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
   }
 
-  .author-meta {
-    font-size: 0.82rem;
-    color: var(--text-dark-muted);
+  .reviews-source {
+    align-items: center;
+    gap: var(--space-4);
+    padding-block-start: var(--space-8);
+    color: var(--text-light-muted);
+    font-size: 0.9rem;
+  }
+
+  .reviews-source a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--space-12);
+    color: var(--text-light);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: #b5c9fb;
+    text-underline-offset: var(--space-1);
+  }
+
+  .reviews-source a:hover {
+    color: #b5c9fb;
+  }
+
+  .reviews-source a:focus-visible {
+    outline-color: var(--text-light);
+  }
+
+  @media (max-width: 767px) {
+    .conversation-bubbles {
+      display: flex;
+      gap: var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-block-end: var(--space-4);
+    }
+
+    .conversation-bubbles::-webkit-scrollbar {
+      display: none;
+    }
+
+    .conversation-bubble {
+      flex: 0 0 86%;
+      padding: var(--space-card-p-compact);
+      scroll-snap-align: start;
+    }
+
+  }
+
+  @media (min-width: 900px) {
+    .conversation-scene {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
+      align-items: end;
+      gap: var(--space-8);
+    }
+
+    .scene-art {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 </style>
