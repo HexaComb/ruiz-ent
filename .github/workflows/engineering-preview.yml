@@ -4,6 +4,9 @@ on:
     paths:
       - 'src/**'
       - 'public/images/engineering/**'
+      - 'public/images/brand/**'
+      - 'public/favicon.png'
+      - 'public/apple-touch-icon.png'
       - 'scripts/engineering-preview.mjs'
       - '.github/workflows/engineering-preview.yml'
       - 'package.json'

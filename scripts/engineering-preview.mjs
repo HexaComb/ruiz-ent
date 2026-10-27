@@ -1,6 +1,7 @@
 // Read-only browser checks against the built static page; never submit a form or dial.
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { get } from 'node:http';
 import { mkdir, stat, writeFile } from 'node:fs/promises';
 const require = createRequire(`${process.env.RUNNER_TEMP}/engineering-qa/package.json`);
 const { chromium } = require('playwright');
@@ -9,14 +10,23 @@ const anchor = '#engineering-public-works';
 const output = 'engineering-preview';
 await mkdir(output, { recursive: true });
 for (let attempt = 0; ; attempt++) {
-  try { if ((await fetch(base)).ok) break; } catch {}
+  try {
+    const ready = await new Promise((resolve, reject) => {
+      const request = get(base, response => {
+        response.resume();
+        response.on('end', () => resolve(response.statusCode === 200));
+      });
+      request.on('error', reject);
+    });
+    if (ready) break;
+  } catch {}
   if (attempt === 30) throw new Error('Static preview server did not start');
   await new Promise(resolve => setTimeout(resolve, 250));
 }
 const browser = await chromium.launch();
 const results = [];
 try {
-  for (const width of [1440, 1280, 1120, 1024, 768, 390, 320]) {
+  for (const width of [1600, 1440, 1280, 1120, 1024, 768, 390, 320]) {
     const page = await browser.newPage({ viewport: { width, height: width < 768 ? 844 : 1000 } });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -44,6 +54,11 @@ try {
       return rects.every((rect, index) => rect.left >= 0 && rect.right <= innerWidth + 1
         && (index === 0 || rect.left >= rects[index - 1].right - 1));
     }), `${width}: header outside viewport`);
+    const headerLogo = page.locator('.brand-logo-img');
+    assert.equal(await headerLogo.getAttribute('src'), '/images/brand/ruiz-monogram-256.png');
+    await headerLogo.evaluate(image => image.decode());
+    assert.ok(await headerLogo.evaluate(image => Math.abs(image.clientWidth / image.clientHeight - image.naturalWidth / image.naturalHeight) < 0.02), 'Header logo aspect ratio');
+    assert.equal(await page.locator('link[rel="apple-touch-icon"]').getAttribute('href'), '/apple-touch-icon.png');
     await page.screenshot({ path: `${output}/${width}-header.png` });
     const toggle = page.locator('#mobileToggle');
     const mobile = await toggle.isVisible();
@@ -96,6 +111,12 @@ try {
     await page.goto(`${base}/${anchor}`, { waitUntil: 'networkidle' });
     await section.scrollIntoViewIfNeeded();
     await section.screenshot({ path: `${output}/${width}-reduced-motion.png` });
+    const footerLogo = page.locator('.footer-logo-img');
+    await footerLogo.scrollIntoViewIfNeeded();
+    await footerLogo.evaluate(image => image.decode());
+    assert.equal(await footerLogo.getAttribute('src'), '/images/brand/ruiz-full-logo.webp');
+    assert.ok(await footerLogo.evaluate(image => Math.abs(image.clientWidth / image.clientHeight - image.naturalWidth / image.naturalHeight) < 0.02), 'Footer logo aspect ratio');
+    await page.locator('.footer-top').screenshot({ path: `${output}/${width}-footer.png` });
     assert.deepEqual(errors, []);
     results.push({ width, mobileNavigation: mobile, mediaBytes, status: 'passed' });
     console.log(`PASS ${width}: content, anchor/back, navigation, media, overflow, metadata and reduced motion`);
