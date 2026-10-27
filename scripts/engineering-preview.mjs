@@ -31,6 +31,10 @@ try {
   for (const width of [1600, 1440, 1280, 1120, 1024, 768, 390, 320]) {
     const page = await browser.newPage({ viewport: { width, height: width < 768 ? 844 : 1000 } });
     const errors = [];
+    const engineeringVideoRequests = [];
+    page.on('request', request => {
+      if (/engineering/.test(request.url()) && /\.mp4(?:[?#]|$)/.test(request.url())) engineeringVideoRequests.push(request.url());
+    });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
@@ -84,22 +88,108 @@ try {
       const top = document.getElementById('engineering-heading').getBoundingClientRect().top;
       return top >= document.getElementById('header').getBoundingClientRect().bottom - 1 && top < innerHeight;
     });
+    const galleries = section.locator('[data-gallery]');
+    assert.equal(await galleries.count(), 2, 'Photo and video carousels');
     const images = section.locator('img');
-    assert.equal(await images.count(), 3);
-    const sources = [];
+    assert.ok(await images.count() >= 7, 'All seven supplied photographs represented');
+    const sources = new Set();
     for (const img of await images.all()) {
-      await img.scrollIntoViewIfNeeded();
-      await img.evaluate(image => image.decode());
       assert.equal(await img.getAttribute('loading'), 'lazy');
       assert.ok(await img.getAttribute('alt'));
       assert.ok(Number(await img.getAttribute('width')) > 0);
       assert.ok(Number(await img.getAttribute('height')) > 0);
-      sources.push(await img.getAttribute('src'));
+      sources.add(await img.getAttribute('src'));
+      for (const candidate of (await img.getAttribute('srcset') || '').split(',')) {
+        const src = candidate.trim().split(/\s+/)[0];
+        if (src) sources.add(src);
+      }
     }
-    const mediaBytes = (await Promise.all(sources.map(src => stat(`public${src}`)))).reduce((sum, file) => sum + file.size, 0);
-    assert.ok(mediaBytes < 750_000, `Selected media budget: ${mediaBytes} bytes`);
+    const videos = section.locator('video');
+    assert.ok(await videos.count() >= 4, 'Substantial client video selection');
+    for (const video of await videos.all()) {
+      assert.equal(await video.getAttribute('preload'), 'none');
+      assert.ok(await video.evaluate(element => element.controls));
+      assert.equal(await video.getAttribute('autoplay'), null);
+      assert.equal(await video.getAttribute('src'), null);
+      assert.equal(await video.locator('source[src]').count(), 0, 'Video has no attached source before explicit play');
+      const poster = await video.getAttribute('poster');
+      assert.ok(poster, 'Video has a poster');
+      sources.add(poster);
+    }
+    const mediaBytes = (await Promise.all([...sources].map(src => stat(`public${src}`)))).reduce((sum, file) => sum + file.size, 0);
+    assert.ok(mediaBytes <= 2_000_000, `All stills, responsive variants and posters budget: ${mediaBytes} bytes`);
+    assert.deepEqual(engineeringVideoRequests, [], 'No engineering video downloads before interaction');
     assert.ok(await section.evaluate(element => element.scrollWidth <= element.clientWidth), `${width}: section overflow`);
     await section.screenshot({ ...isolatedCapture, path: `${output}/${width}-section.png` });
+    for (let galleryIndex = 0; galleryIndex < await galleries.count(); galleryIndex++) {
+      const gallery = galleries.nth(galleryIndex);
+      const track = gallery.locator('.gallery-track');
+      const slides = track.locator('.gallery-slide');
+      const total = await slides.count();
+      assert.ok(total >= 4);
+      assert.equal(await track.getAttribute('tabindex'), '0', 'Keyboard-operable gallery track');
+      const status = gallery.locator('[data-gallery-status]');
+      assert.equal(await status.getAttribute('aria-live'), 'polite');
+      async function selected(index) {
+        await page.waitForFunction(({ element, expected, count }) => {
+          const numbers = element.textContent.match(/\d+/g)?.map(Number) || [];
+          return numbers[0] === expected && numbers[numbers.length - 1] === count;
+        }, { element: await status.elementHandle(), expected: index + 1, count: total });
+        await page.waitForFunction(({ element, index }) => {
+          const track = element.querySelector('.gallery-track');
+          const slide = track.querySelectorAll('.gallery-slide')[index];
+          const trackRect = track.getBoundingClientRect();
+          const rect = slide.getBoundingClientRect();
+          return rect.right > trackRect.left && rect.left < trackRect.right;
+        }, { element: await gallery.elementHandle(), index });
+      }
+      await track.focus();
+      await page.keyboard.press('Home');
+      await selected(0);
+      for (const image of await slides.first().locator('img').all()) await image.evaluate(element => element.decode());
+      const initialScroll = await track.evaluate(element => element.scrollLeft);
+      // No autoplay: position remains still without a navigation action.
+      await page.waitForTimeout(1100);
+      assert.equal(await track.evaluate(element => element.scrollLeft), initialScroll);
+      await gallery.screenshot({ ...isolatedCapture, path: `${output}/${width}-gallery-${galleryIndex}-initial.png` });
+      await gallery.locator('[data-next]').click();
+      await selected(1);
+      assert.ok(await track.evaluate(element => element.scrollLeft) > initialScroll);
+      await gallery.locator('[data-prev]').click();
+      await selected(0);
+      await track.focus();
+      await page.keyboard.press('ArrowRight');
+      await selected(1);
+      await page.keyboard.press('End');
+      await selected(total - 1);
+      await gallery.screenshot({ ...isolatedCapture, path: `${output}/${width}-gallery-${galleryIndex}-advanced.png` });
+      await page.keyboard.press('Home');
+      await selected(0);
+      // Native scroll path covers the state update used by touch swipes.
+      await track.evaluate(element => element.scrollTo({ left: element.scrollWidth, behavior: 'instant' }));
+      await selected(total - 1);
+      await track.focus();
+      await page.keyboard.press('Home');
+      await selected(0);
+      for (const image of await gallery.locator('img').all()) {
+        await image.scrollIntoViewIfNeeded();
+        await image.evaluate(element => element.decode());
+      }
+      await track.focus();
+      await page.keyboard.press('Home');
+      await selected(0);
+    }
+    assert.deepEqual(engineeringVideoRequests, [], 'Navigation and screenshots never fetch video payloads');
+    const play = section.locator('[data-video-load]').first();
+    const videoSlide = play.locator('xpath=ancestor::*[contains(concat(" ", normalize-space(@class), " "), " gallery-slide ")]');
+    const video = videoSlide.locator('video');
+    await video.evaluate(element => { element.muted = true; });
+    await play.click();
+    await page.waitForFunction(element => !element.paused && element.currentTime > 0, await video.elementHandle());
+    assert.ok(engineeringVideoRequests.length > 0, 'Explicit play loads selected media');
+    await videoSlide.screenshot({ ...isolatedCapture, path: `${output}/${width}-video-playing.png` });
+    await page.locator('#hero-heading').scrollIntoViewIfNeeded();
+    await page.waitForFunction(element => element.paused, await video.elementHandle());
     await page.goBack();
     assert.equal(new URL(page.url()).hash, '');
     if (mobile) {
@@ -128,7 +218,7 @@ try {
     await page.locator('.footer-top').screenshot({ ...isolatedCapture, path: `${output}/${width}-footer.png` });
     assert.deepEqual(errors, []);
     results.push({ width, mobileNavigation: mobile, mediaBytes, status: 'passed' });
-    console.log(`PASS ${width}: content, anchor/back, navigation, media, overflow, metadata and reduced motion`);
+    console.log(`PASS ${width}: content, anchor/back, navigation, media, overflow, metadata, carousel controls, lazy video playback/pause and reduced motion`);
     await page.close();
   }
 } finally {

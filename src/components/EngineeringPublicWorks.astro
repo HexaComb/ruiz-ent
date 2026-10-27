@@ -1,68 +1,256 @@
 ---
 import Section from './Section.astro';
+const photos = [
+  { id: '1531', title: 'Formwork & reinforcement', alt: 'Timber forms and steel reinforcement along a roadside concrete work area.', height: 1000 },
+  { id: '1528', title: 'Concrete sidewalk & curb', alt: 'New concrete sidewalk and curb beside a street, bordered by temporary barricades.', height: 1000 },
+  { id: '1530', title: 'A closer look at the finish', alt: 'Concrete sidewalk and curb viewed along the street, with barricades and caution tape.', height: 1000 },
+  { id: '1520', title: 'Sidewalk concrete work', alt: 'Concrete sidewalk beside a brick wall, with forms along the curb and workers in the distance.', height: 1067 },
+  { id: '1516', title: 'Sidewalk & driveway edge', alt: 'New concrete sidewalk panels and a sloped driveway edge beside an open lot.', height: 1000 },
+  { id: '1532', title: 'The work zone', alt: 'A sidewalk work area with temporary barricades and sidewalk-closed signs beside a fence.', height: 1000 },
+  { id: '1533', title: 'Along the sidewalk', alt: 'A concrete sidewalk beside a fence, with caution tape and temporary sidewalk-closed signs.', height: 1000 },
+];
+const clips = [
+  {
+    "id": "1513",
+    "title": "Concrete flatwork walkthrough",
+    "description": "The camera pans along fresh concrete flatwork and a wide slab beside a fenced site.",
+    "width": 540,
+    "height": 960,
+    "duration": "11 sec"
+  },
+  {
+    "id": "1514",
+    "title": "Concrete edges and site preparation",
+    "description": "A walkthrough shows scored concrete, formed edges, exposed soil, and reinforcing bars around a site entrance.",
+    "width": 540,
+    "height": 960,
+    "duration": "8 sec"
+  },
+  {
+    "id": "1522",
+    "title": "Site improvements in progress",
+    "description": "The camera moves from a crew and compact loader beside rounded stones to newly placed concrete and the adjoining work area.",
+    "width": 540,
+    "height": 960,
+    "duration": "8 sec"
+  },
+  {
+    "id": "1523",
+    "title": "Surface transitions",
+    "description": "A walkthrough follows rounded-stone surfacing, asphalt, concrete edges, and temporary safety barriers beside a street.",
+    "width": 478,
+    "height": 850,
+    "duration": "27 sec"
+  },
+  {
+    "id": "1526",
+    "title": "Paving and curb details",
+    "description": "The camera pans across an asphalt work area and a curb ramp with a textured warning panel. Traffic delineators mark the work zone; original text overlays remain visible.",
+    "width": 540,
+    "height": 960,
+    "duration": "11 sec"
+  },
+  {
+    "id": "1535",
+    "title": "Sidewalk finishing walkthrough",
+    "description": "The camera follows newly placed concrete sidewalk panels past a hydrant toward a crew working along the sidewalk.",
+    "width": 540,
+    "height": 960,
+    "duration": "15 sec"
+  }
+];
+const galleries = [
+  { id: 'engineering-photos', heading: 'The work, in detail.', description: 'Seven photographs. From reinforcement to the finished surface.', kind: 'photo', items: photos },
+  { id: 'engineering-films', heading: 'See it in motion.', description: 'Six clips from the field. Press play to load silent project footage.', kind: 'video', items: clips },
+];
 ---
 
-<Section id="engineering-public-works" variant="light" ariaLabelledby="engineering-heading">
-  <div class="engineering-layout grid-2">
-    <div class="engineering-copy stack stack--xl">
-      <div class="stack stack--md">
-        <h2 id="engineering-heading" class="section-title">Engineering/<wbr />Public Works</h2>
-        <p class="engineering-business">Ruiz Family Enterprises, Inc. — General Engineering &amp; Public Works</p>
-        <p class="section-subtitle">Central Valley contractor for concrete flatwork, sidewalks, curb and gutter, grading, trenching, paving, and site improvements.</p>
-        <p class="section-subtitle">Experienced crews, dependable scheduling, and attention to detail from layout through final cleanup.</p>
-      </div>
-
-      <div class="engineering-details stack stack--md">
-        <p class="engineering-credentials">CSLB A License <span aria-hidden="true">|</span> DIR registered</p>
-        <p>Fresno, Clovis, Visalia, and surrounding areas</p>
-      </div>
-
-      <div class="stack stack--sm engineering-contact">
-        <a class="btn btn-primary engineering-call" href="tel:559-244-1922">Call 559-244-1922</a>
-        <p>Let’s discuss your project.</p>
-      </div>
+<Section id="engineering-public-works" variant="dark" ariaLabelledby="engineering-heading">
+  <div class="engineering-intro grid-2">
+    <div class="stack stack--lg">
+      <h2 id="engineering-heading" class="section-title on-dark">Engineering/<wbr /><span>Public Works</span></h2>
+      <p class="engineering-business">Ruiz Family Enterprises, Inc. — General Engineering &amp; Public Works</p>
     </div>
-
-    <div class="engineering-gallery stack stack--md" aria-label="Engineering and public works project photographs">
-      <figure class="stack stack--sm">
-        <img class="engineering-main-image" src="/images/engineering/concrete-sidewalk-curb.webp" srcset="/images/engineering/concrete-sidewalk-curb-480.webp 480w, /images/engineering/concrete-sidewalk-curb.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" width="1200" height="900" loading="lazy" decoding="async" alt="New concrete sidewalk and curb beside a street, marked off with caution tape and barricades." />
-        <figcaption>Concrete sidewalk and curb</figcaption>
-      </figure>
-      <div class="engineering-details-grid grid-2">
-        <figure class="stack stack--sm">
-          <img class="engineering-detail-image" src="/images/engineering/concrete-formwork.webp" srcset="/images/engineering/concrete-formwork-480.webp 480w, /images/engineering/concrete-formwork.webp 640w" sizes="(min-width: 1024px) 25vw, 50vw" width="640" height="480" loading="lazy" decoding="async" alt="Wood forms and steel reinforcement laid out along a roadside concrete work area." />
-          <figcaption>Formwork and reinforcement</figcaption>
-        </figure>
-        <figure class="stack stack--sm">
-          <img class="engineering-detail-image" src="/images/engineering/sidewalk-crew.webp" srcset="/images/engineering/sidewalk-crew-480.webp 480w, /images/engineering/sidewalk-crew.webp 640w" sizes="(min-width: 1024px) 25vw, 50vw" width="640" height="480" loading="lazy" decoding="async" alt="Fresh concrete sidewalk and curb bordered by caution tape and wood forms." />
-          <figcaption>Sidewalk concrete work</figcaption>
-        </figure>
-      </div>
+    <div class="stack stack--lg engineering-copy">
+      <p>Central Valley contractor for concrete flatwork, sidewalks, curb and gutter, grading, trenching, paving, and site improvements.</p>
+      <p>Experienced crews, dependable scheduling, and attention to detail from layout through final cleanup.</p>
     </div>
+  </div>
+  <div class="engineering-contact cluster cluster--between">
+    <div class="stack stack--sm">
+      <p class="engineering-credentials">CSLB A License <span aria-hidden="true">|</span> DIR registered</p>
+      <p>Fresno, Clovis, Visalia, and surrounding areas</p>
+    </div>
+    <a class="engineering-call" href="tel:559-244-1922"><span>Discuss your project</span><strong>Call 559-244-1922</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a>
+  </div>
+
+  <div class="engineering-flow stack stack--2xl">
+    {galleries.map(gallery => (
+      <div class="engineering-carousel stack stack--lg" data-gallery role="region" aria-roledescription="carousel" aria-labelledby={`${gallery.id}-heading`}>
+        <div class="gallery-heading cluster cluster--between">
+          <div class="stack stack--sm">
+            <h3 id={`${gallery.id}-heading`}>{gallery.heading}</h3>
+            <p>{gallery.description}</p>
+          </div>
+          <div class="gallery-controls cluster cluster--sm">
+            <span class="gallery-status" data-gallery-status aria-live="polite" aria-atomic="true">1 / {gallery.items.length}</span>
+            <button type="button" data-prev aria-label={`Previous ${gallery.kind}`} aria-controls={`${gallery.id}-track`} disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg></button>
+            <button type="button" data-next aria-label={`Next ${gallery.kind}`} aria-controls={`${gallery.id}-track`}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></button>
+          </div>
+        </div>
+        <div class="gallery-track" id={`${gallery.id}-track`} tabindex="0" role="group" aria-label={`${gallery.heading} Use arrow keys, Home or End to navigate.`}>
+          {gallery.items.map((item, index) => (
+            <figure class="gallery-slide stack stack--md" data-active={index === 0 ? 'true' : 'false'} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${gallery.items.length}: ${item.title}`}>
+              <div class:list={['gallery-media', { 'gallery-media--video': gallery.kind === 'video' }]}>
+                {gallery.kind === 'photo' && 'alt' in item ? (
+                  <img src={`/images/engineering/flow/photo-${item.id}.webp`} srcset={`/images/engineering/flow/photo-${item.id}-400.webp 400w, /images/engineering/flow/photo-${item.id}.webp 800w`} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 85vw" width="800" height={item.height} loading="lazy" decoding="async" alt={item.alt} />
+                ) : 'description' in item ? (
+                  <>
+                    <video width={item.width} height={item.height} poster={`/images/engineering/flow/poster-${item.id}.webp`} controls controlslist="nodownload" preload="none" playsinline muted aria-label={`${item.title}. Silent project footage.`} aria-describedby={`clip-${item.id}-description`} data-video-src={`/videos/engineering/clip-${item.id}.mp4`}></video>
+                    <button class="video-load" type="button" data-video-load aria-label={`Play ${item.title} (silent video)`}><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg><span>Play footage</span></button>
+                    <noscript><a class="video-fallback" href={`/videos/engineering/clip-${item.id}.mp4`}>Open silent video</a></noscript>
+                  </>
+                ) : null}
+              </div>
+              <figcaption class="stack stack--sm">
+                <div class="cluster cluster--between"><h4>{item.title}</h4><span class="media-kind">{gallery.kind === 'photo' ? 'PHOTO' : 'duration' in item ? `${item.duration} · SILENT` : 'SILENT'}</span></div>
+                {'description' in item && <p id={`clip-${item.id}-description`}>{item.description}</p>}
+              </figcaption>
+              <span class="pipe-link" aria-hidden="true"><span></span></span>
+            </figure>
+          ))}
+        </div>
+        <p class="gallery-hint">Swipe to explore, or use the arrows.</p>
+      </div>
+    ))}
   </div>
 </Section>
 
 <style>
-  :global(#engineering-public-works) { scroll-margin-top: var(--space-24); }
-  .engineering-layout { align-items: center; gap: var(--space-grid-gap-lg); }
-  .engineering-copy, .engineering-gallery { min-width: 0; }
-  .engineering-copy .section-title { margin: 0; color: var(--ruiz-blue); }
-  .engineering-business { color: var(--text-dark); font-weight: 700; max-width: 46ch; }
-  .engineering-details { padding-block: var(--space-6); border-block: 1px solid var(--border-light); color: var(--text-dark-secondary); }
-  .engineering-credentials { color: var(--text-dark); font-weight: 700; }
-  .engineering-contact { align-items: flex-start; color: var(--text-dark-muted); font-size: 0.9rem; }
-  .engineering-call { min-height: 48px; padding: var(--space-4) var(--space-6); white-space: normal; }
-  .engineering-gallery figure { min-width: 0; }
-  .engineering-gallery img { width: 100%; object-fit: cover; border-radius: var(--radius-md); }
-  .engineering-gallery figcaption { color: var(--text-dark-muted); font-size: 0.8rem; line-height: 1.5; }
-  .engineering-gallery .engineering-main-image { aspect-ratio: 4 / 3; }
-  .engineering-gallery .engineering-detail-image { aspect-ratio: 4 / 3; }
-  .engineering-details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
-  @media (min-width: 1024px) {
-    .engineering-layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: var(--space-12); }
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .engineering-layout { grid-template-columns: 1fr; }
+  :global(#engineering-public-works) { scroll-margin-top: var(--space-24); overflow: clip; }
+  .engineering-intro { align-items: end; gap: var(--space-12); }
+  .engineering-intro > *, .engineering-copy { min-width: 0; }
+  .engineering-intro .section-title { margin: 0; font-size: clamp(2.2rem, 4.7vw, 4.25rem); line-height: 1.06; }
+  .engineering-intro .section-title span { display: block; color: #93bdff; }
+  .engineering-business { max-width: 44ch; color: var(--text-light-secondary); font-weight: 600; }
+  .engineering-copy { color: var(--text-light-secondary); font-size: clamp(1rem, 1.3vw, 1.125rem); }
+  .engineering-contact { margin-block: var(--space-10) var(--space-16); padding-block: var(--space-6); border-block: 1px solid var(--border-dark); gap: var(--space-6); color: var(--text-light-muted); }
+  .engineering-credentials { color: white; font-weight: 700; }
+  .engineering-call { display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-6); align-items: center; padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); background: #a9ccff; color: #0d254e; }
+  .engineering-call > span { font-size: .8rem; }
+  .engineering-call strong { grid-column: 1; }
+  .engineering-call svg { grid-column: 2; grid-row: 1 / 3; }
+  .engineering-call:hover { background: #c9dfff; }
+  .engineering-call:focus-visible, .gallery-controls button:focus-visible, .gallery-track:focus-visible, .video-load:focus-visible { outline: 3px solid #b8d4ff; outline-offset: 4px; }
+  .engineering-flow { position: relative; --pipe: #568ee3; --stack-gap: var(--space-16); padding-left: var(--space-8); }
+  .engineering-flow::before { content: ''; position: absolute; top: var(--space-5); bottom: var(--space-16); left: 0; width: 3px; border-radius: var(--radius-sm); background: var(--pipe); }
+  .engineering-carousel { min-width: 0; position: relative; }
+  .gallery-heading { position: relative; gap: var(--space-4); }
+  .gallery-heading::before { content: ''; position: absolute; left: calc(-1 * var(--space-8)); top: var(--space-5); width: var(--space-6); height: 3px; background: var(--pipe); }
+  .gallery-heading::after { content: ''; position: absolute; left: calc(-1 * var(--space-3)); top: var(--space-4); width: 10px; height: 10px; border: 2px solid #a9ccff; background: var(--bg-dark); border-radius: 50%; }
+  .gallery-heading h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.1rem); line-height: 1.15; letter-spacing: -.025em; }
+  .gallery-heading p { color: var(--text-light-muted); font-size: .9rem; max-width: 60ch; }
+  .gallery-controls { flex-shrink: 0; }
+  .gallery-status { min-width: 4ch; margin-right: var(--space-3); color: #b8d4ff; font-variant-numeric: tabular-nums; font-size: .85rem; }
+  .gallery-controls button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #6c8fbf; border-radius: 50%; color: white; background: var(--bg-dark-elevated); }
+  .gallery-controls button:hover:not(:disabled) { background: var(--ruiz-blue); border-color: #9cc4ff; }
+  .gallery-controls button:disabled { opacity: .4; cursor: default; }
+  .gallery-track { display: flex; gap: var(--space-10); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #568ee3 var(--bg-dark-elevated); padding-bottom: var(--space-4); }
+  .gallery-slide { position: relative; flex: 0 0 calc((100% - var(--space-10) * 2) / 3); min-width: 0; scroll-snap-align: start; }
+  .gallery-media { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: #080d14; border: 1px solid #36516f; }
+  .gallery-slide[data-active='true'] .gallery-media { border-color: #a9ccff; }
+  .gallery-media img, .gallery-media video { width: 100%; height: 100%; object-fit: contain; }
+  .gallery-media--video { aspect-ratio: 9 / 16; }
+  .gallery-slide h4 { font-size: .95rem; font-weight: 700; line-height: 1.5; }
+  .gallery-slide figcaption p { font-size: .85rem; color: var(--text-light-muted); }
+  .media-kind { color: #a9ccff; font-size: .65rem; letter-spacing: .08em; white-space: nowrap; }
+  .gallery-hint { color: #b8c9df; font-size: .8rem; }
+  .pipe-link { position: absolute; left: 100%; top: 45%; width: var(--space-10); height: var(--space-8); border-top: 3px solid var(--pipe); border-right: 3px solid var(--pipe); border-radius: 0 var(--radius-lg) 0 0; pointer-events: none; }
+  .pipe-link::before, .pipe-link::after { content: ''; position: absolute; width: 8px; height: 13px; border: 2px solid #a9ccff; background: var(--bg-dark); border-radius: 2px; }
+  .pipe-link::before { top: -8px; left: -3px; }
+  .pipe-link::after { right: -5px; bottom: -3px; transform: rotate(90deg); }
+  .pipe-link span { position: absolute; top: var(--space-8); right: -3px; width: var(--space-4); border-top: 3px solid var(--pipe); }
+  .gallery-slide:last-child .pipe-link { display: none; }
+  .video-load { position: absolute; inset: 0; margin: auto; width: max-content; height: max-content; display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border: 1px solid #b8d4ff; border-radius: var(--radius-pill); background: #0d254e; color: white; font-size: .85rem; font-weight: 700; }
+  .video-load:hover { background: var(--ruiz-blue); }
+  .video-load[hidden] { display: none; }
+  .video-fallback { position: absolute; inset: auto var(--space-4) var(--space-12); padding: var(--space-3); background: var(--bg-dark); text-decoration: underline; }
+  @media (max-width: 1023px) {
+    .engineering-intro { grid-template-columns: 1fr; gap: var(--space-6); }
     .engineering-copy { max-width: 65ch; }
+    .gallery-slide { flex-basis: calc((100% - var(--space-10)) / 2.15); }
+  }
+  @media (max-width: 639px) {
+    .engineering-flow { padding-left: var(--space-5); }
+    .gallery-heading::before { left: calc(-1 * var(--space-5)); width: var(--space-3); }
+    .gallery-heading::after { left: calc(-1 * var(--space-3)); }
+    .gallery-slide { flex-basis: 88%; }
+    .gallery-track { gap: var(--space-8); }
+    .pipe-link { width: var(--space-8); }
+    .gallery-controls { width: 100%; justify-content: flex-end; }
+    .engineering-call { width: 100%; }
+    .engineering-contact { margin-bottom: var(--space-12); }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach(gallery => {
+    const track = gallery.querySelector<HTMLElement>('.gallery-track');
+    const slides = Array.from(gallery.querySelectorAll<HTMLElement>('.gallery-slide'));
+    const previous = gallery.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = gallery.querySelector<HTMLButtonElement>('[data-next]');
+    const status = gallery.querySelector<HTMLElement>('[data-gallery-status]');
+    if (!track || !previous || !next || !status || !slides.length) return;
+    let active = 0;
+    let desiredScroll: number | null = null;
+    function select(index: number) {
+      active = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.dataset.active = String(i === active));
+      previous!.disabled = active === 0;
+      next!.disabled = active === slides.length - 1;
+      status!.textContent = `${active + 1} / ${slides.length}`;
+    }
+    function navigate(index: number) {
+      select(index);
+      desiredScroll = Math.min(slides[active].offsetLeft - slides[0].offsetLeft, track!.scrollWidth - track!.clientWidth);
+      track!.scrollTo({ left: desiredScroll, behavior: 'instant' });
+    }
+    previous.addEventListener('click', () => navigate(active - 1));
+    next.addEventListener('click', () => navigate(active + 1));
+    track.addEventListener('keydown', event => {
+      if (event.target !== track) return;
+      const targets: Record<string, number> = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: slides.length - 1 };
+      if (event.key in targets) { event.preventDefault(); navigate(targets[event.key]); }
+    });
+    track.addEventListener('scroll', () => {
+      if (desiredScroll !== null && Math.abs(track.scrollLeft - desiredScroll) < 2) return;
+      desiredScroll = null;
+      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) select(slides.length - 1);
+      else {
+        const step = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+        select(Math.round(track.scrollLeft / step));
+      }
+    }, { passive: true });
+    new ResizeObserver(() => { desiredScroll = null; }).observe(track);
+  });
+
+  const engineeringVideos = document.querySelectorAll<HTMLVideoElement>('#engineering-public-works video');
+  const pauseOffscreen = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.intersectionRatio < 0.35) (entry.target as HTMLVideoElement).pause(); });
+  }, { threshold: [0, 0.35] });
+  engineeringVideos.forEach(video => {
+    pauseOffscreen.observe(video);
+    const button = video.parentElement?.querySelector<HTMLButtonElement>('[data-video-load]');
+    button?.addEventListener('click', async () => {
+      engineeringVideos.forEach(other => { if (other !== video) other.pause(); });
+      if (!video.src) video.src = video.dataset.videoSrc || '';
+      video.muted = true;
+      button.disabled = true;
+      try { await video.play(); button.hidden = true; video.focus(); }
+      catch { button.textContent = 'Try playing again'; }
+      finally { button.disabled = false; }
+    });
+    video.addEventListener('play', () => engineeringVideos.forEach(other => { if (other !== video) other.pause(); }));
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) engineeringVideos.forEach(video => video.pause()); });
+</script>

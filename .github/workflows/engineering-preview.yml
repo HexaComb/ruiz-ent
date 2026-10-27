@@ -4,6 +4,7 @@ on:
     paths:
       - 'src/**'
       - 'public/images/engineering/**'
+      - 'public/videos/engineering/**'
       - 'public/images/brand/**'
       - 'public/favicon.png'
       - 'public/apple-touch-icon.png'
@@ -17,7 +18,7 @@ permissions:
 jobs:
   engineering-preview:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
     steps:
