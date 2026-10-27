@@ -1,109 +1,26 @@
 ---
-// Ruiz Family Enterprises - Field Reels & Jobsite Realness Component (Polished per Impeccable guidelines)
-const reels = [
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/reels/reel-black-concrete.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  },
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/reels/reel-clovis-hardscape.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  },
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/reels/reel-pickleball-reedley.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  },
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/reels/reel-water-cure.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  },
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/story/crew-early-morning.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  },
-  {
-    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    tag: "",
-    image: "/images/reels/reel-country-firepit.jpg",
-    alt: "Project image; provenance and details pending verification",
-    scope: "Lorem ipsum",
-    location: "Lorem ipsum"
-  }
+const images = [
+  { src: "/images/reels/reel-black-concrete.jpg", alt: "Concrete project photograph" },
+  { src: "/images/reels/reel-clovis-hardscape.jpg", alt: "Hardscape project photograph" },
+  { src: "/images/reels/reel-pickleball-reedley.jpg", alt: "Concrete project photograph" },
+  { src: "/images/reels/reel-water-cure.jpg", alt: "Concrete work photograph" },
+  { src: "/images/story/crew-early-morning.jpg", alt: "People at a construction site" },
+  { src: "/images/reels/reel-country-firepit.jpg", alt: "Hardscape project photograph" }
 ];
 ---
 
-<section class="reviews-reels-section" id="field-reels" aria-labelledby="reels-heading">
+<section class="section section--light reviews-reels-section" id="field-reels" aria-labelledby="reels-heading">
   <div class="container">
     <div class="section-header text-center">
-      <h2 class="section-title" id="reels-heading">
-        Project Gallery
-      </h2>
-      <p class="section-subtitle centered">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h2 class="section-title" id="reels-heading">Take a Closer Look.</h2>
+      <p class="section-subtitle centered">Six more frames of the work, from crews on site to finished surfaces.</p>
     </div>
 
-    <!-- Reels Grid -->
     <div class="reels-grid">
-      {reels.map((reel) => (
-        <article class="reel-card reveal-on-scroll">
-          <div class="reel-media-box">
-            <img
-              src={reel.image}
-              alt={reel.alt}
-              class="reel-img"
-              width="640"
-              height="360"
-              loading="lazy"
-            />
-            <div class="reel-media-scrim"></div>
-
-            <div class="reel-play-indicator" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-            </div>
-
-            <div class="reel-bottom-info">
-              <span class="reel-scope">{reel.scope}</span>
-              <span class="reel-location">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                {reel.location}
-              </span>
-            </div>
-          </div>
-
-          <div class="reel-quote-content">
-            <p class="reel-quote-p">{reel.quote}</p>
-            <div class="reel-creator-line">
-              <span class="creator-name">Lorem ipsum</span>
-              <a href="https://www.instagram.com/ruiz_family_ent/" target="_blank" rel="noopener noreferrer" class="ig-link">
-                <span>Instagram profile</span>
-                <span aria-hidden="true">&nearr;</span>
-              </a>
-            </div>
-          </div>
-        </article>
+      {images.map((image) => (
+        <figure class="reel-card reveal-on-scroll">
+          <img src={image.src} alt={image.alt} class="reel-img" width="640" height="360" loading="lazy" />
+        </figure>
       ))}
     </div>
 
@@ -132,15 +49,14 @@ const reels = [
 
 <style>
   .reviews-reels-section {
-    padding-block: var(--space-section-y);
     background-color: var(--bg-light);
   }
 
   .reels-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: var(--space-card-gap);
+    margin-bottom: var(--space-12);
   }
 
   @media (min-width: 640px) {
