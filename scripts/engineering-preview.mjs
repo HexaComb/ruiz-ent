@@ -47,7 +47,14 @@ try {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
     assert.ok(await page.title());
-    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${width}: page overflow`);
+    const overflow = await page.evaluate(() => ({
+      page: document.documentElement.scrollWidth, viewport: innerWidth,
+      elements: [...document.querySelectorAll('body *')].filter(element => {
+        const r = element.getBoundingClientRect(); return r.width && (r.left < -1 || r.right > innerWidth + 1);
+      }).slice(0, 20).map(element => ({ tag: element.tagName, class: element.className, width: element.getBoundingClientRect().width }))
+    }));
+    if (overflow.page > overflow.viewport) await page.screenshot({ path: `${output}/${width}-overflow.png` });
+    assert.ok(overflow.page <= overflow.viewport, `${width}: page overflow ${JSON.stringify(overflow)}`);
     assert.ok(await page.locator('.header-inner').evaluate(element => {
       const children = [...element.children].filter(child => getComputedStyle(child).display !== 'none');
       const rects = children.map(child => child.getBoundingClientRect());
