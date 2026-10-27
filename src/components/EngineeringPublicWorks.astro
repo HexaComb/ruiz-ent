@@ -1,0 +1,68 @@
+---
+import Section from './Section.astro';
+---
+
+<Section id="engineering-public-works" variant="light" ariaLabelledby="engineering-heading">
+  <div class="engineering-layout grid-2">
+    <div class="engineering-copy stack stack--xl">
+      <div class="stack stack--md">
+        <h2 id="engineering-heading" class="section-title">Engineering/<wbr />Public Works</h2>
+        <p class="engineering-business">Ruiz Family Enterprises, Inc. — General Engineering &amp; Public Works</p>
+        <p class="section-subtitle">Central Valley contractor for concrete flatwork, sidewalks, curb and gutter, grading, trenching, paving, and site improvements.</p>
+        <p class="section-subtitle">Experienced crews, dependable scheduling, and attention to detail from layout through final cleanup.</p>
+      </div>
+
+      <div class="engineering-details stack stack--md">
+        <p class="engineering-credentials">CSLB A License <span aria-hidden="true">|</span> DIR registered</p>
+        <p>Fresno, Clovis, Visalia, and surrounding areas</p>
+      </div>
+
+      <div class="stack stack--sm engineering-contact">
+        <a class="btn btn-primary engineering-call" href="tel:559-244-1922">Call 559-244-1922</a>
+        <p>Let’s discuss your project.</p>
+      </div>
+    </div>
+
+    <div class="engineering-gallery stack stack--md" aria-label="Engineering and public works project photographs">
+      <figure class="stack stack--sm">
+        <img class="engineering-main-image" src="/images/engineering/concrete-sidewalk-curb.webp" srcset="/images/engineering/concrete-sidewalk-curb-480.webp 480w, /images/engineering/concrete-sidewalk-curb.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" width="1200" height="900" loading="lazy" decoding="async" alt="New concrete sidewalk and curb beside a street, marked off with caution tape and barricades." />
+        <figcaption>Concrete sidewalk and curb</figcaption>
+      </figure>
+      <div class="engineering-details-grid grid-2">
+        <figure class="stack stack--sm">
+          <img class="engineering-detail-image" src="/images/engineering/concrete-formwork.webp" srcset="/images/engineering/concrete-formwork-480.webp 480w, /images/engineering/concrete-formwork.webp 640w" sizes="(min-width: 1024px) 25vw, 50vw" width="640" height="480" loading="lazy" decoding="async" alt="Wood forms and steel reinforcement laid out along a roadside concrete work area." />
+          <figcaption>Formwork and reinforcement</figcaption>
+        </figure>
+        <figure class="stack stack--sm">
+          <img class="engineering-detail-image" src="/images/engineering/sidewalk-crew.webp" srcset="/images/engineering/sidewalk-crew-480.webp 480w, /images/engineering/sidewalk-crew.webp 640w" sizes="(min-width: 1024px) 25vw, 50vw" width="640" height="480" loading="lazy" decoding="async" alt="Fresh concrete sidewalk and curb bordered by caution tape and wood forms." />
+          <figcaption>Sidewalk concrete work</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  :global(#engineering-public-works) { scroll-margin-top: var(--space-24); }
+  .engineering-layout { align-items: center; gap: var(--space-grid-gap-lg); }
+  .engineering-copy, .engineering-gallery { min-width: 0; }
+  .engineering-copy .section-title { margin: 0; color: var(--ruiz-blue); }
+  .engineering-business { color: var(--text-dark); font-weight: 700; max-width: 46ch; }
+  .engineering-details { padding-block: var(--space-6); border-block: 1px solid var(--border-light); color: var(--text-dark-secondary); }
+  .engineering-credentials { color: var(--text-dark); font-weight: 700; }
+  .engineering-contact { align-items: flex-start; color: var(--text-dark-muted); font-size: 0.9rem; }
+  .engineering-call { min-height: 48px; padding: var(--space-4) var(--space-6); white-space: normal; }
+  .engineering-gallery figure { min-width: 0; }
+  .engineering-gallery img { width: 100%; object-fit: cover; border-radius: var(--radius-md); }
+  .engineering-gallery figcaption { color: var(--text-dark-muted); font-size: 0.8rem; line-height: 1.5; }
+  .engineering-gallery .engineering-main-image { aspect-ratio: 4 / 3; }
+  .engineering-gallery .engineering-detail-image { aspect-ratio: 4 / 3; }
+  .engineering-details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  @media (min-width: 1024px) {
+    .engineering-layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: var(--space-12); }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .engineering-layout { grid-template-columns: 1fr; }
+    .engineering-copy { max-width: 65ch; }
+  }
+</style>

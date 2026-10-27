@@ -48,12 +48,10 @@
     <nav class="main-nav" aria-label="Primary Navigation">
       <ul class="nav-list">
         <li><a href="#our-services" class="nav-link">Services</a></li>
+        <li><a href="#engineering-public-works" class="nav-link">Engineering/Public Works</a></li>
         <li><a href="#our-work" class="nav-link">Our Work</a></li>
         <li><a href="#our-story" class="nav-link">Our Story</a></li>
-        <li><a href="#our-process" class="nav-link">Process</a></li>
-        <li><a href="#field-reels" class="nav-link">Field Reels</a></li>
         <li><a href="#reviews" class="nav-link">Reviews</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
       </ul>
     </nav>
 
@@ -93,6 +91,7 @@
       <nav class="mobile-nav" aria-label="Mobile Navigation">
         <ul class="mobile-nav-list">
           <li><a href="#our-services" class="mobile-nav-link">Services</a></li>
+          <li><a href="#engineering-public-works" class="mobile-nav-link">Engineering/Public Works</a></li>
           <li><a href="#our-work" class="mobile-nav-link">Our Work &amp; Transformations</a></li>
           <li><a href="#our-story" class="mobile-nav-link">The Ruiz Story &amp; Legacy</a></li>
           <li><a href="#our-process" class="mobile-nav-link">Our 4-Step Process</a></li>
@@ -285,7 +284,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    gap: clamp(0.55rem, 1.1vw, 1.25rem);
+    gap: var(--space-3);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -347,11 +346,7 @@
     transition: color 0.15s ease;
   }
 
-  @media (min-width: 1140px) {
-    .header-phone {
-      display: inline-flex;
-    }
-  }
+  /* The always-visible top bar carries the phone; keep the main nav uncluttered. */
 
   .header-phone:hover {
     color: var(--ruiz-blue);
@@ -404,6 +399,9 @@
   .mobile-toggle[aria-expanded="true"] .bar:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
   }
+
+  /* Keep every navigation link reachable on shorter screens. */
+  .mobile-drawer { max-height: calc(100dvh - var(--space-24)); overflow-y: auto; }
 
   /* Mobile Drawer */
   .mobile-drawer {
@@ -513,6 +511,17 @@
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
     setDrawer(!isOpen);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setDrawer(false);
+      toggle.focus();
+    }
+  });
+
+  window.matchMedia('(min-width: 1120px)').addEventListener('change', (event) => {
+    if (event.matches) setDrawer(false);
   });
 
   navLinks?.forEach(link => {
