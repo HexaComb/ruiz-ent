@@ -48,7 +48,7 @@ try {
     }
     assert.equal(await section.locator('a[href="tel:559-244-1922"]').count(), 1);
     assert.equal(await page.locator('[data-hardscape-build], .build-model').count(), 0);
-    assert.equal(await page.locator('#hero-heading').innerText(), 'Hardscapes Built for Generations.');
+    assert.equal(await page.locator('#hero-heading').innerText(), 'Big plans. Solid work.');
     for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'link[rel="canonical"]']) {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
