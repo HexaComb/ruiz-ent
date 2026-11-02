@@ -12,7 +12,7 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 
 ## Editorial decisions
 
-- Contact location uses Kingsburg from the Contact Us page. The service-area FAQ notes that the Gallery page also lists Selma; neither establishes a complete service radius.
+- Contact location uses Kingsburg from the Contact Us page. November 2 client direction establishes Central Valley regional service wording. The client clarified coverage from Visalia through Modesto on November 2, 2026, at 15:17 UTC. The service-area FAQ names Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock and Modesto. This is client-directed coverage, not a Google Business Profile claim; the publicly accessible Google profile matched the website and phone but did not expose a served-city list.
 - Customer reviews are explicitly labeled paraphrased summaries and link to the original testimonials. No star rating, aggregate score, reviewer location or independent verification is claimed.
 - The Meenu Mann testimonial references “Daniel @ AGR”; it was not reused because the company attribution is ambiguous.
 - The source's present-day hours display says 7 a.m.–7 p.m., but a complete weekly schedule was not established, so hours were not added.

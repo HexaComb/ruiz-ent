@@ -9,7 +9,7 @@ const base = 'http://127.0.0.1:4321';
 const anchor = '#engineering-public-works';
 const output = 'engineering-preview';
 // Element-only captures exclude sticky chrome; header captures remain unmodified.
-const isolatedCapture = { style: '[data-site-header] { visibility: hidden !important; }' };
+const isolatedCapture = { style: '[data-site-header], [data-site-header] * { visibility: hidden !important; }' };
 await mkdir(output, { recursive: true });
 for (let attempt = 0; ; attempt++) {
   try {
@@ -43,16 +43,41 @@ try {
     assert.equal(await section.getAttribute('aria-labelledby'), 'engineering-heading');
     assert.match(await page.locator('#engineering-heading').innerText(), /Engineering\s*\/\s*Public Works/);
     const copy = await section.innerText();
-    for (const content of ['CSLB A License', 'DIR registered', 'Fresno, Clovis, Visalia', '559-244-1922']) {
+    for (const content of ['concrete flatwork', 'Serving the Central Valley', '559-244-1922']) {
       assert.ok(copy.includes(content), `Supplied copy: ${content}`);
     }
     assert.equal(await section.locator('a[href="tel:559-244-1922"]').count(), 1);
     assert.equal(await page.locator('[data-hardscape-build], .build-model').count(), 0);
-    assert.equal(await page.locator('#hero-heading').innerText(), 'Hardscapes Built for Generations.');
+    assert.equal(await page.locator('#hero-heading').innerText(), 'Big plans. Solid work.');
     for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'link[rel="canonical"]']) {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
-    assert.ok(await page.title());
+    assert.match(await page.title(), /Central Valley Concrete & Masonry Contractor/);
+    assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in the Central Valley/);
+    assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
+    assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
+    assert.match(await page.locator('#faq').textContent(), /We serve Central Valley communities from Visalia to Modesto/);
+    assert.match(await page.locator('footer').innerText(), /Kingsburg, California 93631/);
+    const areaAnswer = await page.locator('#faq details').filter({ hasText: 'What areas do you serve?' }).textContent();
+    for (const city of ['Visalia', 'Kingsburg', 'Selma', 'Fresno', 'Clovis', 'Madera', 'Chowchilla', 'Merced', 'Atwater', 'Turlock', 'Modesto']) {
+      assert.ok(areaAnswer.includes(city), `Client-directed service area: ${city}`);
+    }
+    assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
+    assert.equal(await page.locator('h1').count(), 1);
+    assert.equal(await page.locator('.top-bar-area').textContent(), 'Central Valley');
+    assert.equal(await page.locator('.service-discipline').count(), 4);
+    assert.equal(await page.locator('.services-directory .service-list li').count(), 19);
+    assert.equal(await page.locator('.services-directory .card-surface, .services-directory .service-icon').count(), 0);
+    assert.ok(await page.locator('.services-directory').evaluate(element => element.scrollWidth <= element.clientWidth));
+
+    if ([1440, 390, 320].includes(width)) {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.screenshot({ path: `${output}/${width}-seo-full-page.png`, fullPage: true });
+      for (const id of ['our-services', 'our-story', 'faq', 'quote-builder']) {
+        await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+        await page.locator(`#${id}`).screenshot({ ...isolatedCapture, path: `${output}/${width}-${id}.png` });
+      }
+    }
     const overflow = await page.evaluate(() => ({
       page: document.documentElement.scrollWidth, viewport: innerWidth,
       elements: [...document.querySelectorAll('body *')].filter(element => {
@@ -74,7 +99,12 @@ try {
     assert.equal(await page.locator('link[rel="apple-touch-icon"]').getAttribute('href'), '/apple-touch-icon.png');
     await page.screenshot({ path: `${output}/${width}-header.png` });
     const toggle = page.locator('#mobileToggle');
-    const mobile = await toggle.isVisible();
+    // Choose navigation from the site's 1280px breakpoint, not transient
+    // visibility while screenshot-only masking styles are being restored.
+    const mobile = width < 1280;
+    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+    await page.locator('#header').waitFor({ state: 'visible' });
+    if (mobile) await toggle.waitFor({ state: 'visible' });
     const nav = mobile ? page.locator('#mobileDrawer') : page.locator('.main-nav');
     if (mobile) {
       await toggle.click();
