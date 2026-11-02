@@ -22,3 +22,7 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 - Existing photo/video identities, locations, technical specifications, project descriptions and social-post captions cannot be matched from these sources. These remain lorem ipsum; media provenance notes remain in accessible descriptions where applicable.
 - Individual team biographies, permit/HOA arrangements, insurance details, full service area and project timelines remain lorem ipsum.
 - The contact form still only previews details; its visible notice and success state clearly say that requests are not sent. Source copy does not establish a working integration.
+
+## November 2 positioning correction
+
+The client supplied an Instagram bio screenshot (ruiz_family_ent), inspected directly. It states: “General Engineering Contractor A: with specialty C-8 Concrete, C-29 Masonry for your Industrial, Commercial, Residential & Custom Projects!” General Engineering Contractor is now the primary page title and company positioning; concrete and masonry are specialties. This records self-description, not independent current license verification. Hero wording already leads with general engineering and remains unchanged.

@@ -52,8 +52,8 @@ try {
     for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'link[rel="canonical"]']) {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
-    assert.match(await page.title(), /Central Valley Concrete & Masonry Contractor/);
-    assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in the Central Valley/);
+    assert.match(await page.title(), /General Engineering Contractor.*Ruiz Family Enterprises.*Central Valley/);
+    assert.match(await page.locator('#services-heading').innerText(), /General Engineering in the Central Valley/);
     assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
     assert.match(await page.locator('#faq').textContent(), /We serve Central Valley communities from Visalia to Modesto/);

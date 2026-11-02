@@ -4,7 +4,8 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 
 | Search intent / plausible query | Page section |
 | --- | --- |
-| Concrete contractor Central Valley; masonry contractor Central Valley | Title, description, services intro, location FAQ, footer |
+| General engineering contractor Central Valley; industrial, commercial, residential and custom projects | Title, description, services intro, contractor FAQ, family story, footer |
+| Concrete contractor Central Valley; masonry contractor Central Valley | Specialty descriptions, service directory and specific service FAQs |
 | Concrete patio contractor; concrete driveway contractor; pool deck concrete | Services directory, custom concrete card, FAQ |
 | Stamped concrete Central Valley | Services directory, custom concrete card, FAQ |
 | Block wall contractor; retaining wall contractor Central Valley | Masonry directory, FAQ |
