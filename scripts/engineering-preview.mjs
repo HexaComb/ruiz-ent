@@ -58,6 +58,12 @@ try {
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
     assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
     assert.equal(await page.locator('h1').count(), 1);
+    assert.equal(await page.locator('.top-bar-area').textContent(), 'Central Valley');
+    assert.equal(await page.locator('.service-discipline').count(), 4);
+    assert.equal(await page.locator('.services-directory .service-list li').count(), 19);
+    assert.equal(await page.locator('.services-directory .card-surface, .services-directory .service-icon').count(), 0);
+    assert.ok(await page.locator('.services-directory').evaluate(element => element.scrollWidth <= element.clientWidth));
+
     if ([1440, 390, 320].includes(width)) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.screenshot({ path: `${output}/${width}-seo-full-page.png`, fullPage: true });
