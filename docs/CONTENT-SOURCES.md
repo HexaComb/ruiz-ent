@@ -12,7 +12,7 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 
 ## Editorial decisions
 
-- Contact location uses Kingsburg from the Contact Us page. The service-area FAQ notes that the Gallery page also lists Selma; neither establishes a complete service radius.
+- Contact location uses Kingsburg from the Contact Us page. November 2 client direction establishes Central Valley regional service wording. Specific served cities still require client confirmation; the Gallery’s Selma listing alone does not establish a city-by-city service radius.
 - Customer reviews are explicitly labeled paraphrased summaries and link to the original testimonials. No star rating, aggregate score, reviewer location or independent verification is claimed.
 - The Meenu Mann testimonial references “Daniel @ AGR”; it was not reused because the company attribution is ambiguous.
 - The source's present-day hours display says 7 a.m.–7 p.m., but a complete weekly schedule was not established, so hours were not added.

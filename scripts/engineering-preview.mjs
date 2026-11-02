@@ -43,7 +43,7 @@ try {
     assert.equal(await section.getAttribute('aria-labelledby'), 'engineering-heading');
     assert.match(await page.locator('#engineering-heading').innerText(), /Engineering\s*\/\s*Public Works/);
     const copy = await section.innerText();
-    for (const content of ['concrete flatwork', 'Kingsburg, California', '559-244-1922']) {
+    for (const content of ['concrete flatwork', 'Serving the Central Valley', '559-244-1922']) {
       assert.ok(copy.includes(content), `Supplied copy: ${content}`);
     }
     assert.equal(await section.locator('a[href="tel:559-244-1922"]').count(), 1);
@@ -52,10 +52,12 @@ try {
     for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'link[rel="canonical"]']) {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
-    assert.match(await page.title(), /Kingsburg Concrete & Masonry Contractor/);
+    assert.match(await page.title(), /Central Valley Concrete & Masonry Contractor/);
     assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in the Central Valley/);
     assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
+    assert.match(await page.locator('#faq').innerText(), /We serve California’s Central Valley from our Kingsburg base/);
+    assert.match(await page.locator('footer').innerText(), /Kingsburg, California 93631/);
     assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.top-bar-area').textContent(), 'Central Valley');
