@@ -13,6 +13,7 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 | 3/8-inch concrete pump service | Pump service card and existing service FAQ |
 | Free concrete estimate Central Valley; how long will concrete work take | Process, estimate section, FAQ |
 | Family concrete contractor; Ruiz Family Enterprises reviews | Family story and unchanged customer quotations |
+| Concrete and masonry services in Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock or Modesto | One natural served-city list in the service-area FAQ; concise Visalia-to-Modesto corridor in the footer |
 
 ## Evidence and approach
 
@@ -26,7 +27,7 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 
 ## Boundaries and launch follow-ups
 
-- November 2 client direction: frame service coverage as the Central Valley. Preserve Kingsburg as the actual contact location. Specific service cities are pending client confirmation; do not infer them from regional proximity or add doorway pages. No insurance, current license status, guarantee or turnaround claims added.
+- November 2 client direction: frame service coverage as the Central Valley. Preserve Kingsburg as the actual contact location. The client clarified the Visalia-to-Modesto corridor on November 2 (15:17 UTC); the service-area FAQ lists its principal communities once. This is client-directed coverage, not a list verified from Google Business Profile. Do not add doorway pages. No insurance, current license status, guarantee or turnaround claims added.
 - Review quotations and provenance notices remain intact. No invented reviews or ratings/schema.
 - Form remains explicitly preview-only and does not send requests. Phone/email remain the inquiry routes. A working integration requires separate implementation and testing.
 - The existing canonical points to https://ruizfamilyhardscapes.biz. Keep that unchanged until the user confirms the final primary domain/migration. Preview exposure is not a production-domain launch; recheck canonical, sitemap, redirects and Search Console at launch.

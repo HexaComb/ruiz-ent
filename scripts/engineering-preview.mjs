@@ -56,8 +56,12 @@ try {
     assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in the Central Valley/);
     assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
-    assert.match(await page.locator('#faq').textContent(), /We serve California’s Central Valley from our Kingsburg base/);
+    assert.match(await page.locator('#faq').textContent(), /We serve Central Valley communities from Visalia to Modesto/);
     assert.match(await page.locator('footer').innerText(), /Kingsburg, California 93631/);
+    const areaAnswer = await page.locator('#faq details').filter({ hasText: 'What areas do you serve?' }).textContent();
+    for (const city of ['Visalia', 'Kingsburg', 'Selma', 'Fresno', 'Clovis', 'Madera', 'Chowchilla', 'Merced', 'Atwater', 'Turlock', 'Modesto']) {
+      assert.ok(areaAnswer.includes(city), `Client-directed service area: ${city}`);
+    }
     assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.top-bar-area').textContent(), 'Central Valley');
