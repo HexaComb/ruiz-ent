@@ -9,7 +9,7 @@ const base = 'http://127.0.0.1:4321';
 const anchor = '#engineering-public-works';
 const output = 'engineering-preview';
 // Element-only captures exclude sticky chrome; header captures remain unmodified.
-const isolatedCapture = { style: '[data-site-header] { visibility: hidden !important; }' };
+const isolatedCapture = { style: '[data-site-header], [data-site-header] * { visibility: hidden !important; }' };
 await mkdir(output, { recursive: true });
 for (let attempt = 0; ; attempt++) {
   try {
@@ -87,7 +87,12 @@ try {
     assert.equal(await page.locator('link[rel="apple-touch-icon"]').getAttribute('href'), '/apple-touch-icon.png');
     await page.screenshot({ path: `${output}/${width}-header.png` });
     const toggle = page.locator('#mobileToggle');
-    const mobile = await toggle.isVisible();
+    // Choose navigation from the site's 1280px breakpoint, not transient
+    // visibility while screenshot-only masking styles are being restored.
+    const mobile = width < 1280;
+    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+    await page.locator('#header').waitFor({ state: 'visible' });
+    if (mobile) await toggle.waitFor({ state: 'visible' });
     const nav = mobile ? page.locator('#mobileDrawer') : page.locator('.main-nav');
     if (mobile) {
       await toggle.click();
