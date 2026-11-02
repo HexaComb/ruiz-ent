@@ -53,7 +53,7 @@ try {
       assert.ok(await page.locator(selector).getAttribute(selector.startsWith('link') ? 'href' : 'content'));
     }
     assert.match(await page.title(), /Kingsburg Concrete & Masonry Contractor/);
-    assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in Kingsburg/);
+    assert.match(await page.locator('#services-heading').innerText(), /Concrete & Masonry in the Central Valley/);
     assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
     assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
