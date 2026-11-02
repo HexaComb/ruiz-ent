@@ -16,7 +16,8 @@ const {
 } = Astro.props;
 
 const siteUrl = "https://ruizfamilyhardscapes.biz";
-const ogImageUrl = `${siteUrl}/images/hero/hero-custom-home-pour.jpg`;
+const ogImageUrl = "https://ruiz-ent.marcode-chavez-jr.workers.dev/images/social/ruiz-general-engineering-og.png";
+const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor serving the Central Valley";
 
 // Business and FAQ structured data withheld until claims have verified sources.
 
@@ -39,6 +40,10 @@ const ogImageUrl = `${siteUrl}/images/hero/hero-custom-home-pour.jpg`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
@@ -46,6 +51,7 @@ const ogImageUrl = `${siteUrl}/images/hero/hero-custom-home-pour.jpg`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
