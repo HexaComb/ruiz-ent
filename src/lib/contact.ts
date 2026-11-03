@@ -1,8 +1,8 @@
 const MAX_BODY_BYTES = 32_768;
 const FAILURE_MESSAGE = 'We could not send your request. Please try again or call (559) 244-1922.';
 
-function respond(status: number, message: string) {
-  return Response.json({ message }, {
+function respond(status: number, message: string, sent = false) {
+  return Response.json({ message, sent }, {
     status,
     headers: { 'Cache-Control': 'no-store' },
   });
@@ -115,7 +115,7 @@ export async function submitContact(
       console.error(JSON.stringify({ event: 'contact_email_rejected', status: result.status }));
       return respond(502, FAILURE_MESSAGE);
     }
-    return respond(200, 'Thank you! Your estimate request has been sent. Our family team will be in touch.');
+    return respond(200, 'Thank you! Your estimate request has been sent. Our family team will be in touch.', true);
   } catch {
     console.error(JSON.stringify({ event: 'contact_submission_failed' }));
     return respond(502, FAILURE_MESSAGE);

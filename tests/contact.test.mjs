@@ -42,6 +42,7 @@ test('sends all details to the fixed recipient with customer reply-to', async ()
   assert.equal(calls, 1);
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('Cache-Control'), 'no-store');
+  assert.equal((await response.json()).sent, true);
 });
 
 test('rejects invalid fields without sending', async () => {
@@ -60,7 +61,9 @@ test('blocks cross-origin submissions, unsupported bodies and oversized streams'
 });
 
 test('honeypot does not send mail', async () => {
-  assert.equal((await submitContact(request({ website: 'spam' }), environment(), mustNotSend)).status, 200);
+  const response = await submitContact(request({ website: 'spam' }), environment(), mustNotSend);
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).sent, false);
 });
 
 test('rate limit uses the Cloudflare client IP and blocks repeated submissions', async () => {

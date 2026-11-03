@@ -507,6 +507,7 @@
 </style>
 
 <script>
+  import { trackEvent } from '../lib/analytics';
   const form = document.querySelector<HTMLFormElement>('#quoteForm');
   const statusBox = document.querySelector<HTMLElement>('#formStatus');
   const submitButton = document.querySelector<HTMLButtonElement>('#submitBtn');
@@ -544,6 +545,9 @@
         statusBox.textContent = result.message;
         statusBox.className = response.ok ? 'form-status is-success' : 'form-status is-error';
         if (response.ok) {
+          if ('sent' in result && result.sent === true) {
+            trackEvent('generate_lead', 'estimate_form', 'contact');
+          }
           form.reset();
           syncSelection();
         }

@@ -41,7 +41,11 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-G35MWF4BT4');
+      gtag('config', 'G-G35MWF4BT4', {
+        page_location: 'https://ruizfamilyhardscapes.biz/',
+        page_referrer: '',
+        page_title: 'Ruiz Family Enterprises'
+      });
     </script>
 
     <!-- Open Graph -->
@@ -87,6 +91,8 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <Footer />
 
     <script>
+      import { registerClicks } from '../lib/analytics';
+      registerClicks();
       const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
       const accents = document.querySelectorAll('.section-header, .process-steps-grid');
       const observer = new IntersectionObserver(entries => {
