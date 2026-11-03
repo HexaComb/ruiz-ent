@@ -61,10 +61,10 @@
 
       <!-- Right Column: Interactive Project Request Form -->
       <div class="estimate-form-col">
-        <form class="quote-form-card" id="quoteForm" novalidate>
+        <form class="quote-form-card" id="quoteForm" action="/api/contact" method="post">
           <div class="form-header">
             <h3 class="form-title">What Are You Building?</h3>
-            <p class="form-sub">Preview only — this form does not send requests. Call or email us to request an estimate.</p>
+            <p class="form-sub">Tell us about your project and our family team will follow up about a free on-site estimate.</p>
           </div>
 
           <!-- Step 1: Project Type Selection -->
@@ -144,38 +144,45 @@
             <div class="fields-grid">
               <div class="form-group">
                 <label for="clientName" class="input-label">Full Name *</label>
-                <input type="text" id="clientName" name="name" class="form-input" required placeholder="Jose Rodriguez" />
+                <input type="text" id="clientName" name="name" class="form-input" maxlength="254" autocomplete="name" required placeholder="Jose Rodriguez" />
                 <span class="field-error" id="nameError" hidden>Please provide your name.</span>
               </div>
 
               <div class="form-group">
                 <label for="clientPhone" class="input-label">Phone Number *</label>
-                <input type="tel" id="clientPhone" name="phone" class="form-input" required placeholder="(559) 000-0000" />
+                <input type="tel" id="clientPhone" name="phone" class="form-input" maxlength="40" autocomplete="tel" pattern="(?:[^0-9]*[0-9]){7,}[^0-9]*" title="Enter a phone number with at least 7 digits" required placeholder="(559) 000-0000" />
                 <span class="field-error" id="phoneError" hidden>Please provide a valid phone number.</span>
               </div>
 
               <div class="form-group">
                 <label for="clientEmail" class="input-label">Email Address *</label>
-                <input type="email" id="clientEmail" name="email" class="form-input" required placeholder="you@example.com" />
+                <input type="email" id="clientEmail" name="email" class="form-input" maxlength="254" autocomplete="email" required placeholder="you@example.com" />
                 <span class="field-error" id="emailError" hidden>Please provide a valid email.</span>
               </div>
 
               <div class="form-group">
                 <label for="clientCity" class="input-label">Project City or Address *</label>
-                <input type="text" id="clientCity" name="city" class="form-input" required placeholder="Your project city" />
+                <input type="text" id="clientCity" name="city" class="form-input" maxlength="254" required placeholder="Your project city" />
                 <span class="field-error" id="cityError" hidden>Please enter your city.</span>
               </div>
             </div>
 
             <div class="form-group full-width">
               <label for="clientMessage" class="input-label">Project Details &amp; Ideas (Optional)</label>
-              <textarea id="clientMessage" name="message" class="form-textarea" rows="3" placeholder="Tell us about the existing yard, narrow access, desired finish, or approximate dimensions..."></textarea>
+              <textarea id="clientMessage" name="message" maxlength="5000" class="form-textarea" rows="3" placeholder="Tell us about the existing yard, narrow access, desired finish, or approximate dimensions..."></textarea>
             </div>
           </div>
 
+          <div hidden aria-hidden="true">
+            <label for="contactWebsite">Leave this field empty</label>
+            <input id="contactWebsite" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <noscript><p>Please call (559) 244-1922 or email ruizfamilyent@gmail.com if you need help submitting this form.</p></noscript>
+
           <!-- Submit Button -->
           <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
-            <span>Preview Project Details</span>
+            <span>Request a Free Estimate</span>
             <span aria-hidden="true">&rarr;</span>
           </button>
 
@@ -510,70 +517,56 @@
 </style>
 
 <script>
-  document.querySelectorAll<HTMLLabelElement>('.type-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll<HTMLLabelElement>('.type-pill').forEach(p => p.classList.remove('is-selected'));
-      pill.classList.add('is-selected');
+  const form = document.querySelector<HTMLFormElement>('#quoteForm');
+  const statusBox = document.querySelector<HTMLElement>('#formStatus');
+  const submitButton = document.querySelector<HTMLButtonElement>('#submitBtn');
+  const submitLabel = submitButton?.querySelector('span');
+
+  if (form && statusBox && submitButton && submitLabel) {
+    const syncSelection = () => {
+      form.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach(input => {
+        input.closest('label')?.classList.toggle('is-selected', input.checked);
+      });
+    };
+    form.addEventListener('change', syncSelection);
+    let submitting = false;
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (submitting || !form.reportValidity()) return;
+      submitting = true;
+      submitButton.disabled = true;
+      submitLabel.textContent = 'Sending…';
+      form.setAttribute('aria-busy', 'true');
+      statusBox.hidden = true;
+
+      const body = new URLSearchParams();
+      for (const [key, value] of new FormData(form)) {
+        if (typeof value === 'string') body.append(key, value);
+      }
+
+      try {
+        const response = await fetch(form.action, { method: 'POST', body });
+        const result: unknown = await response.json();
+        if (typeof result !== 'object' || result === null || !('message' in result) || typeof result.message !== 'string') {
+          throw new Error('Unexpected response');
+        }
+        statusBox.textContent = result.message;
+        statusBox.className = response.ok ? 'form-status is-success' : 'form-status is-error';
+        if (response.ok) {
+          form.reset();
+          syncSelection();
+        }
+      } catch {
+        statusBox.className = 'form-status is-error';
+        statusBox.textContent = 'We could not confirm your request was sent. Please try again or call (559) 244-1922.';
+      } finally {
+        statusBox.hidden = false;
+        submitting = false;
+        submitButton.disabled = false;
+        submitLabel.textContent = 'Request a Free Estimate';
+        form.removeAttribute('aria-busy');
+      }
     });
-  });
-
-  document.querySelectorAll<HTMLLabelElement>('.scope-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll<HTMLLabelElement>('.scope-pill').forEach(p => p.classList.remove('is-selected'));
-      pill.classList.add('is-selected');
-    });
-  });
-
-  const form = document.getElementById('quoteForm') as HTMLFormElement;
-  const statusBox = document.getElementById('formStatus') as HTMLElement;
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const nameInput = document.getElementById('clientName') as HTMLInputElement;
-    const phoneInput = document.getElementById('clientPhone') as HTMLInputElement;
-    const emailInput = document.getElementById('clientEmail') as HTMLInputElement;
-    const cityInput = document.getElementById('clientCity') as HTMLInputElement;
-
-    let hasError = false;
-
-    if (!nameInput.value.trim()) {
-      document.getElementById('nameError')!.hidden = false;
-      nameInput.focus();
-      hasError = true;
-    } else {
-      document.getElementById('nameError')!.hidden = true;
-    }
-
-    if (!phoneInput.value.trim() || phoneInput.value.replace(/\D/g, '').length < 7) {
-      document.getElementById('phoneError')!.hidden = false;
-      if (!hasError) phoneInput.focus();
-      hasError = true;
-    } else {
-      document.getElementById('phoneError')!.hidden = true;
-    }
-
-    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-      document.getElementById('emailError')!.hidden = false;
-      if (!hasError) emailInput.focus();
-      hasError = true;
-    } else {
-      document.getElementById('emailError')!.hidden = true;
-    }
-
-    if (!cityInput.value.trim()) {
-      document.getElementById('cityError')!.hidden = false;
-      if (!hasError) cityInput.focus();
-      hasError = true;
-    } else {
-      document.getElementById('cityError')!.hidden = true;
-    }
-
-    if (hasError) return;
-
-    statusBox.hidden = false;
-    statusBox.className = 'form-status';
-    statusBox.textContent = 'Preview only — your request has not been sent. Call (559) 244-1922 or email ruizfamilyent@gmail.com to request an estimate.';
-
-  });
+  }
 </script>

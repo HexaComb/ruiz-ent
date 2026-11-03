@@ -3,6 +3,14 @@
 	"compatibility_date": "2026-10-19",
 	"compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
 	"name": "ruiz-ent",
+	"secrets": {
+		"required": ["RESEND_API_KEY"]
+	},
+	"ratelimits": [{
+		"name": "CONTACT_RATE_LIMITER",
+		"namespace_id": "1001",
+		"simple": { "limit": 5, "period": 60 }
+	}],
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
 		"directory": "./dist",

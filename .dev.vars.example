@@ -1,0 +1,2 @@
+# Optional local testing only. Production uses a Cloudflare Worker secret.
+RESEND_API_KEY=

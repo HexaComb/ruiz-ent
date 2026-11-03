@@ -45,6 +45,8 @@ All commands are run from the root of the project, from a terminal:
 
 ## 🚀 Deployment & Previews
 
+The contact form sends estimate requests through Resend in the Cloudflare Worker. Set the runtime secret `RESEND_API_KEY` and verify `ruizfamilyhardscapes.biz` in Resend; see [contact form setup](docs/DEPLOYMENT.md#contact-form-email-resend). No API key is needed for builds or `npm test`.
+
 This project is configured for Cloudflare Workers with automated pull request deployment previews.
 
 See [docs/DEPLOYMENT.md](file:///Users/marcochavez/Desktop/projects/business/ruiz-ent/docs/DEPLOYMENT.md) for full instructions on configuring GitHub Actions secrets (`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`) or dashboard integration.
