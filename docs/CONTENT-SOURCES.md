@@ -13,7 +13,7 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 ## Editorial decisions
 
 - Contact location uses Kingsburg from the Contact Us page. November 2 client direction establishes Central Valley regional service wording. The client clarified coverage from Visalia through Modesto on November 2, 2026, at 15:17 UTC. The service-area FAQ names Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock and Modesto. This is client-directed coverage, not a Google Business Profile claim; the publicly accessible Google profile matched the website and phone but did not expose a served-city list.
-- Customer reviews are explicitly labeled paraphrased summaries and link to the original testimonials. No star rating, aggregate score, reviewer location or independent verification is claimed.
+- Customer reviews now use verbatim excerpts from the Google listing supplied by the client, checked November 3, 2026 (see below). Each excerpt links to its original Google review. No star rating, aggregate score, reviewer location or independent verification is claimed.
 - The Meenu Mann testimonial references “Daniel @ AGR”; it was not reused because the company attribution is ambiguous.
 - The source's present-day hours display says 7 a.m.–7 p.m., but a complete weekly schedule was not established, so hours were not added.
 - License number is reproduced as published. The Instagram profile names A/C-8/C-29 specialties, but current license status, bonding and insurance are not independently established by these pages.
@@ -26,3 +26,17 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 ## November 2 positioning correction
 
 The client supplied an Instagram bio screenshot (ruiz_family_ent), inspected directly. It states: “General Engineering Contractor A: with specialty C-8 Concrete, C-29 Masonry for your Industrial, Commercial, Residential & Custom Projects!” General Engineering Contractor is now the primary page title and company positioning; concrete and masonry are specialties. This records self-description, not independent current license verification. Hero wording already leads with general engineering and remains unchanged.
+
+## November 3 Google review replacement
+
+Read the reviews directly on the [client-supplied Google listing](https://share.google/4Vc5M5xaiYkvE9Jxo) for Ruiz Family Enterprises (Masonry & Concrete). The listing matches the company website and phone. Replaced all five company-website testimonials and their paraphrased summaries with selected, verbatim Google review excerpts. Topic labels are editorial descriptions of each review. Individual links were obtained from Google's “Share review” controls:
+
+| Reviewer | Original review |
+| --- | --- |
+| Martin Nava | https://share.google/waUHmFDdILMiD3bsr |
+| Tarn Sidhu | https://share.google/lrs3T7Jmqq1jbVlfq |
+| Joseph Rodriguez | https://share.google/pIE3RmCL0EqqraZ7P |
+| Earl Bowman | https://share.google/5HJq3E19WIRe03eq5 |
+| Tom Lopez | https://share.google/DvVbeOWdO1SaOZrXQ |
+
+The section also links to the listing's full Google reviews dialog. Reviews are a curated static snapshot, not a live Google feed; dates and aggregate ratings are omitted to avoid stale claims.

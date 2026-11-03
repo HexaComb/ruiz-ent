@@ -1,35 +1,35 @@
 ---
-const sourceUrl = 'https://ruizfamilyhardscapes.biz/testimonials';
+const sourceUrl = 'https://www.google.com/search?q=Ruiz+Family+Enterprises+(Masonry+%26+Concrete)&kgmid=/g/11rfx1w504#lrd=0x8094f17f0cb85e9b:0x2af642e84369a1e6,1,,,,';
 const reviews = [
   {
-    author: 'Rachel Jacobsen',
-    scope: 'Dry-Stacked Stone',
-    excerpt: 'The end result is absolutely amazing!',
-    summary: 'Rachel describes replacing brick accents with dry-stacked stone and praises the result, friendly crew and cleanup.'
+    author: 'Martin Nava',
+    scope: 'Communication & Workmanship',
+    excerpt: 'Their strengths are communication and negotiation followed up by great work.',
+    url: 'https://share.google/waUHmFDdILMiD3bsr'
   },
   {
-    author: 'Ravi Somayajulu',
-    scope: 'Concrete & Wall',
-    excerpt: 'He and his crew were tremendous',
-    summary: 'Ravi praises Jose and the crew for completing concrete and wall work according to plan and accommodating project changes.'
+    author: 'Tarn Sidhu',
+    scope: 'Masonry & Concrete',
+    excerpt: 'Punctual and professional masonry and concrete work. My go to guy for all hardscape and masonry work in Fresno',
+    url: 'https://share.google/lrs3T7Jmqq1jbVlfq'
   },
   {
-    author: 'Danny Runs',
-    scope: 'Block Walls',
-    excerpt: 'Highly recommended.',
-    summary: 'Danny reports adding two block walls and praises the friendly crew and workmanship.'
+    author: 'Joseph Rodriguez',
+    scope: 'Masonry Walls',
+    excerpt: 'Ruiz Family Enterprises is an excellent choice for any masonry wall work!',
+    url: 'https://share.google/pIE3RmCL0EqqraZ7P'
   },
   {
-    author: 'Alfredo Luviano',
-    scope: 'Customer Experience',
-    excerpt: 'He has great prices',
-    summary: 'Alfredo highlights the professional work, pricing and approachable communication.'
+    author: 'Earl Bowman',
+    scope: 'Concrete Work',
+    excerpt: 'I am extremely satisfied with the concrete work I had done by Ruiz Family Enterprises.',
+    url: 'https://share.google/5HJq3E19WIRe03eq5'
   },
   {
-    author: 'Patty Mendoza',
-    scope: 'Customer Experience',
-    excerpt: 'They arrived on time',
-    summary: 'Patty praises the communication, attention to detail, budget and timely completion.'
+    author: 'Tom Lopez',
+    scope: 'Jobsite Cleanup',
+    excerpt: 'When they left you would not know they were ever there, they cleaned the whole yard. Way above and beyond.',
+    url: 'https://share.google/DvVbeOWdO1SaOZrXQ'
   }
 ];
 const initials = (author: string) => author.split(' ').map((part) => part[0]).slice(0, 2).join('');
@@ -49,15 +49,16 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
       <div class="conversation-bubbles grid-2">
         {reviews.slice(0, 2).map((review) => (
           <article class="conversation-bubble stack stack--md">
-            <div class="reviewer">
+            <div class="reviewer cluster cluster--md">
               <span class="review-avatar" aria-hidden="true">{initials(review.author)}</span>
               <div class="stack stack--xs">
                 <h3 class="reviewer-name">{review.author}</h3>
-                <p class="reviewer-type">Customer testimonial</p>
+                <p class="reviewer-type">Google review</p>
               </div>
             </div>
             <p class="review-scope">{review.scope}</p>
-            <blockquote class="review-excerpt">“{review.excerpt}”</blockquote>
+            <blockquote class="review-excerpt" cite={review.url}>“{review.excerpt}”</blockquote>
+            <a class="review-link" href={review.url} aria-label={`Read ${review.author}'s review on Google`}>Read review on Google</a>
           </article>
         ))}
       </div>
@@ -70,24 +71,24 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
     <div class="reviews-grid grid-3">
       {reviews.slice(2).map((review) => (
         <article class="review-card stack stack--lg">
-          <div class="reviewer">
+          <div class="reviewer cluster cluster--md">
             <span class="review-avatar" aria-hidden="true">{initials(review.author)}</span>
             <div class="stack stack--xs">
               <h3 class="reviewer-name">{review.author}</h3>
-              <p class="reviewer-type">Customer testimonial</p>
+              <p class="reviewer-type">Google review</p>
             </div>
           </div>
-          <blockquote class="review-card-excerpt">“{review.excerpt}”</blockquote>
-          <p class="review-card-text">{review.summary}</p>
+          <blockquote class="review-card-excerpt" cite={review.url}>“{review.excerpt}”</blockquote>
           <p class="review-scope">{review.scope}</p>
+          <a class="review-link" href={review.url} aria-label={`Read ${review.author}'s review on Google`}>Read review on Google</a>
         </article>
       ))}
     </div>
 
     <div class="reviews-source cluster cluster--between">
-      <p>Review excerpts and summaries from published testimonials.</p>
+      <p>Selected excerpts from our customers’ Google reviews.</p>
       <a href={sourceUrl}>
-        Read the original testimonials
+        Read all Google reviews
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
@@ -242,12 +243,14 @@ const initials = (author: string) => author.split(' ').map((part) => part[0]).sl
     border: 1px solid var(--border-light);
   }
 
-  .review-card-text {
-    flex: 1;
-    color: var(--text-dark-secondary);
-    font-size: 1rem;
-    line-height: 1.65;
-    text-wrap: pretty;
+  .review-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--space-12);
+    color: var(--ruiz-blue-dark);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: var(--space-1);
   }
 
   .review-card-excerpt {
