@@ -69,7 +69,7 @@ The estimate form posts to `/api/contact`, an on-demand Astro endpoint running i
 
 Alternatively, from this repository, run `npx wrangler secret put RESEND_API_KEY` and paste the key into its interactive prompt. This updates the deployed Worker secret. Never put the value in source, Wrangler config, chat, a PR, or a shell command argument.
 
-No API key is needed to build the site. A deployment without the runtime secret returns a helpful submission error instead of claiming an email was sent. Resend acceptance is not a guarantee of inbox delivery; use the Resend email dashboard to investigate delivery issues.
+No API key is needed to build or deploy the site. Keep `RESEND_API_KEY` out of Wrangler’s `secrets.required`: that setting blocks the first Worker deployment before the dashboard allows you to add a runtime secret. The endpoint reads the secret at request time through Astro’s server-only `getSecret()` helper. A deployment without the runtime secret returns a helpful submission error instead of claiming an email was sent. Resend acceptance is not a guarantee of inbox delivery; use the Resend email dashboard to investigate delivery issues.
 
 ### Local development and previews
 

@@ -18,8 +18,8 @@ function request(overrides = {}, headers = {}) {
 
 function environment(overrides = {}) {
   return {
-    RESEND_API_KEY: 'test-key-not-a-real-secret',
-    CONTACT_RATE_LIMITER: { limit: async () => ({ success: true }) },
+    apiKey: 'test-key-not-a-real-secret',
+    rateLimiter: { limit: async () => ({ success: true }) },
     ...overrides,
   };
 }
@@ -64,7 +64,7 @@ test('honeypot does not send mail', async () => {
 });
 
 test('rate limit uses the Cloudflare client IP and blocks repeated submissions', async () => {
-  const env = environment({ CONTACT_RATE_LIMITER: { limit: async ({ key }) => {
+  const env = environment({ rateLimiter: { limit: async ({ key }) => {
     assert.equal(key, '192.0.2.1');
     return { success: false };
   } } });
@@ -72,7 +72,9 @@ test('rate limit uses the Cloudflare client IP and blocks repeated submissions',
 });
 
 test('missing secret and provider failures return errors without exposing secrets', async () => {
-  assert.equal((await submitContact(request(), environment({ RESEND_API_KEY: '' }), mustNotSend)).status, 503);
+  for (const apiKey of [undefined, '', '  ']) {
+    assert.equal((await submitContact(request(), environment({ apiKey }), mustNotSend)).status, 503);
+  }
   for (const send of [
     async () => Response.json({ message: 'private provider diagnostic' }, { status: 403 }),
     async () => { throw new Error('private network diagnostic'); },

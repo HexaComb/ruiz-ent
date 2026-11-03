@@ -38,7 +38,10 @@ async function readForm(request: Request) {
 
 export async function submitContact(
   request: Request,
-  env: Pick<Cloudflare.Env, 'RESEND_API_KEY' | 'CONTACT_RATE_LIMITER'>,
+  { apiKey, rateLimiter }: {
+    apiKey: string | undefined;
+    rateLimiter: Cloudflare.Env['CONTACT_RATE_LIMITER'];
+  },
   send: typeof fetch = fetch,
 ) {
   const origin = request.headers.get('Origin');
@@ -50,7 +53,7 @@ export async function submitContact(
   }
 
   try {
-    const { success } = await env.CONTACT_RATE_LIMITER.limit({
+    const { success } = await rateLimiter.limit({
       key: request.headers.get('CF-Connecting-IP') || 'local',
     });
     if (!success) return respond(429, 'Too many requests. Please wait a minute and try again.');
@@ -77,12 +80,12 @@ export async function submitContact(
       return respond(400, 'Please check your contact information and keep project details under 5,000 characters.');
     }
 
-    if (!env.RESEND_API_KEY?.trim()) return respond(503, FAILURE_MESSAGE);
+    if (!apiKey?.trim()) return respond(503, FAILURE_MESSAGE);
 
     const result = await send('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       signal: AbortSignal.timeout(10_000),
