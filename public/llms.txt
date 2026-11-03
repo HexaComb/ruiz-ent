@@ -1,0 +1,26 @@
+# Ruiz Family Enterprises Inc
+
+> Family-led general engineering contractor based in Kingsburg, California, with concrete and masonry specialties for industrial, commercial, residential and custom projects across the Central Valley.
+
+Official website: https://ruizfamilyhardscapes.biz/
+
+The Ruiz family brings three generations of trade experience. Service coverage extends from Visalia to Modesto, including Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater and Turlock.
+
+Concrete services include patios, porches, pool decks, driveways, sidewalks, steps, stamped concrete, drain and gutter work, concrete removal and 3/8-inch concrete pump service. Masonry services include block walls, retaining walls, decorative stone, architectural stone and brick work.
+
+For a free on-site estimate, call (559) 244-1922 or email ruizfamilyent@gmail.com. Share your project address, scope, approximate dimensions and any photos or plans. The website's quote builder currently previews details only; it does not send an estimate request. Contact the company directly to discuss availability and scheduling.
+
+## Website sections
+
+- [Home](https://ruizfamilyhardscapes.biz/): Company overview and general engineering positioning.
+- [Services](https://ruizfamilyhardscapes.biz/#our-services): Concrete and masonry service directory.
+- [Engineering and public works](https://ruizfamilyhardscapes.biz/#engineering-public-works): General engineering and public works project showcase.
+- [Family story](https://ruizfamilyhardscapes.biz/#our-story): The family's trade background.
+- [Project process](https://ruizfamilyhardscapes.biz/#our-process): Project planning and construction process.
+- [Frequently asked questions](https://ruizfamilyhardscapes.biz/#faq): Services, estimates, project planning and service area.
+- [Contact](https://ruizfamilyhardscapes.biz/#contact): Phone, email and Kingsburg location.
+
+## Optional
+
+- [Sitemap](https://ruizfamilyhardscapes.biz/sitemap-index.xml): Index of generated XML sitemaps.
+- [Instagram](https://www.instagram.com/ruiz_family_ent/): Company profile and project posts.
