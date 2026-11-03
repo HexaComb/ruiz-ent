@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found | Ruiz Family Enterprises"
+  description="This page could not be found. Return to Ruiz Family Enterprises to explore our services and discuss your project."
+  noindex
+>
+  <section class="section section--light" aria-labelledby="not-found-heading">
+    <div class="container">
+      <div class="not-found stack stack--lg">
+        <p class="error-code">404 · Page not found</p>
+        <h1 id="not-found-heading" class="section-title">Let’s get you back on solid ground.</h1>
+        <p class="not-found-copy">
+          This page may have moved, or the address may be incorrect.
+          Head home to explore our work, or tell us about your next project.
+        </p>
+        <div class="cluster cluster--md">
+          <a href="/" class="btn btn-primary">Back to home <span aria-hidden="true">&rarr;</span></a>
+          <a href="/#quote-builder" class="btn btn-outline-dark">Discuss a project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found { max-width: 48rem; }
+  .error-code {
+    color: var(--ruiz-blue);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  h1 { text-wrap: balance; }
+  .not-found-copy { max-width: 58ch; color: var(--text-dark-secondary); }
+</style>

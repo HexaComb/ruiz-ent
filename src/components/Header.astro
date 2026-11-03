@@ -1,5 +1,7 @@
 ---
 // Ruiz Family Enterprises - Site Header & Navigation
+// Keep homepage anchors local, but make shared navigation usable on error pages.
+const homePath = Astro.url.pathname === "/" ? "" : "/";
 ---
 
 <!-- Top Credentials Strip -->
@@ -47,11 +49,11 @@
     <!-- Desktop Navigation -->
     <nav class="main-nav" aria-label="Primary Navigation">
       <ul class="nav-list">
-        <li><a href="#our-services" class="nav-link">Services</a></li>
-        <li><a href="#engineering-public-works" class="nav-link">Engineering/Public Works</a></li>
-        <li><a href="#our-work" class="nav-link">Our Work</a></li>
-        <li><a href="#our-story" class="nav-link">Our Story</a></li>
-        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href={`${homePath}#our-services`} class="nav-link">Services</a></li>
+        <li><a href={`${homePath}#engineering-public-works`} class="nav-link">Engineering/Public Works</a></li>
+        <li><a href={`${homePath}#our-work`} class="nav-link">Our Work</a></li>
+        <li><a href={`${homePath}#our-story`} class="nav-link">Our Story</a></li>
+        <li><a href={`${homePath}#reviews`} class="nav-link">Reviews</a></li>
       </ul>
     </nav>
 
@@ -64,7 +66,7 @@
         <span class="phone-number">(559) 244-1922</span>
       </a>
 
-      <a href="#quote-builder" class="btn btn-primary btn-header-cta">
+      <a href={`${homePath}#quote-builder`} class="btn btn-primary btn-header-cta">
         <span>Discuss a Project</span>
         <span aria-hidden="true">&rarr;</span>
       </a>
@@ -90,13 +92,13 @@
     <div class="container mobile-drawer-inner">
       <nav class="mobile-nav" aria-label="Mobile Navigation">
         <ul class="mobile-nav-list">
-          <li><a href="#our-services" class="mobile-nav-link">Services</a></li>
-          <li><a href="#engineering-public-works" class="mobile-nav-link">Engineering/Public Works</a></li>
-          <li><a href="#our-work" class="mobile-nav-link">Project Footage</a></li>
-          <li><a href="#our-story" class="mobile-nav-link">Our Story</a></li>
-          <li><a href="#our-process" class="mobile-nav-link">How We Work</a></li>
-          <li><a href="#reviews" class="mobile-nav-link">Customer Reviews</a></li>
-          <li><a href="#faq" class="mobile-nav-link">Frequently Asked Questions</a></li>
+          <li><a href={`${homePath}#our-services`} class="mobile-nav-link">Services</a></li>
+          <li><a href={`${homePath}#engineering-public-works`} class="mobile-nav-link">Engineering/Public Works</a></li>
+          <li><a href={`${homePath}#our-work`} class="mobile-nav-link">Project Footage</a></li>
+          <li><a href={`${homePath}#our-story`} class="mobile-nav-link">Our Story</a></li>
+          <li><a href={`${homePath}#our-process`} class="mobile-nav-link">How We Work</a></li>
+          <li><a href={`${homePath}#reviews`} class="mobile-nav-link">Customer Reviews</a></li>
+          <li><a href={`${homePath}#faq`} class="mobile-nav-link">Frequently Asked Questions</a></li>
         </ul>
       </nav>
 
@@ -107,7 +109,7 @@
           </svg>
           <span>Call: (559) 244-1922</span>
         </a>
-        <a href="#quote-builder" class="btn btn-primary mobile-estimate-btn">
+        <a href={`${homePath}#quote-builder`} class="btn btn-primary mobile-estimate-btn">
           <span>Discuss a Project</span>
           <span aria-hidden="true">&rarr;</span>
         </a>

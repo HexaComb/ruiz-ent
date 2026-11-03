@@ -8,9 +8,11 @@ import '../styles/trade-motion.css';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
+  noindex = false,
   title = "General Engineering Contractor | Ruiz Family Enterprises | Central Valley",
   description = "Family-led general engineering contractor serving the Central Valley, with concrete and masonry specialties for industrial, commercial, residential and custom projects."
 } = Astro.props;
@@ -30,8 +32,8 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={siteUrl} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    {!noindex && <link rel="canonical" href={siteUrl} />}
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
 
     <!-- Google tag (gtag.js) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-G35MWF4BT4"></script>
@@ -47,7 +49,7 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <meta property="og:site_name" content="Ruiz Family Enterprises Inc" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={siteUrl} />
+    {!noindex && <meta property="og:url" content={siteUrl} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
