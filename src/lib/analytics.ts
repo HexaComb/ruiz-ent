@@ -4,7 +4,8 @@ const targets = new Set(['hero', 'our-services', 'engineering-public-works', 'ou
 export function trackEvent(name: EventName, target: string, area: string) {
   const analytics = window as Window & { gtag?: (...args: unknown[]) => void };
   try {
-    analytics.gtag?.('event', name, { target, area, page_location: 'https://ruizfamilyhardscapes.biz/', page_referrer: '', page_title: 'Ruiz Family Enterprises' });
+    // Inherit the sanitized campaign page_location from the shared GA4 config.
+    analytics.gtag?.('event', name, { target, area, page_referrer: '', page_title: 'Ruiz Family Enterprises' });
   } catch { /* Analytics must never interrupt navigation or a successful inquiry. */ }
 }
 export function registerClicks() {

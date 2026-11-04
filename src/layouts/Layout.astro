@@ -40,9 +40,20 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      // Keep campaign attribution without sharing arbitrary queries, click IDs,
+      // hashes, or missing-page paths. Campaign labels must never contain PII.
+      const analyticsLocation = new URL('https://ruizfamilyhardscapes.biz/');
+      const campaignQuery = new URLSearchParams(window.location.search);
+      for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_term', 'utm_content', 'utm_source_platform']) {
+        const values = campaignQuery.getAll(key);
+        const value = values.length === 1 ? values[0] : '';
+        if (/^[a-zA-Z0-9][a-zA-Z0-9 _.-]{0,99}$/.test(value) && !/\d{7,}/.test(value)) {
+          analyticsLocation.searchParams.set(key, value);
+        }
+      }
       gtag('js', new Date());
       gtag('config', 'G-G35MWF4BT4', {
-        page_location: 'https://ruizfamilyhardscapes.biz/',
+        page_location: analyticsLocation.href,
         page_referrer: '',
         page_title: 'Ruiz Family Enterprises'
       });
