@@ -9,6 +9,8 @@ on:
       - 'public/favicon.png'
       - 'public/apple-touch-icon.png'
       - 'scripts/engineering-preview.mjs'
+      - 'scripts/floating-call-preview.mjs'
+      - 'tests/**'
       - '.github/workflows/engineering-preview.yml'
       - 'package.json'
       - 'package-lock.json'
@@ -31,6 +33,7 @@ jobs:
           node-version: '24.22.1'
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: npm run build
       - name: Verify unused session binding is absent from generated config
         run: |
@@ -51,12 +54,16 @@ jobs:
         run: |
           test -f dist/client/index.html
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist/client > /tmp/engineering-server.log 2>&1 &
+          for attempt in $(seq 1 30); do curl --silent --fail http://127.0.0.1:4321/ > /dev/null && break; sleep 1; done
+          node scripts/floating-call-preview.mjs
           node scripts/engineering-preview.mjs
       - name: Save review screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: engineering-preview-${{ github.event.pull_request.head.sha }}
-          path: engineering-preview/
+          path: |
+            engineering-preview/
+            floating-call-preview/
           if-no-files-found: warn
           retention-days: 7

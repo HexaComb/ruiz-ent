@@ -12,7 +12,7 @@ export function registerClicks() {
   document.addEventListener('click', event => {
     const element = event.target instanceof Element ? event.target.closest('a, button') : null;
     if (!element) return;
-    const area = element.closest('header') ? 'header' : element.closest('footer') ? 'footer' : element.closest('#quote-builder') ? 'contact' : 'content';
+    const area = element.closest('.floating-call-button') ? 'floating_call' : element.closest('header') ? 'header' : element.closest('footer') ? 'footer' : element.closest('#quote-builder') ? 'contact' : 'content';
     if (element instanceof HTMLAnchorElement) {
       const href = element.getAttribute('href') || '';
       if (href.startsWith('tel:')) return trackEvent('phone_click', 'business_phone', area);
