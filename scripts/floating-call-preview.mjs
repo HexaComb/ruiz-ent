@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { mkdir } from 'node:fs/promises';
 
-const require = createRequire(process.env.PLAYWRIGHT_PACKAGE_JSON || `${process.env.RUNNER_TEMP}/engineering-qa/package.json`);
+const require = createRequire(process.env.PLAYWRIGHT_PACKAGE_JSON || `${process.env.RUNNER_TEMP}/floating-call-qa/package.json`);
 const { chromium } = require('playwright');
 const base = process.env.PREVIEW_URL || 'http://127.0.0.1:4321';
 const output = process.env.CALL_PREVIEW_OUTPUT || 'floating-call-preview';
