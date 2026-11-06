@@ -1,0 +1,59 @@
+<a
+  class="floating-call-button"
+  href="tel:+15592441922"
+  aria-label="Call Ruiz Family Enterprises at (559) 244-1922"
+  title="Call (559) 244-1922"
+>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
+  </svg>
+</a>
+
+<style>
+  .floating-call-button {
+    position: fixed;
+    inset-inline-end: calc(var(--space-4) + env(safe-area-inset-right, 0px));
+    inset-block-end: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+    z-index: 90; /* Below the sticky header and its mobile navigation. */
+    display: grid;
+    place-items: center;
+    inline-size: calc(var(--space-12) + var(--space-2));
+    block-size: calc(var(--space-12) + var(--space-2));
+    border: 2px solid var(--bg-white);
+    border-radius: 50%;
+    background-color: var(--ruiz-blue);
+    color: var(--text-light);
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .floating-call-button:hover,
+  .floating-call-button:active {
+    background-color: var(--ruiz-blue-dark);
+    color: var(--text-light);
+  }
+
+  .floating-call-button:focus-visible {
+    outline: 3px solid var(--ruiz-blue);
+    outline-offset: var(--space-1);
+  }
+
+  /* The drawer already provides a call link. Keep its controls unobstructed. */
+  :global(body:has(#mobileToggle[aria-expanded='true'])) .floating-call-button {
+    visibility: hidden;
+  }
+
+  @media (max-width: 767px) {
+    /* Leave room for the on-screen keyboard and focused estimate fields. */
+    :global(body:has(#quoteForm:focus-within)) .floating-call-button {
+      visibility: hidden;
+    }
+  }
+
+  @media print {
+    .floating-call-button {
+      display: none;
+    }
+  }
+</style>
