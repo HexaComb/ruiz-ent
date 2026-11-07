@@ -36,6 +36,7 @@ try {
       if (/engineering/.test(request.url()) && /\.mp4(?:[?#]|$)/.test(request.url())) engineeringVideoRequests.push(request.url());
     });
     page.on('pageerror', error => errors.push(error.message));
+    await page.route(/google-analytics\.com|googletagmanager\.com/, route => route.abort());
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     const section = page.locator(anchor);
@@ -62,7 +63,8 @@ try {
     for (const city of ['Visalia', 'Kingsburg', 'Selma', 'Fresno', 'Clovis', 'Madera', 'Chowchilla', 'Merced', 'Atwater', 'Turlock', 'Modesto']) {
       assert.ok(areaAnswer.includes(city), `Client-directed service area: ${city}`);
     }
-    assert.match(await page.locator('.form-sub').innerText(), /does not send requests/);
+    assert.match(await page.locator('.form-sub').innerText(), /Request a free on-site estimate/);
+    assert.equal(await page.locator('#quoteForm').getAttribute('action'), '/api/contact');
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.top-bar-area').textContent(), 'Central Valley');
     assert.equal(await page.locator('.service-discipline').count(), 4);
