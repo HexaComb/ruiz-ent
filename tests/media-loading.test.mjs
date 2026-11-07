@@ -19,7 +19,7 @@ test('hero is responsive, high priority, build-optimized and explicitly dimensio
   assert.match(hero, /import.*heroImage.*\.jpg/);
   assert.match(hero, /import.*mobileHeroImage.*mobile\.webp/);
   assert.match(hero, /<source media="\(max-width: 480px\)"/);
-  assert.match(hero, /widths: \[640, 768, 1280, 1468\]/);
+  assert.match(hero, /widths: \[854, 1280, 1468\]/);
   assert.match(hero, /widths=\{\[960, 1280, 1920, 2200\]\}/);
   assert.match(hero, /width=\{2200\}/);
   assert.match(hero, /sizes="\(max-width: 640px\) 1000px, 100vw"/);

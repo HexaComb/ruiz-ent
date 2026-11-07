@@ -122,7 +122,7 @@ try {
     });
     const galleries = section.locator('[data-gallery]');
     assert.equal(await galleries.count(), 2, 'Photo and video carousels');
-    const images = section.locator('img');
+    const images = section.locator('img:not([data-video-poster])');
     assert.ok(await images.count() >= 7, 'All seven supplied photographs represented');
     const sources = new Set();
     for (const img of await images.all()) {
@@ -144,11 +144,14 @@ try {
       assert.equal(await video.getAttribute('autoplay'), null);
       assert.equal(await video.getAttribute('src'), null);
       assert.equal(await video.locator('source[src]').count(), 0, 'Video has no attached source before explicit play');
-      const poster = await video.getAttribute('poster');
-      assert.ok(poster, 'Video has a poster');
-      sources.add(poster);
+      const poster = video.locator('..').locator('[data-video-poster]');
+      assert.equal(await poster.count(), 1, 'Each video keeps a deferred responsive poster');
+      sources.add(await poster.getAttribute('data-src'));
+      for (const candidate of (await poster.getAttribute('data-srcset')).split(',')) {
+        sources.add(candidate.trim().split(/\s+/)[0]);
+      }
     }
-    const mediaBytes = (await Promise.all([...sources].map(src => stat(`public${src}`)))).reduce((sum, file) => sum + file.size, 0);
+    const mediaBytes = (await Promise.all([...sources].map(src => stat(`dist/client${new URL(src, base).pathname}`)))).reduce((sum, file) => sum + file.size, 0);
     assert.ok(mediaBytes <= 2_000_000, `All stills, responsive variants and posters budget: ${mediaBytes} bytes`);
     assert.deepEqual(engineeringVideoRequests, [], 'No engineering video downloads before interaction');
     assert.ok(await section.evaluate(element => element.scrollWidth <= element.clientWidth), `${width}: section overflow`);
@@ -178,7 +181,10 @@ try {
       await track.focus();
       await page.keyboard.press('Home');
       await selected(0);
-      for (const image of await slides.first().locator('img').all()) await image.evaluate(element => element.decode());
+      await slides.first().scrollIntoViewIfNeeded();
+      for (const image of await slides.first().locator('img').all()) {
+        await page.waitForFunction(element => element.complete && element.naturalWidth > 0, await image.elementHandle());
+      }
       const initialScroll = await track.evaluate(element => element.scrollLeft);
       // No autoplay: position remains still without a navigation action.
       await page.waitForTimeout(1100);
@@ -204,8 +210,11 @@ try {
       await page.keyboard.press('Home');
       await selected(0);
       for (const image of await gallery.locator('img').all()) {
-        await image.scrollIntoViewIfNeeded();
-        await image.evaluate(element => element.decode());
+        await image.locator('xpath=ancestor::*[contains(concat(" ", normalize-space(@class), " "), " gallery-slide ")]').scrollIntoViewIfNeeded();
+        await page.waitForFunction(element => element.complete && element.naturalWidth > 0, await image.elementHandle());
+        if (await image.getAttribute('data-video-poster') !== null) {
+          assert.ok(await image.evaluate(element => element.hidden && element.parentElement.querySelector('video').poster === element.currentSrc), 'Loaded native poster does not obscure controls');
+        }
       }
       await track.focus();
       await page.keyboard.press('Home');

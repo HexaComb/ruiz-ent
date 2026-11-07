@@ -42,12 +42,13 @@ crop removes only the original cover layout's hidden sides: left =
 round((2200 - 1468) × 0.54) = 395px. It retains the full 1468px source height and
 54% focal point. The wider mobile and desktop compositions are unchanged. `npm run build` and `npm run dev` regenerate it from the original photograph.
 If running Astro directly, run `node scripts/generate-mobile-hero.mjs` first.
-Astro encodes the final square WebP variants at quality 85: 640px = 87,332 bytes,
-768px = 118,968, 1280px = 259,192, 1468px = 382,128. The lossless source itself is
-not the browser-delivered image. Relative to the previous phone selections,
-1x uses about 59% fewer hero bytes, 2x about 38–51% fewer (depending on browser
-selection), and full-resolution 3x about 27% fewer. These are asset comparisons,
-not claims about page-load time or a guaranteed Lighthouse score.
+Astro encodes the final square WebP variants at quality 85: 854px = 142,860
+bytes, 1280px = 259,192, 1468px = 382,128. The lossless source itself is not
+browser-delivered. An 854px source-size hint retains the previous 1x phone
+candidate's vertical resolution; high-density phones retain the full 1468px
+source height. Relative to the former 1280px-wide / 2200px-wide selections,
+this removes about 33% / 27% of hero bytes without reducing their vertical
+pixel budget. These are asset comparisons, not page-load time or score claims.
 
 All 11 video posters are responsive build-time WebPs and remain inert until
 within 200px of the viewport. The separate poster controller waits for a video

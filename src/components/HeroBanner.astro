@@ -6,7 +6,7 @@ import mobileHeroImage from '../assets/hero/hero-custom-home-pour-mobile.webp';
 // Remove only the sides that portrait phones already crop away. The lossless
 // source retains the original's 54% horizontal focal point and full height.
 const mobileHero = await getImage({
-  src: mobileHeroImage, widths: [640, 768, 1280, 1468],
+  src: mobileHeroImage, widths: [854, 1280, 1468],
   width: 1468, format: 'webp', quality: 85,
 });
 
@@ -25,7 +25,7 @@ const services = [
   <div class="hero-bg-stage" aria-hidden="true">
     <picture>
       <source media="(max-width: 480px)" srcset={mobileHero.srcSet.attribute}
-        sizes="(max-width: 360px) 640px, 600px" type="image/webp" />
+        sizes="854px" type="image/webp" />
       <!-- Wider screens keep the original composition and image candidates. -->
     <Image
       class="hero-mobile-image"
