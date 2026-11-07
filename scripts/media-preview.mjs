@@ -30,7 +30,7 @@ const paused = (page, selector) => page.waitForFunction(selector => document.que
 const leadSelector = '[data-jobsite-video]';
 
 try {
-  for (const [width, height] of [[1440, 1000], [768, 1024], [390, 844], [320, 740], [640, 900], [641, 900]]) {
+  for (const [width, height] of [[1440, 1000], [768, 1024], [390, 844], [320, 740], [480, 800], [481, 800], [640, 900], [641, 900]]) {
     const { context, page, errors, videos } = await open({ viewport: { width, height } });
     assert.equal(await page.locator('#hero-heading').innerText(), 'Big plans. Solid work.');
     assert.equal(await page.locator('.hero-btn-main').getAttribute('href'), '#quote-builder');
@@ -100,8 +100,9 @@ try {
       decoded.src = img.currentSrc;
       await decoded.decode();
       const box = img.getBoundingClientRect();
-      // Cover scales the full photo to match height before cropping horizontally.
-      const required = Math.min(2200, Math.max(box.width, box.height * 2200 / 1468) * devicePixelRatio);
+      // Portrait phones use a lossless square extraction at original resolution.
+      // Cover must still have enough pixels for the entire height, not just width.
+      const required = Math.min(1468, Math.max(box.width, box.height) * devicePixelRatio);
       return { actual: decoded.naturalWidth, required };
     });
     assert.ok(resolution.actual >= resolution.required, `Hero resolution at ${deviceScaleFactor}x: ${JSON.stringify(resolution)}`);

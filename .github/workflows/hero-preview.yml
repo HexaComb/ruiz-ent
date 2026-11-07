@@ -4,6 +4,9 @@ on:
     paths:
       - 'src/components/HeroBanner.astro'
       - 'src/components/BeforeAfterShowcase.astro'
+      - 'src/components/DeferredVideoPoster.astro'
+      - 'src/lib/video-poster.ts'
+      - 'tests/video-poster.test.mjs'
       - 'src/lib/deferred-media.ts'
       - 'src/assets/hero/**'
       - 'public/_headers'

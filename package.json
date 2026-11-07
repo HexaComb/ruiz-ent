@@ -14,7 +14,9 @@
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler preview",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "prebuild": "node scripts/generate-mobile-hero.mjs",
+    "predev": "node scripts/generate-mobile-hero.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.2",

@@ -34,3 +34,33 @@ The original hero photo was 739,065 bytes (721.7 KiB). The initial quality-80 64
 | 2200 | 526,672 | 514.3 | 28.7% |
 
 The browser selects a variant based on rendered photo size and pixel density. At ordinary mobile density the 1280px version preserves visible detail much better than the original 640px candidate; high-density screens can use the original photo’s full 2200px resolution. WebP remains lossy, so it is not pixel-identical to the JPEG. Side-by-side checks at mobile and desktop display sizes showed only minor fine-detail differences in the final settings. Browser tests also check the cover-crop resolution budget at 1x, 2x and 3x. Byte reductions are not measured loading-time or Lighthouse improvements. Retest the deployed/preview site under the same mobile conditions as the original 10.2-second LCP observation before claiming an LCP improvement.
+
+## Responsive image follow-up (PR preview)
+
+Phones up to 480px use a square, lossless extraction of the original hero. The
+crop removes only the original cover layout's hidden sides: left =
+round((2200 - 1468) × 0.54) = 395px. It retains the full 1468px source height and
+54% focal point. The wider mobile and desktop compositions are unchanged. `npm run build` and `npm run dev` regenerate it from the original photograph.
+If running Astro directly, run `node scripts/generate-mobile-hero.mjs` first.
+Astro encodes the final square WebP variants at quality 85: 854px = 142,860
+bytes, 1280px = 259,192, 1468px = 382,128. The lossless source itself is not
+browser-delivered. An 854px source-size hint retains the previous 1x phone
+candidate's vertical resolution; high-density phones retain the full 1468px
+source height. Relative to the former 1280px-wide / 2200px-wide selections,
+this removes about 33% / 27% of hero bytes without reducing their vertical
+pixel budget. These are asset comparisons, not page-load time or score claims.
+
+All 11 video posters are responsive build-time WebPs and remain inert until
+within 200px of the viewport. The separate poster controller waits for a video
+frame before uncovering playback, restores the poster on errors/reset, and
+retains native lazy images when IntersectionObserver is unavailable. No-JavaScript
+visitors keep ordinary lazy posters and direct video links. The five service
+carousel images now use lazy responsive WebP variants with cover-aware sizing.
+
+`Responsive image comparison` builds the PR and its base revision on the same
+runner. It checks unchanged hero dimensions, 1x/2x/3x resolution, inert initial
+posters, captures before/after screenshots, and runs three mobile and three
+desktop Lighthouse audits per revision, alternating order. Analytics is blocked
+in both revisions, and no forms or phone links are activated. The resulting
+lab scores are comparative, not production field metrics; raw JSON and the
+first mobile trace are uploaded for review.

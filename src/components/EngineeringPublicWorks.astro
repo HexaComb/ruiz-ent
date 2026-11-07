@@ -1,5 +1,8 @@
 ---
 import Section from './Section.astro';
+import DeferredVideoPoster from './DeferredVideoPoster.astro';
+import type { ImageMetadata } from 'astro';
+const posters = import.meta.glob<{ default: ImageMetadata }>('../../public/images/engineering/flow/poster-*.webp', { eager: true });
 const photos = [
   { id: '1531', title: 'Formwork & reinforcement', alt: 'Timber forms and steel reinforcement along a roadside concrete work area.', height: 1000 },
   { id: '1528', title: 'Concrete sidewalk & curb', alt: 'New concrete sidewalk and curb beside a street, bordered by temporary barricades.', height: 1000 },
@@ -94,7 +97,8 @@ const galleries = [
                   <img src={`/images/engineering/flow/photo-${item.id}.webp`} srcset={`/images/engineering/flow/photo-${item.id}-400.webp 400w, /images/engineering/flow/photo-${item.id}.webp 800w`} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 85vw" width="800" height={item.height} loading="lazy" decoding="async" alt={item.alt} />
                 ) : 'width' in item ? (
                   <>
-                    <video width={item.width} height={item.height} poster={`/images/engineering/flow/poster-${item.id}.webp`} controls controlslist="nodownload" preload="none" playsinline muted aria-label={`${item.title}. Silent project footage.`} data-video-src={`/videos/engineering/clip-${item.id}.mp4`}></video>
+                    <video width={item.width} height={item.height} controls controlslist="nodownload" preload="none" playsinline muted aria-label={`${item.title}. Silent project footage.`} data-video-src={`/videos/engineering/clip-${item.id}.mp4`}></video>
+                    <DeferredVideoPoster src={posters[`../../public/images/engineering/flow/poster-${item.id}.webp`].default} sizes="(min-width: 1280px) 365px, (min-width: 1024px) 30vw, (min-width: 640px) 44vw, 83vw" widths={[240, 360, 540]} fit="contain" />
                     <button class="video-load" type="button" data-video-load aria-label={`Play ${item.title} (silent video)`}><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg><span>Play footage</span></button>
                     <noscript><a class="video-fallback" href={`/videos/engineering/clip-${item.id}.mp4`}>Open silent video</a></noscript>
                   </>

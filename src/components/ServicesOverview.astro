@@ -3,6 +3,12 @@
 // Service carousel with architectural underline tabs and consistent card sizing.
 // No pills, no status lights, no arbitrary numbering.
 import Section from './Section.astro';
+import { Image } from 'astro:assets';
+import concreteImage from '../../public/images/services/custom-home-concrete-pour.jpg';
+import sidewalkImage from '../../public/images/engineering/flow/photo-1528.webp';
+import masonryImage from '../../public/images/services/stone-masonry-project.jpg';
+import padsImage from '../../public/images/projects/stone-column-detail.jpg';
+import pumpImage from '../../public/images/services/concrete-pump-project.jpg';
 
 const services = [
   {
@@ -14,7 +20,7 @@ const services = [
     "description": "Create a place to gather with a custom concrete patio, porch or pool deck. We also build concrete driveways and stamped concrete finishes, with planning shaped around your home and how you use it.",
     "bullets": ["Custom concrete patios", "Porches & pool decks", "Driveways & stamped concrete"],
     "quoteType": "Concrete Flatwork & Finishes",
-    "image": "/images/services/custom-home-concrete-pour.jpg",
+    "image": concreteImage,
     "alt": "Ruiz crew placing concrete beside a custom home",
     "projectUrl": "https://www.instagram.com/ruiz_family_ent/p/DeflZ4hj9Se/"
   },
@@ -27,7 +33,7 @@ const services = [
     "description": "Connect your property with concrete sidewalks, walkways and steps. From forming to the finished surface, we bring care to the details, with drain and gutter work available as part of your project.",
     "bullets": ["Sidewalks & walkways", "Concrete steps", "Drain & gutter work"],
     "quoteType": "Concrete Flatwork & Finishes",
-    "image": "/images/engineering/flow/photo-1528.webp",
+    "image": sidewalkImage,
     "alt": "New concrete sidewalk and curb beside a street work zone",
     "projectUrl": "https://www.instagram.com/ruiz_family_ent/reel/DeuxeCFhr78/"
   },
@@ -40,7 +46,7 @@ const services = [
     "description": "Give your property character with natural stone masonry, decorative stone, architectural stone or brick work. Our family trade brings careful attention to the textures and details you will see every day.",
     "bullets": ["Natural stone masonry", "Decorative & architectural stone", "Brick work"],
     "quoteType": "Architectural Stone & Brick Work",
-    "image": "/images/services/stone-masonry-project.jpg",
+    "image": masonryImage,
     "alt": "Close view of a natural stone masonry wall in progress",
     "projectUrl": "https://www.instagram.com/ruiz_family_ent/p/DdkQ3Qgjy1g/"
   },
@@ -53,7 +59,7 @@ const services = [
     "description": "Plan concrete equipment pads and commercial flatwork with a team that takes time to understand the scope. Our work includes residential, commercial, industrial and custom projects.",
     "bullets": ["Concrete equipment pads", "Commercial flatwork", "Custom project pours"],
     "quoteType": "General Engineering or Public Works",
-    "image": "/images/projects/stone-column-detail.jpg",
+    "image": padsImage,
     "alt": "Ruiz crew placing and finishing concrete at a commercial site",
     "projectUrl": "https://www.instagram.com/ruiz_family_ent/reel/DeAhIfESCuk/"
   },
@@ -66,7 +72,7 @@ const services = [
     "description": "We offer 3/8-inch concrete pump service. Share your site access, placement needs and project plans so we can discuss the pumping service for your job.",
     "bullets": ["3/8-inch concrete pump service", "Concrete placement support"],
     "quoteType": "Concrete Pump Service",
-    "image": "/images/services/concrete-pump-project.jpg",
+    "image": pumpImage,
     "alt": "Concrete mixer and pump equipment at a Ruiz project site",
     "projectUrl": "https://www.instagram.com/ruiz_family_ent/reel/De91GPKNH2B/"
   }
@@ -205,13 +211,15 @@ const services = [
           <div class="slide-card-container">
             <!-- Left media stage -->
             <figure class="slide-media-stage">
-              <img
+              <Image
                 src={service.image}
                 alt={service.alt}
                 class="slide-img"
-                width="840"
-                height="560"
-                loading={index === 0 ? "eager" : "lazy"}
+                widths={[320, 480, 640, 960, 1280, 1600].filter(width => width < service.image.width).concat(service.image.width)}
+                sizes={`(min-width: 960px) max(min(54vw, 680px), ${Math.ceil(560 * service.image.width / service.image.height)}px), max(94vw, ${Math.ceil(280 * service.image.width / service.image.height)}px)`}
+                format="webp"
+                quality={80}
+                loading="lazy"
                 decoding="async"
               />
             </figure>
