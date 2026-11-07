@@ -93,6 +93,23 @@ try {
     console.log(`PASS ${width}px: initial requests, image, playback, pause/replay, repeated init/clicks, navigation and overflow`);
   }
 
+  for (const deviceScaleFactor of [1, 2, 3]) {
+    const { page, context, videos } = await open({ viewport: { width: 320, height: 740 }, deviceScaleFactor });
+    const resolution = await page.locator('.hero-mobile-image').evaluate(async img => {
+      const decoded = new Image();
+      decoded.src = img.currentSrc;
+      await decoded.decode();
+      const box = img.getBoundingClientRect();
+      // Cover scales the full photo to match height before cropping horizontally.
+      const required = Math.min(2200, Math.max(box.width, box.height * 2200 / 1468) * devicePixelRatio);
+      return { actual: decoded.naturalWidth, required };
+    });
+    assert.ok(resolution.actual >= resolution.required, `Hero resolution at ${deviceScaleFactor}x: ${JSON.stringify(resolution)}`);
+    assert.equal(videos.length, 0);
+    await context.close();
+    console.log(`PASS mobile ${deviceScaleFactor}x: cover-aware image resolution without video downloads`);
+  }
+
   const resize = await open({ viewport: { width: 390, height: 844 } });
   assert.equal(resize.videos.length, 0);
   await resize.page.setViewportSize({ width: 1440, height: 1000 });

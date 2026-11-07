@@ -15,14 +15,16 @@ const services = [
 <section class="section section--dark section--spacious hero-banner" id="hero" aria-labelledby="hero-heading" data-hero-banner>
   <!-- Background Live Video Stage of the Ruiz Crew Working (with fallback poster) -->
   <div class="hero-bg-stage" aria-hidden="true">
+    <!-- On portrait screens, cover scales the photo to the hero height before
+         cropping it. Account for that wider rendered photo, not just 100vw. -->
     <Image
       class="hero-mobile-image"
       src={heroImage}
-      widths={[640, 960, 1280, 1920]}
-      sizes="100vw"
-      width={1920}
+      widths={[960, 1280, 1920, 2200]}
+      sizes="(max-width: 640px) 1000px, 100vw"
+      width={2200}
       format="webp"
-      quality={80}
+      quality={85}
       alt=""
       loading="eager"
       fetchpriority="high"
