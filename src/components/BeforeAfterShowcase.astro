@@ -51,17 +51,16 @@ const jobsiteVideos = [
       <div class="hero-video-box">
         <video
           class="jobsite-video"
-          autoplay
           loop
           muted
           playsinline
-          preload="metadata"
+          preload="none"
           poster="/images/posters/work-luxury-pour.jpg"
           data-jobsite-video
           aria-label="Concrete work in progress"
         >
-          <source src="/videos/work-luxury-pour.webm" type="video/webm" />
-          <source src="/videos/work-luxury-pour.mp4" type="video/mp4" />
+          <source data-src="/videos/work-luxury-pour.webm" type="video/webm" />
+          <source data-src="/videos/work-luxury-pour.mp4" type="video/mp4" />
           <p>Your browser does not support HTML5 video.</p>
         </video>
 
@@ -69,13 +68,13 @@ const jobsiteVideos = [
           type="button"
           class="video-play-btn"
           data-video-toggle
-          aria-label="Pause video"
+          aria-label="Play video: Concrete work in progress"
         >
-          <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" hidden aria-hidden="true">
             <rect x="6" y="4" width="4" height="16"></rect>
             <rect x="14" y="4" width="4" height="16"></rect>
           </svg>
-          <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" hidden aria-hidden="true">
+          <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
         </button>
@@ -89,17 +88,16 @@ const jobsiteVideos = [
           <div class="card-video-box">
             <video
               class="jobsite-video"
-              autoplay
               loop
               muted
               playsinline
-              preload="metadata"
+              preload="none"
               poster={item.poster}
               data-jobsite-video
               aria-label={`${item.title} on-site footage`}
             >
-              <source src={item.videoWebm} type="video/webm" />
-              <source src={item.videoMp4} type="video/mp4" />
+              <source data-src={item.videoWebm} type="video/webm" />
+              <source data-src={item.videoMp4} type="video/mp4" />
               <p>Your browser does not support HTML5 video.</p>
             </video>
 
@@ -107,13 +105,13 @@ const jobsiteVideos = [
               type="button"
               class="video-play-btn"
               data-video-toggle
-              aria-label={`Pause video for ${item.title}`}
+              aria-label={`Play video: ${item.title} on-site footage`}
             >
-              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" hidden aria-hidden="true">
                 <rect x="6" y="4" width="4" height="16"></rect>
                 <rect x="14" y="4" width="4" height="16"></rect>
               </svg>
-              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" hidden aria-hidden="true">
+              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
             </button>
@@ -180,6 +178,8 @@ const jobsiteVideos = [
     z-index: 3;
   }
 
+  .video-play-btn [hidden] { display: none; }
+
   .video-play-btn:hover {
     background-color: var(--ruiz-blue);
     transform: scale(1.06);
@@ -233,55 +233,20 @@ const jobsiteVideos = [
 </style>
 
 <script>
-  // Simple Video Play/Pause Controllers
-  function initJobsiteVideos() {
-    const videoContainers = document.querySelectorAll<HTMLElement>('.hero-video-box, .card-video-box');
+  import { initJobsiteVideo } from '../lib/deferred-media';
 
-    videoContainers.forEach(box => {
-      const video = box.querySelector<HTMLVideoElement>('[data-jobsite-video]');
-      const toggle = box.querySelector<HTMLButtonElement>('[data-video-toggle]');
-      const iconPlay = toggle?.querySelector<SVGElement>('.icon-play');
-      const iconPause = toggle?.querySelector<SVGElement>('.icon-pause');
-
-      if (!video || !toggle) return;
-
-      // Handle prefers-reduced-motion
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        video.pause();
-        if (iconPlay && iconPause) {
-          iconPlay.hidden = false;
-          iconPause.hidden = true;
-        }
-      }
-
-      function updateIcons(isPaused: boolean) {
-        if (iconPlay && iconPause) {
-          iconPlay.hidden = !isPaused;
-          iconPause.hidden = isPaused;
-        }
-        toggle?.setAttribute('aria-label', isPaused ? 'Play video' : 'Pause video');
-      }
-
-      toggle.addEventListener('click', () => {
-        if (video.paused) {
-          video.play();
-          updateIcons(false);
-        } else {
-          video.pause();
-          updateIcons(true);
-        }
-      });
-
-      video.addEventListener('play', () => updateIcons(false));
-      video.addEventListener('pause', () => updateIcons(true));
+  let cleanups: Array<() => void> = [];
+  function cleanup() {
+    cleanups.forEach(dispose => dispose());
+    cleanups = [];
+  }
+  function init() {
+    cleanup();
+    document.querySelectorAll<HTMLElement>('.hero-video-box, .card-video-box').forEach(box => {
+      cleanups.push(initJobsiteVideo(box));
     });
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initJobsiteVideos);
-  } else {
-    initJobsiteVideos();
-  }
-
-  document.addEventListener('astro:page-load', initJobsiteVideos);
+  init();
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', cleanup);
 </script>

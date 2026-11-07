@@ -37,7 +37,7 @@ jobs:
           node --input-type=module <<'JS'
           import assert from 'node:assert/strict';
           import { readFile } from 'node:fs/promises';
-          const config = JSON.parse(await readFile('dist/client/wrangler.json', 'utf8'));
+          const config = JSON.parse(await readFile('dist/server/wrangler.json', 'utf8'));
           for (const [name, bindings] of [['production', config.kv_namespaces], ['preview', config.previews?.kv_namespaces]]) {
             assert.ok(!(bindings || []).some(binding => binding.binding === 'SESSION'), `${name} must not inject an unused SESSION binding`);
           }

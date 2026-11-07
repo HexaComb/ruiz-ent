@@ -802,7 +802,7 @@ const services = [
     });
 
     // IntersectionObserver to sync active tab on scroll / swipe
-    const observer = new IntersectionObserver(
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
@@ -815,9 +815,9 @@ const services = [
         root: track,
         threshold: 0.5
       }
-    );
+    ) : null;
 
-    slides.forEach((slide) => observer.observe(slide));
+    slides.forEach((slide) => observer?.observe(slide));
 
     // Connect Quote CTAs to QuoteBuilder form
     ctaLinks.forEach((cta) => {

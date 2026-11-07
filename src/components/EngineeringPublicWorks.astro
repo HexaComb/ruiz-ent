@@ -213,11 +213,11 @@ const galleries = [
   });
 
   const engineeringVideos = document.querySelectorAll<HTMLVideoElement>('#engineering-public-works video');
-  const pauseOffscreen = new IntersectionObserver(entries => {
+  const pauseOffscreen = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.intersectionRatio < 0.35) (entry.target as HTMLVideoElement).pause(); });
-  }, { threshold: [0, 0.35] });
+  }, { threshold: [0, 0.35] }) : null;
   engineeringVideos.forEach(video => {
-    pauseOffscreen.observe(video);
+    pauseOffscreen?.observe(video);
     const button = video.parentElement?.querySelector<HTMLButtonElement>('[data-video-load]');
     button?.addEventListener('click', async () => {
       engineeringVideos.forEach(other => { if (other !== video) other.pause(); });
