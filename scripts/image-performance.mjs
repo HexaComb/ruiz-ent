@@ -6,6 +6,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 const require = createRequire(`${process.env.RUNNER_TEMP}/image-qa/package.json`);
 const { chromium } = require('playwright');
 const { default: lighthouse } = await import(require.resolve('lighthouse'));
+const { default: desktopConfig } = await import(require.resolve('lighthouse/core/config/desktop-config.js'));
 const { launch } = await import(require.resolve('chrome-launcher'));
 const urls = { before: 'http://127.0.0.1:4322', after: 'http://127.0.0.1:4321' };
 const output = 'image-performance';
@@ -70,8 +71,8 @@ for(const mode of ['mobile','desktop']) {
       const chrome=await launch({chromePath:chromium.executablePath(),chromeFlags:['--headless','--no-sandbox']});
       try {
         const flags={port:chrome.port,output:'json',onlyCategories:['performance'],logLevel:'error',blockedUrlPatterns:['*google-analytics.com/*','*googletagmanager.com/*']};
-        if(mode==='desktop') flags.preset='desktop';
-        const {lhr,artifacts}=await lighthouse(url,flags);
+        const {lhr,artifacts}=await lighthouse(url,flags,mode==='desktop'?desktopConfig:undefined);
+        assert.equal(lhr.configSettings.formFactor,mode);
         assert.ok(!lhr.runtimeError,JSON.stringify(lhr.runtimeError));
         const metrics=Object.fromEntries(['first-contentful-paint','largest-contentful-paint','speed-index','total-blocking-time','cumulative-layout-shift','total-byte-weight'].map(id=>[id,lhr.audits[id]?.numericValue]));
         results.push({mode,round,revision,score:lhr.categories.performance.score,...metrics});
