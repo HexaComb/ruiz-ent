@@ -1,0 +1,52 @@
+name: Responsive image comparison
+on:
+  pull_request:
+    paths:
+      - 'src/components/**'
+      - 'src/lib/video-poster.ts'
+      - 'src/assets/hero/**'
+      - 'scripts/image-performance.mjs'
+      - '.github/workflows/image-performance.yml'
+permissions:
+  contents: read
+jobs:
+  image-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: .comparison-base
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci && npm run build
+      - run: npm ci && npm run build
+        working-directory: .comparison-base
+      - name: Install isolated audit tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/image-qa" --no-package-lock --ignore-scripts playwright@1.64.1 lighthouse@13.6.0
+          "$RUNNER_TEMP/image-qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Compare crops, deferred posters and repeated mobile/desktop Lighthouse runs
+        run: |
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist/client > /tmp/image-after.log 2>&1 &
+          python3 -m http.server 4322 --bind 127.0.0.1 --directory .comparison-base/dist/client > /tmp/image-before.log 2>&1 &
+          for attempt in $(seq 1 30); do curl --silent --fail http://127.0.0.1:4322/ > /dev/null && break; sleep 1; done
+          node scripts/image-performance.mjs
+      - name: Save comparison screenshots, reports and traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: image-performance-${{ github.event.pull_request.head.sha }}
+          path: image-performance/
+          if-no-files-found: warn
+          retention-days: 7

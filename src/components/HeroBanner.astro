@@ -1,6 +1,14 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import heroImage from '../assets/hero/hero-custom-home-pour.jpg';
+import mobileHeroImage from '../assets/hero/hero-custom-home-pour-mobile.webp';
+
+// Remove only the sides that portrait phones already crop away. The lossless
+// source retains the original's 54% horizontal focal point and full height.
+const mobileHero = await getImage({
+  src: mobileHeroImage, widths: [640, 768, 1280, 1468],
+  width: 1468, format: 'webp', quality: 85,
+});
 
 // Ruiz Family Enterprises - Hero Banner with Background Working Video & Infinite Cycling Marquee
 // Service names published at https://ruizfamilyhardscapes.biz/ (checked October 24, 2026).
@@ -15,8 +23,10 @@ const services = [
 <section class="section section--dark section--spacious hero-banner" id="hero" aria-labelledby="hero-heading" data-hero-banner>
   <!-- Background Live Video Stage of the Ruiz Crew Working (with fallback poster) -->
   <div class="hero-bg-stage" aria-hidden="true">
-    <!-- On portrait screens, cover scales the photo to the hero height before
-         cropping it. Account for that wider rendered photo, not just 100vw. -->
+    <picture>
+      <source media="(max-width: 480px)" srcset={mobileHero.srcSet.attribute}
+        sizes="(max-width: 360px) 640px, 600px" type="image/webp" />
+      <!-- Wider screens keep the original composition and image candidates. -->
     <Image
       class="hero-mobile-image"
       src={heroImage}
@@ -29,6 +39,7 @@ const services = [
       loading="eager"
       fetchpriority="high"
     />
+    </picture>
     <video
       class="hero-bg-video"
       loop

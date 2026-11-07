@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Cloudflare
 .wrangler/
+
+# Lossless source crop regenerated from the original before build/dev
+src/assets/hero/hero-custom-home-pour-mobile.webp

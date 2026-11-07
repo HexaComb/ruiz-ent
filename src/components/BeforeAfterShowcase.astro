@@ -3,6 +3,12 @@
 // Clean, Open Video Documentary Showcase (CSLB #1055499)
 // No carousels, no tabs, no pill badges, no status lights, no sequence numbers.
 import Section from './Section.astro';
+import DeferredVideoPoster from './DeferredVideoPoster.astro';
+import leadPoster from '../../public/images/posters/work-luxury-pour.jpg';
+import pumpPoster from '../../public/images/posters/work-line-pump-dawn.jpg';
+import gradingPoster from '../../public/images/posters/work-bobcat-grading.jpg';
+import finishingPoster from '../../public/images/posters/work-hand-screeding.jpg';
+import aerialPoster from '../../public/images/posters/work-aerial-drone.jpg';
 
 const jobsiteVideos = [
   {
@@ -10,28 +16,28 @@ const jobsiteVideos = [
     title: "Pumping Setup",
     videoMp4: "/videos/work-line-pump-dawn.mp4",
     videoWebm: "/videos/work-line-pump-dawn.webm",
-    poster: "/images/posters/work-line-pump-dawn.jpg"
+    poster: pumpPoster
   },
   {
     id: "laser-excavation",
     title: "Site Preparation",
     videoMp4: "/videos/work-bobcat-grading.mp4",
     videoWebm: "/videos/work-bobcat-grading.webm",
-    poster: "/images/posters/work-bobcat-grading.jpg"
+    poster: gradingPoster
   },
   {
     id: "hand-finishing",
     title: "Concrete Finishing",
     videoMp4: "/videos/work-hand-screeding.mp4",
     videoWebm: "/videos/work-hand-screeding.webm",
-    poster: "/images/posters/work-hand-screeding.jpg"
+    poster: finishingPoster
   },
   {
     id: "commercial-drone",
     title: "Project Overview",
     videoMp4: "/videos/work-aerial-drone.mp4",
     videoWebm: "/videos/work-aerial-drone.webm",
-    poster: "/images/posters/work-aerial-drone.jpg"
+    poster: aerialPoster
   }
 ];
 
@@ -55,7 +61,6 @@ const jobsiteVideos = [
           muted
           playsinline
           preload="none"
-          poster="/images/posters/work-luxury-pour.jpg"
           data-jobsite-video
           aria-label="Concrete work in progress"
         >
@@ -63,6 +68,8 @@ const jobsiteVideos = [
           <source data-src="/videos/work-luxury-pour.mp4" type="video/mp4" />
           <p>Your browser does not support HTML5 video.</p>
         </video>
+        <DeferredVideoPoster src={leadPoster} sizes="(min-width: 1280px) 1200px, 94vw" widths={[480, 768, 1200, 1600, 1920]} />
+        <noscript><a class="video-fallback" href="/videos/work-luxury-pour.mp4">Open silent video</a></noscript>
 
         <button
           type="button"
@@ -92,7 +99,6 @@ const jobsiteVideos = [
               muted
               playsinline
               preload="none"
-              poster={item.poster}
               data-jobsite-video
               aria-label={`${item.title} on-site footage`}
             >
@@ -100,6 +106,8 @@ const jobsiteVideos = [
               <source data-src={item.videoMp4} type="video/mp4" />
               <p>Your browser does not support HTML5 video.</p>
             </video>
+            <DeferredVideoPoster src={item.poster} sizes="(min-width: 1280px) 584px, (min-width: 640px) 46vw, 94vw" widths={[320, 480, 768, 1200]} />
+            <noscript><a class="video-fallback" href={item.videoMp4}>Open silent video</a></noscript>
 
             <button
               type="button"
@@ -157,6 +165,8 @@ const jobsiteVideos = [
     display: block;
     background-color: #000000;
   }
+
+  .video-fallback { position: absolute; inset: auto var(--space-4) var(--space-4); z-index: 4; color: white; text-decoration: underline; }
 
   /* Play / Pause Toggle Button */
   .video-play-btn {

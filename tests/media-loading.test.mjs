@@ -17,6 +17,9 @@ test('hero and showcase have no eagerly discoverable video sources or autoplay',
 test('hero is responsive, high priority, build-optimized and explicitly dimensioned', () => {
   const hero = source('src/components/HeroBanner.astro');
   assert.match(hero, /import.*heroImage.*\.jpg/);
+  assert.match(hero, /import.*mobileHeroImage.*mobile\.webp/);
+  assert.match(hero, /<source media="\(max-width: 480px\)"/);
+  assert.match(hero, /widths: \[640, 768, 1280, 1468\]/);
   assert.match(hero, /widths=\{\[960, 1280, 1920, 2200\]\}/);
   assert.match(hero, /width=\{2200\}/);
   assert.match(hero, /sizes="\(max-width: 640px\) 1000px, 100vw"/);
