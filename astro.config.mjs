@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ruizfamilyhardscapes.biz',
   integrations: [sitemap()],
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'compile' }),
   // This static portfolio does not use sessions or require a SESSION KV namespace.
   session: false
 });

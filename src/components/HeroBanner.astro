@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero/hero-custom-home-pour.jpg';
+
 // Ruiz Family Enterprises - Hero Banner with Background Working Video & Infinite Cycling Marquee
 // Service names published at https://ruizfamilyhardscapes.biz/ (checked October 24, 2026).
 const services = [
@@ -12,18 +15,28 @@ const services = [
 <section class="section section--dark section--spacious hero-banner" id="hero" aria-labelledby="hero-heading" data-hero-banner>
   <!-- Background Live Video Stage of the Ruiz Crew Working (with fallback poster) -->
   <div class="hero-bg-stage" aria-hidden="true">
+    <Image
+      class="hero-mobile-image"
+      src={heroImage}
+      widths={[640, 960, 1280, 1920]}
+      sizes="100vw"
+      width={1920}
+      format="webp"
+      quality={80}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+    />
     <video
       class="hero-bg-video"
-      autoplay
       loop
       muted
       playsinline
-      poster="/images/hero/hero-custom-home-pour.jpg"
+      preload="none"
     >
-      <source src="/videos/hero_background_boomerang.webm" type="video/webm" />
-      <source src="/videos/hero_background_boomerang.mp4" type="video/mp4" />
+      <source data-src="/videos/hero_background_boomerang.webm" type="video/webm" />
+      <source data-src="/videos/hero_background_boomerang.mp4" type="video/mp4" />
     </video>
-    <img class="hero-mobile-image" src="/images/hero/hero-custom-home-pour.jpg" alt="" loading="eager" fetchpriority="high" />
     <div class="hero-scrim"></div>
   </div>
 
@@ -134,7 +147,13 @@ const services = [
   }
 
   .hero-mobile-image {
-    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.72) contrast(1.08);
   }
 
   .hero-scrim {
@@ -373,6 +392,7 @@ const services = [
       height: 100%;
       object-fit: cover;
       object-position: 54% 36%;
+      filter: none;
     }
     .hero-scrim {
       background: transparent;
@@ -390,3 +410,17 @@ const services = [
     .hero-direct-call .call-link { font-family: var(--font-sans); font-size: 0.9rem; min-height: var(--space-12); }
   }
 </style>
+
+<script>
+  import { initHeroVideo } from '../lib/deferred-media';
+
+  let cleanup = () => {};
+  function init() {
+    cleanup();
+    const hero = document.querySelector<HTMLElement>('[data-hero-banner]');
+    cleanup = hero ? initHeroVideo(hero) : () => {};
+  }
+  init();
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => cleanup());
+</script>

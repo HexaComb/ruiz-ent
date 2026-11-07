@@ -1,0 +1,11 @@
+# Astro fingerprints these URLs, so a changed asset gets a new cache key.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Existing public media URLs are not fingerprinted. Revalidate after one day,
+# rather than leaving replaced photos or clips stale for a year.
+/images/*
+  Cache-Control: public, max-age=86400
+
+/videos/*
+  Cache-Control: public, max-age=86400
