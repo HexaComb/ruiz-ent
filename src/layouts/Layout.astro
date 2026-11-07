@@ -106,34 +106,17 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <script>
       import { registerClicks } from '../lib/analytics';
       registerClicks();
-      const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
       const accents = document.querySelectorAll('.section-header, .process-steps-grid');
-      const observer = new IntersectionObserver(entries => {
+      const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('trade-in-view');
-          observer.unobserve(entry.target);
+          observer?.unobserve(entry.target);
         });
-      }, { threshold: 0.2 });
-      accents.forEach(element => observer.observe(element));
+      }, { threshold: 0.2 }) : null;
+      accents.forEach(element => observer ? observer.observe(element) : element.classList.add('trade-in-view'));
 
-      // Background footage rests when it cannot be seen or motion is reduced.
-      const video = document.querySelector<HTMLVideoElement>('.hero-bg-video');
-      if (video) {
-        let inView = false;
-        const syncPlayback = () => {
-          if (preference.matches || document.hidden || !inView) video.pause();
-          else video.play().catch(() => {});
-        };
-        const videoObserver = new IntersectionObserver(([entry]) => {
-          inView = entry?.isIntersecting ?? false;
-          syncPlayback();
-        });
-        videoObserver.observe(video);
-        preference.addEventListener('change', syncPlayback);
-        document.addEventListener('visibilitychange', syncPlayback);
-        syncPlayback();
-      }
+      // HeroBanner owns background media loading and playback.
     </script>
   </body>
 </html>

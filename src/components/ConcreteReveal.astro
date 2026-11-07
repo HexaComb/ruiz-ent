@@ -29,7 +29,7 @@
     if (!ctx) return;
 
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (preference.matches) { canvas.remove(); return; }
+    if (preference.matches || !('IntersectionObserver' in window)) { canvas.remove(); return; }
     const texture = new Image();
     texture.src = '/images/materials/concrete.png';
     try { await texture.decode(); } catch { canvas.remove(); return; }
