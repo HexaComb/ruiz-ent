@@ -43,6 +43,7 @@ for (const route of routes) {
     assert.equal(schema['@graph'][2].itemListElement.at(-1).item, origin + route);
     assert.ok(html.includes('id="quoteForm"'), route + ': on-page estimate form');
     assert.ok(html.includes('href="#quote-builder"'), route + ': on-page estimate CTA');
+    assert.equal(html.includes('href="/#quote-builder"'), false, route + ': all estimate links stay on-page');
     assert.ok(html.includes(service.heroImage.src), route + ': existing hero image');
     assert.ok(html.includes('href="tel:+15592441922"'), route + ': call option');
   }

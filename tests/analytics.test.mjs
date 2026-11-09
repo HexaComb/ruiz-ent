@@ -15,6 +15,30 @@ test('click events emit only fixed labels, never hrefs, queries or text', () => 
  assert(!JSON.stringify(events).includes('secret'));assert(!JSON.stringify(events).includes('private'));assert(!JSON.stringify(events).includes('example.com'));
  window.gtag=()=>{throw Error('blocked')};assert.doesNotThrow(()=>trackEvent('generate_lead','estimate_form','contact'));
 });
+test('service navigation emits one fixed label with its area and no URL or query data', () => {
+ const events=[]; let click;
+ globalThis.window={location:{origin:'https://ruizfamilyhardscapes.biz'},gtag:(...args)=>events.push(args)};
+ globalThis.document={addEventListener:(name,fn)=>{click=fn}};
+ class Element { closest(selector){ return selector==='a, button'?this:selector===this.area?{}:null; } }
+ class Anchor extends Element { constructor(href,area){super();this.href=href;this.area=area;}getAttribute(){return this.href;} }
+ globalThis.Element=Element;globalThis.HTMLAnchorElement=Anchor;
+ registerClicks();
+ for (const [href,target,area] of [
+  ['/services/?email=private@example.com','services','header'],
+  ['/services/concrete/','service_concrete','footer'],
+  ['/services/masonry','service_masonry','content'],
+  ['/services/general-engineering/#private-details','service_general_engineering','header']
+ ]) {
+  events.length=0; click({target:new Anchor(href,area)});
+  assert.deepEqual(events,[['event','navigation_click',{target,area,page_referrer:'',page_title:'Ruiz Family Enterprises'}]]);
+ }
+ for (const href of ['/services/missing-private/', '/services/concrete/private/', 'https://example.com/services/concrete/']) {
+  events.length=0; click({target:new Anchor(href,'header')}); assert.deepEqual(events,[]);
+ }
+ events.length=0; click({target:new Anchor('/services/masonry/?email=private@example.com#quote-builder','header')});
+ assert.deepEqual(events,[['event','cta_click',{target:'quote-builder',area:'header',page_referrer:'',page_title:'Ruiz Family Enterprises'}]]);
+});
+
 test('lead only emitted inside confirmed server success; no auto form_submit duplication',()=>{
  const s=fs.readFileSync(new URL('../src/components/QuoteBuilder.astro',import.meta.url),'utf8');
  assert.match(s,/if \(response.ok\) \{\s*if \('sent' in result && result.sent === true\)/);

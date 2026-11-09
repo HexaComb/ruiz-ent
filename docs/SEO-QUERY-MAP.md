@@ -53,3 +53,10 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 - The six authorized city guides are Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford. Do not add Selma or Clovis from the older search strategy without explicit coverage confirmation.
 - OpenSEO competitive research suggests commercial-intent concrete and masonry topics, but the monthly volume estimates were largely U.S.-scoped and may group close variants. No ranking or lead lift is guaranteed.
 - After review/merge: confirm all generated pages deploy, check their URLs and sitemap in Search Console, confirm the contact endpoint works on the production Worker, and mark GA4 generate_lead as a key event in the GA4 property if not already configured.
+
+## November 9 service-page review fixes
+
+- Rechecked the latest saved [Competitive Landscape report, November 8](https://app.openseo.so/p/cf8803e0-942b-4de5-aed0-2f6c0c125514/reports/85d93fa4-6b69-4e90-8066-a3fc0abb3ce4). Its immediate opportunity is locally relevant concrete and masonry service pages, genuine work evidence and completed estimate requests. This review keeps that intent, the three service specialties, six approved cities and homepage hero unchanged.
+- Shared header, mobile-menu and footer estimate links now stay on pages that contain a form, preserving the selected service, draft input and campaign query. The service hub, city guides and missing pages retain the homepage form fallback.
+- Service navigation uses fixed GA4 labels for the service hub and three service routes; no query, free-form path or form value is included in event labels. Confirmed-success-only generate_lead behavior is unchanged.
+- Browser regression coverage now includes all four service routes at 1440, 1024, 768, 390 and 320 pixels, repeated estimate CTAs, retained form drafts/defaults/campaigns, menu dismissal, history, navigation tracking and no-JavaScript form defaults. It blocks the contact endpoint and sends no live estimate requests.

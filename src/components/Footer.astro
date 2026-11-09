@@ -1,8 +1,10 @@
 ---
 // Ruiz Family Enterprises - Site Footer Component
 import { serviceAreas, serviceAreaPath } from '../data/service-areas';
+import { estimateHref } from '../lib/service-navigation';
 // Keep homepage anchors local, but make shared navigation usable on error pages.
 const homePath = Astro.url.pathname === "/" ? "" : "/";
+const estimateLink = estimateHref(Astro.url.pathname);
 ---
 
 <!-- Ruiz 4-Color Signature Spectrum Bar -->
@@ -75,7 +77,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
           <a href={`${homePath}#our-process`}>How We Work</a>
           <a href={`${homePath}#reviews`}>Customer Reviews</a>
           <a href={`${homePath}#faq`}>Frequently Asked Questions</a>
-          <a href={`${homePath}#quote-builder`}>Discuss a Project</a>
+          <a href={estimateLink}>Discuss a Project</a>
         </nav>
       </div>
 
