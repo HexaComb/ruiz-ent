@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
+import ServiceAreas from '../../components/ServiceAreas.astro';
+---
+<Layout title="Central Valley Service Areas | Ruiz Family Enterprises" description="Find Ruiz Family Enterprises concrete, masonry and general engineering services in Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford, California.">
+  <Section variant="dark" ariaLabelledby="area-guide-title">
+    <div class="stack stack--lg">
+      <nav aria-label="Breadcrumb"><a href="/">Home</a> / Service areas</nav>
+      <p>Ruiz Family Enterprises</p>
+      <h1 id="area-guide-title" class="section-title on-dark">Concrete &amp; masonry services<br />across our Central Valley communities</h1>
+      <p class="section-subtitle on-dark">Start with your project location. Our Kingsburg-based family team works at customer properties, with concrete and masonry specialties within our general engineering services.</p>
+      <div class="cluster">
+        <a href="/service-areas/kingsburg/" class="btn btn-primary">Explore Kingsburg services</a>
+        <a href="tel:+15592441922" class="btn btn-outline-light">Call (559) 244-1922</a>
+      </div>
+    </div>
+  </Section>
+  <ServiceAreas />
+  <Section variant="white" container="narrow" ariaLabelledby="coverage-planning">
+    <div class="stack stack--lg">
+      <h2 id="coverage-planning" class="section-title">A useful first conversation starts with the site</h2>
+      <p>Share the project address, approximate dimensions, existing conditions and your preferred finish. Photos or plans help us discuss removal, access, concrete placement and any adjoining masonry. Availability and scheduling depend on the scope and location.</p>
+      <p>Each city guide includes an official planning or building resource. Confirm the property’s jurisdiction and project-specific requirements with the relevant department. A city name in a mailing address does not always mean the property is within city limits.</p>
+      <p>Ruiz provides services at customer properties. These are service areas, not separate office locations.</p>
+      <div class="cluster">
+        <a href="/#quote-builder" class="btn btn-primary">Request a free on-site estimate</a>
+        <a href="/#our-services">Explore our services</a>
+      </div>
+    </div>
+  </Section>
+</Layout>
+<style>
+  nav a { color: inherit; text-decoration: underline; }
+</style>

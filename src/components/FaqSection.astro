@@ -1,6 +1,7 @@
 ---
 // Ruiz Family Enterprises - FAQ Component (Polished per Impeccable guidelines)
 // Built with native mutually exclusive <details name="ruiz-faq"> per modern web accessibility guidance
+import { serviceAreaNames } from '../data/service-areas';
 const faqs = [
   {
     "question": "What kind of contractor is Ruiz Family Enterprises?",
@@ -48,7 +49,7 @@ const faqs = [
   },
   {
     "question": "What areas do you serve?",
-    "answer": "We serve Central Valley communities from Visalia to Modesto, including Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock and Modesto. Our family team is based in Kingsburg. Call (559) 244-1922 with your project address to discuss your general engineering, concrete or masonry project and scheduling."
+    "answer": `We serve ${serviceAreaNames}, California. Our family team is based in Kingsburg and provides services at customer properties, without a public walk-in location. Call (559) 244-1922 with your project address to discuss your general engineering, concrete or masonry project and scheduling.`
   },
   {
     "question": "How long will my project take?",
@@ -80,6 +81,7 @@ const faqs = [
           </summary>
           <div class="faq-answer-panel">
             <p class="faq-answer-p">{faq.answer}</p>
+            {faq.question === "What areas do you serve?" && <p class="faq-answer-p"><a href="/service-areas/">Explore our city service guides</a></p>}
           </div>
         </details>
       ))}

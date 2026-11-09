@@ -57,10 +57,10 @@ try {
     assert.match(await page.locator('#services-heading').innerText(), /General Engineering in the Central Valley/);
     assert.match(await page.locator('#our-story').innerText(), /A Personal Standard/);
     assert.match(await page.locator('#faq').innerText(), /concrete patio, driveway or pool deck/);
-    assert.match(await page.locator('#faq').textContent(), /We serve Central Valley communities from Visalia to Modesto/);
-    assert.match(await page.locator('footer').innerText(), /Kingsburg, California 93631/);
+    assert.match(await page.locator('#faq').textContent(), /We serve Kingsburg, Fresno, Madera, Visalia, Fowler, Hanford/);
+    assert.match(await page.locator('footer').innerText(), /Kingsburg, California/);
     const areaAnswer = await page.locator('#faq details').filter({ hasText: 'What areas do you serve?' }).textContent();
-    for (const city of ['Visalia', 'Kingsburg', 'Selma', 'Fresno', 'Clovis', 'Madera', 'Chowchilla', 'Merced', 'Atwater', 'Turlock', 'Modesto']) {
+    for (const city of ['Kingsburg', 'Fresno', 'Madera', 'Visalia', 'Fowler', 'Hanford']) {
       assert.ok(areaAnswer.includes(city), `Client-directed service area: ${city}`);
     }
     assert.match(await page.locator('.form-sub').innerText(), /Request a free on-site estimate/);

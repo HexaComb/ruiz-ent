@@ -14,7 +14,8 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 | 3/8-inch concrete pump service | Pump service card and existing service FAQ |
 | Free concrete estimate Central Valley; how long will concrete work take | Process, estimate section, FAQ |
 | Family concrete contractor; Ruiz Family Enterprises reviews | Family story and unchanged customer quotations |
-| Concrete and masonry services in Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock or Modesto | One natural served-city list in the service-area FAQ; concise Visalia-to-Modesto corridor in the footer |
+| Concrete contractor in Kingsburg, CA | Dedicated `/service-areas/kingsburg/` guide, prioritized in hub and homepage links |
+| Concrete and masonry services in Fresno, Madera, Visalia, Fowler and Hanford | Five city guides with individual project-planning copy and official local resources |
 
 ## Evidence and approach
 
@@ -28,8 +29,17 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 
 ## Boundaries and launch follow-ups
 
-- November 2 client direction: frame service coverage as the Central Valley. Preserve Kingsburg as the actual contact location. The client clarified the Visalia-to-Modesto corridor on November 2 (15:17 UTC); the service-area FAQ lists its principal communities once. This is client-directed coverage, not a list verified from Google Business Profile. Do not add doorway pages. No insurance, current license status, guarantee or turnaround claims added.
+- November 9 client direction supersedes the old corridor: serve Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford, with no public walk-in office. City guides must answer project-planning questions and must not invent city-specific projects, testimonials, offices or regulatory claims.
 - Review quotations and provenance notices remain intact. No invented reviews or ratings/schema.
-- Form remains explicitly preview-only and does not send requests. Phone/email remain the inquiry routes. A working integration requires separate implementation and testing.
-- The existing canonical points to https://ruizfamilyhardscapes.biz. Keep that unchanged until the user confirms the final primary domain/migration. Preview exposure is not a production-domain launch; recheck canonical, sitemap, redirects and Search Console at launch.
+- Form submission is implemented through `/api/contact`; runtime setup and delivery caveats are documented in `docs/DEPLOYMENT.md`. No new forms or live test messages are introduced by the SEO work.
+- Every indexable page uses a self-canonical on the existing HTTPS non-www production domain, with matching OG URL and sitemap entry. Preview URLs do not replace production canonicals. Recheck redirects, indexability and Search Console after an authorized launch.
 - Test script's stale CSLB A/DIR/Fresno/Clovis/Visalia expectations were replaced with actual main-branch supported copy. No such claims were reintroduced.
+
+## November 9 implementation and measurement
+
+- Kingsburg focuses on concrete-contractor intent while retaining masonry and general engineering context. Exact-city keyword-volume gaps are unknown, not zero; no traffic or ranking promises are made.
+- Homepage and hub link directly to all six pages. Each guide supplies services, a distinct planning checklist, an official municipal resource, relevant questions and a direct inquiry route. No page claims a local job or local customer without evidence.
+- Shared JSON-LD uses one Organization and city-level Service/Breadcrumb entities, with no fabricated street address, hours, ratings or current-license-status assertions.
+- Build verification: `npm test`, `npm run build`, `npm run test:seo`; browser regression coverage lives in `scripts/service-area-preview.mjs` and the matching GitHub workflow.
+- GA4 uses the build-rendered canonical page path, preserving city-page reporting while retaining existing UTM filtering and excluding arbitrary missing-page paths and form values.
+- After publication, verify the sitemap in Search Console and inspect priority URLs. Indexing and search performance require observation over time; adding pages does not guarantee rankings.

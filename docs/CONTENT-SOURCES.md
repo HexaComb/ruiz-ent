@@ -12,7 +12,7 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 
 ## Editorial decisions
 
-- Contact location uses Kingsburg from the Contact Us page. November 2 client direction establishes Central Valley regional service wording. The client clarified coverage from Visalia through Modesto on November 2, 2026, at 15:17 UTC. The service-area FAQ names Visalia, Kingsburg, Selma, Fresno, Clovis, Madera, Chowchilla, Merced, Atwater, Turlock and Modesto. This is client-directed coverage, not a Google Business Profile claim; the publicly accessible Google profile matched the website and phone but did not expose a served-city list.
+- Current coverage follows the November 9 client-supplied Google Business Profile screenshots: Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford. This supersedes the November 2 regional corridor list. The profile says there is no business location and services are provided at customer properties. Kingsburg remains the company-published home base, not a public walk-in office. City names are used without postal codes because the screenshot’s Hanford ZIP is inconsistent.
 - Customer reviews now use verbatim excerpts from the Google listing supplied by the client, checked November 3, 2026 (see below). Each excerpt links to its original Google review. No star rating, aggregate score, reviewer location or independent verification is claimed.
 - The Meenu Mann testimonial references “Daniel @ AGR”; it was not reused because the company attribution is ambiguous.
 - The source's present-day hours display says 7 a.m.–7 p.m., but a complete weekly schedule was not established, so hours were not added.
@@ -20,8 +20,8 @@ Reviewed October 27, 2026. These are company-published statements, not an indepe
 - The services directory reproduces all fifteen masonry and concrete offerings published on the company website. General engineering is presented separately, in line with the company Instagram description; no additional engineering specialty is inferred from the profile.
 - Removed unsupported service extensions such as firepits, foundations, garage slabs, sports courts and coping from the service carousel, contact choices and footer.
 - Existing photo/video identities, locations, technical specifications, project descriptions and social-post captions cannot be matched from these sources. These remain lorem ipsum; media provenance notes remain in accessible descriptions where applicable.
-- Individual team biographies, permit/HOA arrangements, insurance details, full service area and project timelines remain lorem ipsum.
-- The contact form still only previews details; its visible notice and success state clearly say that requests are not sent. Source copy does not establish a working integration.
+- Do not infer team biographies, permit/HOA arrangements, insurance status or project timelines from service-area coverage.
+- The old preview-only contact form note is superseded by the implemented `/api/contact` integration. See `docs/DEPLOYMENT.md` for its runtime configuration and delivery limits.
 
 ## November 2 positioning correction
 
@@ -40,3 +40,18 @@ Read the reviews directly on the [client-supplied Google listing](https://share.
 | Tom Lopez | https://share.google/DvVbeOWdO1SaOZrXQ |
 
 The section also links to the listing's full Google reviews dialog. Reviews are a curated static snapshot, not a live Google feed; dates and aggregate ratings are omitted to avoid stale claims.
+
+## November 9 service-area landing pages
+
+The client explicitly directed the website coverage to match their Google Business Profile screenshots and requested landing pages for those areas, with Kingsburg prioritized. The two supplied images show the same six-city list. Screenshots are not committed to this public repository. No full weekly opening-hours schedule was visible, so none was added.
+
+Services come from the existing company-published homepage, FAQ and source-linked work. Each page combines these services with individually written project-preparation guidance and a verified official city resource. Planning checklists are general practical advice, not claims about completed local projects, local demand, permit exemptions or regulatory compliance. City resources were read November 9, 2026:
+
+- Kingsburg: https://www.cityofkingsburg-ca.gov/149/Building-Department
+- Fresno: https://www.fresno.gov/planning/building-and-safety/
+- Madera: https://www.madera.gov/business-building-development/building-divison/
+- Visalia: https://www.visalia.gov/224/Permit-Counter
+- Fowler: https://www.fowlercity.org/media/236 (official application PDF; department homepage returned 403)
+- Hanford: https://www.hanfordca.gov/168/Building
+
+No municipal affiliation, approval timelines, fixed prices, local office addresses, city-specific customer reviews or city-specific project photos are claimed. Organization + Service schema represents the supported provider and area served without fabricating a LocalBusiness address.

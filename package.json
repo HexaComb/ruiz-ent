@@ -16,7 +16,8 @@
     "astro": "astro",
     "generate-types": "wrangler types",
     "prebuild": "node scripts/generate-mobile-hero.mjs",
-    "predev": "node scripts/generate-mobile-hero.mjs"
+    "predev": "node scripts/generate-mobile-hero.mjs",
+    "test:seo": "node scripts/verify-service-area-build.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.2",
