@@ -43,3 +43,13 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 - Build verification: `npm test`, `npm run build`, `npm run test:seo`; browser regression coverage lives in `scripts/service-area-preview.mjs` and the matching GitHub workflow.
 - GA4 uses the build-rendered canonical page path, preserving city-page reporting while retaining existing UTM filtering and excluding arbitrary missing-page paths and form values.
 - After publication, verify the sitemap in Search Console and inspect priority URLs. Indexing and search performance require observation over time; adding pages does not guarantee rankings.
+
+## November 8 lead-focused service pages (review PR)
+
+- New /services/ overview and three distinct intent pages: /services/concrete/, /services/masonry/, and /services/general-engineering/.
+- Each page has its own title, description, H1, existing site photography with descriptive alt text, relevant service copy, organization-linked Service/Breadcrumb schema, six-city internal links and an on-page estimate request form.
+- The shared QuoteBuilder accepts a default project type, preserving the unchanged homepage default and existing Resend endpoint and confirmed-success GA4 generate_lead event. A form submission still depends on production Resend configuration; this PR does not claim live delivery tests.
+- Homepage service-directory headings, navigation, footer services and city guide cards link to the new service pages; the homepage hero itself is unchanged.
+- The six authorized city guides are Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford. Do not add Selma or Clovis from the older search strategy without explicit coverage confirmation.
+- OpenSEO competitive research suggests commercial-intent concrete and masonry topics, but the monthly volume estimates were largely U.S.-scoped and may group close variants. No ranking or lead lift is guaranteed.
+- After review/merge: confirm all generated pages deploy, check their URLs and sitemap in Search Console, confirm the contact endpoint works on the production Worker, and mark GA4 generate_lead as a key event in the GA4 property if not already configured.

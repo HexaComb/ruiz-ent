@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { serviceAreas, serviceAreaPath } from '../src/data/service-areas.ts';
+import { servicePages, servicePagePath } from '../src/data/service-pages.ts';
 const root = 'dist/client';
 const origin = 'https://ruizfamilyhardscapes.biz';
-const routes = ['/', '/service-areas/', ...serviceAreas.map(area => serviceAreaPath(area.slug))];
+const routes = ['/', '/service-areas/', ...serviceAreas.map(area => serviceAreaPath(area.slug)), '/services/', ...servicePages.map(page => servicePagePath(page.slug))];
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 assert.deepEqual(locations.sort(), routes.map(route => `${origin}${route}`).sort());
@@ -34,6 +35,17 @@ for (const route of routes) {
     assert.ok(html.includes('href="/#quote-builder"'));
     assert.ok(html.includes('href="tel:+15592441922"'));
   }
+  const service = servicePages.find(page => route === servicePagePath(page.slug));
+  if (service) {
+    assert.equal(schema['@graph'][1]['@id'], origin + route + '#service');
+    assert.equal(schema['@graph'][1].provider['@id'], origin + '/#organization');
+    assert.equal(schema['@graph'][1].areaServed.length, 6);
+    assert.equal(schema['@graph'][2].itemListElement.at(-1).item, origin + route);
+    assert.ok(html.includes('id="quoteForm"'), route + ': on-page estimate form');
+    assert.ok(html.includes('href="#quote-builder"'), route + ': on-page estimate CTA');
+    assert.ok(html.includes(service.heroImage.src), route + ': existing hero image');
+    assert.ok(html.includes('href="tel:+15592441922"'), route + ': call option');
+  }
   // Internal page links must point to files that were actually generated.
   for (const match of html.matchAll(/href="(\/[^"?#]*)[^"]*"/g)) {
     const href = match[1];
@@ -50,4 +62,4 @@ const missing = readFileSync(join(root, '404.html'), 'utf8');
 assert.ok(missing.includes('noindex, follow'));
 assert.equal(missing.includes('application/ld+json'), false);
 assert.equal(missing.includes('rel="canonical"'), false);
-console.log(`PASS: ${routes.length} pages, six city guides, links, canonical/OG, structured data, sitemap and 404.`);
+console.log(`PASS: ${routes.length} pages, six city guides, three service pages, links, canonical/OG, structured data, sitemap and 404.`);

@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
+import { servicePages, servicePagePath } from '../../data/service-pages';
+---
+<Layout title="Concrete, Masonry & General Engineering Services | Ruiz Family Enterprises" description="Explore concrete construction, masonry and general engineering services from Ruiz Family Enterprises in Kingsburg and six Central Valley communities.">
+  <Section variant="dark" ariaLabelledby="services-hub-heading">
+    <div class="stack stack--lg">
+      <nav class="hub-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <span aria-current="page">Services</span></nav>
+      <p class="hub-eyebrow">Ruiz Family Enterprises · Three generations in the trade</p>
+      <h1 id="services-hub-heading" class="section-title on-dark">The work we do. The care we bring.</h1>
+      <p class="section-subtitle on-dark">From a residential concrete patio to block walls and commercial site work, we bring general engineering, concrete and masonry specialties to projects across the Central Valley.</p>
+      <div class="cluster cluster--sm">
+        <a href="/#quote-builder" class="btn btn-primary">Request a Free On-Site Estimate</a>
+        <a href="tel:+15592441922" class="btn btn-outline-light">Call (559) 244-1922</a>
+      </div>
+    </div>
+  </Section>
+  <Section variant="white" ariaLabelledby="services-hub-list">
+    <div class="section-header">
+      <h2 id="services-hub-list" class="section-title">Find the right starting point.</h2>
+      <p class="section-subtitle">Each guide covers the work, what to bring to an estimate conversation and a direct inquiry form.</p>
+    </div>
+    <div class="grid-cards hub-services">
+      {servicePages.map(page => (
+        <article class="card-surface stack stack--md">
+          <img src={page.heroImage.src} alt={page.heroImage.alt} width="720" height="540" loading="lazy" decoding="async" />
+          <h3><a href={servicePagePath(page.slug)}>{page.label}</a></h3>
+          <p>{page.intro}</p>
+          <a class="hub-service-link" href={servicePagePath(page.slug)}>Explore {page.shortLabel.toLowerCase()} services <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
+    </div>
+  </Section>
+  <Section variant="light" container="narrow" ariaLabelledby="services-hub-next">
+    <div class="stack stack--lg">
+      <h2 id="services-hub-next" class="section-title">Tell us where and what you are building.</h2>
+      <p>Based in Kingsburg, Ruiz provides on-site service in Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford. Your project location, approximate dimensions and reference photos help us start a useful conversation.</p>
+      <div class="cluster cluster--sm">
+        <a href="/#quote-builder" class="btn btn-primary">Discuss Your Project</a>
+        <a href="/service-areas/">View Service Areas</a>
+      </div>
+    </div>
+  </Section>
+</Layout>
+<style>
+  .hub-breadcrumb a { color: inherit; text-decoration: underline; }
+  .hub-breadcrumb { color: var(--text-light-muted); }
+  .hub-eyebrow { color: #93bdff; font-family: var(--font-mono); font-weight: 700; }
+  .hub-services img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .hub-services h3 { font-size: 1.2rem; }
+  .hub-services h3 a { color: var(--text-dark); }
+  .hub-service-link { color: var(--ruiz-blue); text-decoration: underline; font-weight: 700; text-underline-offset: var(--space-1); }
+  .hub-services p { color: var(--text-dark-secondary); }
+</style>

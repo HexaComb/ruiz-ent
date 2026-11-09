@@ -91,7 +91,7 @@ const services = [
   <div class="services-directory stack stack--lg" aria-label="All services">
     <div class="services-directory-index">
       <article class="service-discipline grid-2">
-        <h3>Masonry</h3>
+        <h3><a href="/services/masonry/">Masonry</a></h3>
         <ul class="service-list grid-2">
           <li>Block walls</li>
           <li>Retaining walls</li>
@@ -101,7 +101,7 @@ const services = [
         </ul>
       </article>
       <article class="service-discipline grid-2">
-        <h3>Concrete Construction</h3>
+        <h3><a href="/services/concrete/">Concrete Construction</a></h3>
         <ul class="service-list grid-2">
           <li>Concrete patios</li>
           <li>Concrete porches</li>
@@ -112,7 +112,7 @@ const services = [
         </ul>
       </article>
       <article class="service-discipline grid-2">
-        <h3>Concrete Finishes &amp; Support</h3>
+        <h3><a href="/services/concrete/">Concrete Finishes &amp; Support</a></h3>
         <ul class="service-list grid-2">
           <li>Stamped concrete</li>
           <li>Drain and gutter work</li>
@@ -121,7 +121,7 @@ const services = [
         </ul>
       </article>
       <article class="service-discipline grid-2">
-        <h3>General Engineering &amp; Public Works</h3>
+        <h3><a href="/services/general-engineering/">General Engineering &amp; Public Works</a></h3>
         <ul class="service-list grid-2">
           <li>Concrete flatwork</li>
           <li>Sidewalks, curb and gutter</li>
@@ -309,6 +309,8 @@ const services = [
     border-block-end: 1px solid var(--border-light);
     align-items: start;
   }
+  .service-discipline h3 a { color: inherit; text-decoration: underline; text-decoration-color: var(--border-light-strong); text-underline-offset: var(--space-1); }
+  .service-discipline h3 a:hover { color: var(--ruiz-blue); }
   .service-discipline h3 {
     margin: 0;
     max-width: 24ch;

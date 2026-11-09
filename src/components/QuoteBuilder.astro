@@ -1,5 +1,7 @@
 ---
 // Ruiz Family Enterprises - Interactive Quote Builder & Estimate Form Component (Polished per Impeccable guidelines)
+interface Props { defaultProjectType?: string; }
+const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
 ---
 
 <section class="section section--dark estimate-cta-section" id="quote-builder" aria-labelledby="quote-heading">
@@ -61,44 +63,44 @@
           <div class="form-step-block">
             <label class="step-label">Select Project Type</label>
             <div class="type-pill-grid" role="radiogroup" aria-label="Project Type">
-              <label class="type-pill is-selected">
-                <input type="radio" name="projectType" value="Concrete Flatwork & Finishes" checked />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Concrete Flatwork & Finishes' }]}>
+                <input type="radio" name="projectType" value="Concrete Flatwork & Finishes" checked={defaultProjectType === 'Concrete Flatwork & Finishes'} />
                 <span class="pill-title">Concrete Flatwork &amp; Finishes</span>
                 <span class="pill-desc">Patios, porches, pool decks, drives, walks, steps &amp; stamped finishes</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="Block or Retaining Wall" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Block or Retaining Wall' }]}>
+                <input type="radio" name="projectType" value="Block or Retaining Wall" checked={defaultProjectType === 'Block or Retaining Wall'} />
                 <span class="pill-title">Block or Retaining Wall</span>
                 <span class="pill-desc">Privacy, perimeter, or soil retention</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="Architectural Stone & Brick Work" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Architectural Stone & Brick Work' }]}>
+                <input type="radio" name="projectType" value="Architectural Stone & Brick Work" checked={defaultProjectType === 'Architectural Stone & Brick Work'} />
                 <span class="pill-title">Stone &amp; Brick Work</span>
                 <span class="pill-desc">Decorative &amp; architectural stone</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="Concrete Pump Service" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Concrete Pump Service' }]}>
+                <input type="radio" name="projectType" value="Concrete Pump Service" checked={defaultProjectType === 'Concrete Pump Service'} />
                 <span class="pill-title">Concrete Pumping</span>
                 <span class="pill-desc">3/8-inch concrete pump service</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="Drain and Gutter or Concrete Removal" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Drain and Gutter or Concrete Removal' }]}>
+                <input type="radio" name="projectType" value="Drain and Gutter or Concrete Removal" checked={defaultProjectType === 'Drain and Gutter or Concrete Removal'} />
                 <span class="pill-title">Drain, Gutter &amp; Removal</span>
                 <span class="pill-desc">Drain and gutter work or concrete removal</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="General Engineering or Public Works" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'General Engineering or Public Works' }]}>
+                <input type="radio" name="projectType" value="General Engineering or Public Works" checked={defaultProjectType === 'General Engineering or Public Works'} />
                 <span class="pill-title">Engineering &amp; Public Works</span>
                 <span class="pill-desc">Commercial, industrial or site improvement work</span>
               </label>
 
-              <label class="type-pill">
-                <input type="radio" name="projectType" value="Other or Custom Project" />
+              <label class:list={['type-pill', { 'is-selected': defaultProjectType === 'Other or Custom Project' }]}>
+                <input type="radio" name="projectType" value="Other or Custom Project" checked={defaultProjectType === 'Other or Custom Project'} />
                 <span class="pill-title">Other / Custom Project</span>
                 <span class="pill-desc">Tell us about your scope</span>
               </label>
