@@ -33,3 +33,9 @@ For a free on-site estimate, call (559) 244-1922 or email ruizfamilyent@gmail.co
 
 - [Sitemap](https://ruizfamilyhardscapes.biz/sitemap-index.xml): Index of generated XML sitemaps.
 - [Instagram](https://www.instagram.com/ruiz_family_ent/): Company profile and project posts.
+
+## Services
+- Concrete construction: https://ruizfamilyhardscapes.biz/services/concrete/
+- Masonry and block walls: https://ruizfamilyhardscapes.biz/services/masonry/
+- General engineering and public works: https://ruizfamilyhardscapes.biz/services/general-engineering/
+- Service overview: https://ruizfamilyhardscapes.biz/services/

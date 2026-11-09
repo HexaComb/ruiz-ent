@@ -1,7 +1,9 @@
 ---
 // Ruiz Family Enterprises - Site Header & Navigation
+import { estimateHref } from '../lib/service-navigation';
 // Keep homepage anchors local, but make shared navigation usable on error pages.
 const homePath = Astro.url.pathname === "/" ? "" : "/";
+const estimateLink = estimateHref(Astro.url.pathname);
 ---
 
 <!-- Top Credentials Strip -->
@@ -49,7 +51,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
     <!-- Desktop Navigation -->
     <nav class="main-nav" aria-label="Primary Navigation">
       <ul class="nav-list">
-        <li><a href={`${homePath}#our-services`} class="nav-link">Services</a></li>
+        <li><a href="/services/" class="nav-link">Services</a></li>
         <li><a href={`${homePath}#engineering-public-works`} class="nav-link">Engineering/Public Works</a></li>
         <li><a href={`${homePath}#our-work`} class="nav-link">Our Work</a></li>
         <li><a href={`${homePath}#our-story`} class="nav-link">Our Story</a></li>
@@ -66,7 +68,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
         <span class="phone-number">(559) 244-1922</span>
       </a>
 
-      <a href={`${homePath}#quote-builder`} class="btn btn-primary btn-header-cta">
+      <a href={estimateLink} class="btn btn-primary btn-header-cta">
         <span>Request a Free Estimate</span>
         <span aria-hidden="true">&rarr;</span>
       </a>
@@ -92,7 +94,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
     <div class="container mobile-drawer-inner">
       <nav class="mobile-nav" aria-label="Mobile Navigation">
         <ul class="mobile-nav-list">
-          <li><a href={`${homePath}#our-services`} class="mobile-nav-link">Services</a></li>
+          <li><a href="/services/" class="mobile-nav-link">Services</a></li>
           <li><a href={`${homePath}#engineering-public-works`} class="mobile-nav-link">Engineering/Public Works</a></li>
           <li><a href={`${homePath}#our-work`} class="mobile-nav-link">Project Footage</a></li>
           <li><a href={`${homePath}#our-story`} class="mobile-nav-link">Our Story</a></li>
@@ -110,7 +112,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
           </svg>
           <span>Call: (559) 244-1922</span>
         </a>
-        <a href={`${homePath}#quote-builder`} class="btn btn-primary mobile-estimate-btn">
+        <a href={estimateLink} class="btn btn-primary mobile-estimate-btn">
           <span>Request a Free Estimate</span>
           <span aria-hidden="true">&rarr;</span>
         </a>

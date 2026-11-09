@@ -22,7 +22,9 @@ test('shared navigation preserves home anchors and recovers from missing URLs', 
   for (const component of ['Header', 'Footer']) {
     const content = source(`src/components/${component}.astro`);
     assert.match(content, /Astro.url.pathname === "\/" \? "" : "\/"/);
-    assert.match(content, /href=\{`\$\{homePath\}#our-services`\}/);
+    // The Services nav now opens the searchable hub; home-only anchors still recover from other pages.
+    assert.match(content, /href="\/services\/"/);
+    assert.match(content, /href=\{`\$\{homePath\}#our-work`\}/);
     assert.doesNotMatch(content, /href="#/);
   }
 });

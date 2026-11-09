@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from './Section.astro';
+import QuoteBuilder from './QuoteBuilder.astro';
+import { serviceAreas, serviceAreaPath } from '../data/service-areas';
+import { servicePages, servicePagePath, type ServicePage } from '../data/service-pages';
+import { organizationId, siteUrl } from '../lib/seo';
+
+interface Props { page: ServicePage; }
+const { page } = Astro.props;
+const pageUrl = siteUrl + servicePagePath(page.slug);
+const structuredData = [
+  {
+    '@type': 'Service',
+    '@id': pageUrl + '#service',
+    name: page.label,
+    serviceType: page.label,
+    description: page.description,
+    url: pageUrl,
+    provider: { '@id': organizationId },
+    areaServed: serviceAreas.map(area => ({ '@type': 'City', name: area.name + ', California' }))
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: siteUrl + '/services/' },
+      { '@type': 'ListItem', position: 3, name: page.label, item: pageUrl }
+    ]
+  }
+];
+---
+<Layout title={page.title} description={page.description} structuredData={structuredData}>
+  <Section variant="dark" density="spacious" ariaLabelledby="service-heading">
+    <nav class="service-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true"> / </span>
+      <a href="/services/">Services</a><span aria-hidden="true"> / </span>
+      <span aria-current="page">{page.shortLabel}</span>
+    </nav>
+    <div class="service-hero-layout grid-2">
+      <div class="stack stack--lg">
+        <p class="service-eyebrow">Ruiz Family Enterprises · Central Valley</p>
+        <h1 id="service-heading" class="section-title on-dark">{page.heading}</h1>
+        <p class="service-lead">{page.intro}</p>
+        <div class="cluster cluster--sm">
+          <a class="btn btn-primary" href="#quote-builder">Request a Free On-Site Estimate</a>
+          <a class="btn btn-outline-light" href="tel:+15592441922">Call (559) 244-1922</a>
+        </div>
+        <p class="service-credentials">California License #1055499 · Three generations in the trade</p>
+      </div>
+      <figure class="service-hero-photo">
+        <img src={page.heroImage.src} alt={page.heroImage.alt} width="1200" height="900" loading="eager" decoding="async" />
+        <figcaption>{page.heroImage.caption}</figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section variant="light" ariaLabelledby="offerings-heading">
+    <div class="section-header">
+      <p class="service-eyebrow">What we do</p>
+      <h2 id="offerings-heading" class="section-title">{page.offeringsHeading}</h2>
+      <p class="section-subtitle">Start with the project you have in mind. We can discuss the details, site and finish when you reach out.</p>
+    </div>
+    <div class="grid-cards service-offerings">
+      {page.offerings.map(item => (
+        <article class="card-surface stack stack--sm">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section variant="white" ariaLabelledby="service-planning-heading">
+    <div class="service-planning grid-2">
+      <figure class="service-detail-photo">
+        <img src={page.detailImage.src} alt={page.detailImage.alt} width="1200" height="900" loading="lazy" decoding="async" />
+        <figcaption>{page.detailImage.caption}</figcaption>
+      </figure>
+      <div class="stack stack--lg">
+        <p class="service-eyebrow">A useful first conversation</p>
+        <h2 id="service-planning-heading" class="section-title">{page.planningHeading}</h2>
+        <p>{page.planning}</p>
+        <h3>Helpful details for your estimate</h3>
+        <ul class="service-checklist stack stack--md">
+          {page.checklist.map(item => <li>{item}</li>)}
+        </ul>
+        <a href="#quote-builder" class="btn btn-primary">Tell us about your project</a>
+      </div>
+    </div>
+  </Section>
+
+  <Section variant="light" ariaLabelledby="service-coverage-heading">
+    <div class="stack stack--lg">
+      <h2 id="service-coverage-heading" class="section-title">Kingsburg-based. Serving Central Valley projects.</h2>
+      <p>Ruiz provides on-site services in these six communities. Select your city for local project-planning guidance. These are service areas, not additional office locations.</p>
+      <nav class="service-city-nav cluster cluster--sm" aria-label="Ruiz service areas">
+        {serviceAreas.map(area => <a href={serviceAreaPath(area.slug)}>{area.name}, CA</a>)}
+      </nav>
+    </div>
+  </Section>
+
+  <Section variant="white" container="narrow" ariaLabelledby="service-faq-heading">
+    <div class="stack stack--xl">
+      <h2 id="service-faq-heading" class="section-title">Questions before you get started?</h2>
+      {page.faq.map(item => (
+        <div class="service-faq stack stack--sm">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+      <div class="stack stack--sm">
+        <p>Need a different trade specialty? Explore the rest of our services.</p>
+        <nav class="service-related cluster cluster--sm" aria-label="Related Ruiz services">
+          {servicePages.filter(other => other.slug !== page.slug).map(other =>
+            <a href={servicePagePath(other.slug)}>{other.label}</a>
+          )}
+        </nav>
+      </div>
+    </div>
+  </Section>
+
+  <QuoteBuilder defaultProjectType={page.defaultProjectType} />
+</Layout>
+
+<style>
+  .service-breadcrumb { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-12); color: var(--text-light-muted); font-size: .88rem; }
+  .service-breadcrumb a { color: inherit; text-decoration: underline; text-underline-offset: var(--space-1); }
+  .service-hero-layout, .service-planning { align-items: center; gap: var(--space-12); }
+  .service-eyebrow { color: var(--ruiz-terracotta); font-family: var(--font-mono); font-weight: 700; letter-spacing: .03em; }
+  .service-hero-layout .service-eyebrow { color: #93bdff; }
+  .service-lead { font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.7; color: var(--text-light-secondary); max-width: 60ch; }
+  .service-credentials { color: var(--text-light-muted); font-size: .86rem; }
+  .service-hero-photo, .service-detail-photo { overflow: hidden; border-radius: var(--radius-md); background: var(--bg-dark-elevated); }
+  .service-hero-photo { border: 1px solid var(--border-dark); }
+  .service-hero-photo img, .service-detail-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  .service-hero-photo figcaption, .service-detail-photo figcaption { padding: var(--space-3) var(--space-4); font-size: .83rem; }
+  .service-hero-photo figcaption { color: var(--text-light-muted); }
+  .service-detail-photo { background: var(--bg-light); border: 1px solid var(--border-light); }
+  .service-detail-photo figcaption { color: var(--text-dark-muted); }
+  .service-offerings h3 { font-size: 1.12rem; line-height: 1.3; }
+  .service-offerings p, .service-planning p, .service-faq p { color: var(--text-dark-secondary); }
+  .service-checklist { padding-left: var(--space-6); }
+  .service-city-nav a, .service-related a { color: var(--ruiz-blue); text-decoration: underline; text-underline-offset: var(--space-1); font-weight: 700; }
+  .service-city-nav { row-gap: var(--space-4); column-gap: var(--space-6); }
+  .service-faq { padding-block: var(--space-6); border-bottom: 1px solid var(--border-light); }
+  .service-faq h3 { font-size: 1.12rem; }
+  @media (max-width: 767px) {
+    .service-hero-layout, .service-planning { gap: var(--space-8); }
+    .service-breadcrumb { margin-bottom: var(--space-8); }
+  }
+</style>

@@ -43,3 +43,20 @@ Reviewed November 2, 2026. This is a proposed query map, not measured keyword vo
 - Build verification: `npm test`, `npm run build`, `npm run test:seo`; browser regression coverage lives in `scripts/service-area-preview.mjs` and the matching GitHub workflow.
 - GA4 uses the build-rendered canonical page path, preserving city-page reporting while retaining existing UTM filtering and excluding arbitrary missing-page paths and form values.
 - After publication, verify the sitemap in Search Console and inspect priority URLs. Indexing and search performance require observation over time; adding pages does not guarantee rankings.
+
+## November 8 lead-focused service pages (review PR)
+
+- New /services/ overview and three distinct intent pages: /services/concrete/, /services/masonry/, and /services/general-engineering/.
+- Each page has its own title, description, H1, existing site photography with descriptive alt text, relevant service copy, organization-linked Service/Breadcrumb schema, six-city internal links and an on-page estimate request form.
+- The shared QuoteBuilder accepts a default project type, preserving the unchanged homepage default and existing Resend endpoint and confirmed-success GA4 generate_lead event. A form submission still depends on production Resend configuration; this PR does not claim live delivery tests.
+- Homepage service-directory headings, navigation, footer services and city guide cards link to the new service pages; the homepage hero itself is unchanged.
+- The six authorized city guides are Kingsburg, Fresno, Madera, Visalia, Fowler and Hanford. Do not add Selma or Clovis from the older search strategy without explicit coverage confirmation.
+- OpenSEO competitive research suggests commercial-intent concrete and masonry topics, but the monthly volume estimates were largely U.S.-scoped and may group close variants. No ranking or lead lift is guaranteed.
+- After review/merge: confirm all generated pages deploy, check their URLs and sitemap in Search Console, confirm the contact endpoint works on the production Worker, and mark GA4 generate_lead as a key event in the GA4 property if not already configured.
+
+## November 9 service-page review fixes
+
+- Rechecked the latest saved [Competitive Landscape report, November 8](https://app.openseo.so/p/cf8803e0-942b-4de5-aed0-2f6c0c125514/reports/85d93fa4-6b69-4e90-8066-a3fc0abb3ce4). Its immediate opportunity is locally relevant concrete and masonry service pages, genuine work evidence and completed estimate requests. This review keeps that intent, the three service specialties, six approved cities and homepage hero unchanged.
+- Shared header, mobile-menu and footer estimate links now stay on pages that contain a form, preserving the selected service, draft input and campaign query. The service hub, city guides and missing pages retain the homepage form fallback.
+- Service navigation uses fixed GA4 labels for the service hub and three service routes; no query, free-form path or form value is included in event labels. Confirmed-success-only generate_lead behavior is unchanged.
+- Browser regression coverage now includes all four service routes at 1440, 1024, 768, 390 and 320 pixels, repeated estimate CTAs, retained form drafts/defaults/campaigns, menu dismissal, history, navigation tracking and no-JavaScript form defaults. It blocks the contact endpoint and sends no live estimate requests.

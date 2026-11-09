@@ -1,8 +1,10 @@
 ---
 // Ruiz Family Enterprises - Site Footer Component
 import { serviceAreas, serviceAreaPath } from '../data/service-areas';
+import { estimateHref } from '../lib/service-navigation';
 // Keep homepage anchors local, but make shared navigation usable on error pages.
 const homePath = Astro.url.pathname === "/" ? "" : "/";
+const estimateLink = estimateHref(Astro.url.pathname);
 ---
 
 <!-- Ruiz 4-Color Signature Spectrum Bar -->
@@ -67,15 +69,15 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
         <h4 class="col-heading">Navigation</h4>
         <nav class="footer-nav-list" aria-label="Footer Navigation">
           <a href={`${homePath}#hero`}>Home</a>
-          <a href={`${homePath}#our-services`}>Services &amp; Disciplines</a>
+          <a href="/services/">Services &amp; Disciplines</a>
           <a href="/service-areas/">Service Areas</a>
-          <a href={`${homePath}#engineering-public-works`}>Engineering/Public Works</a>
+          <a href="/services/general-engineering/">Engineering/Public Works</a>
           <a href={`${homePath}#our-work`}>Project Footage</a>
           <a href={`${homePath}#our-story`}>The Ruiz Family Story</a>
           <a href={`${homePath}#our-process`}>How We Work</a>
           <a href={`${homePath}#reviews`}>Customer Reviews</a>
           <a href={`${homePath}#faq`}>Frequently Asked Questions</a>
-          <a href={`${homePath}#quote-builder`}>Discuss a Project</a>
+          <a href={estimateLink}>Discuss a Project</a>
         </nav>
       </div>
 
@@ -83,14 +85,14 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
       <div class="footer-services-col">
         <h4 class="col-heading">Concrete &amp; Masonry Specialties</h4>
         <ul class="footer-links-list">
-          <li><a href={`${homePath}#our-services`}>Block &amp; Retaining Walls</a></li>
-          <li><a href={`${homePath}#our-services`}>Decorative Stone, Architectural Stone &amp; Brick</a></li>
-          <li><a href={`${homePath}#our-services`}>Patios, Porches &amp; Pool Decks</a></li>
-          <li><a href={`${homePath}#our-services`}>Driveways, Sidewalks &amp; Steps</a></li>
-          <li><a href={`${homePath}#our-services`}>Stamped Concrete</a></li>
-          <li><a href={`${homePath}#our-services`}>Drain &amp; Gutter Work</a></li>
-          <li><a href={`${homePath}#our-services`}>Concrete Removal</a></li>
-          <li><a href={`${homePath}#our-services`}>3/8-inch Concrete Pump Service</a></li>
+          <li><a href="/services/masonry/">Block &amp; Retaining Walls</a></li>
+          <li><a href="/services/masonry/">Decorative Stone, Architectural Stone &amp; Brick</a></li>
+          <li><a href="/services/concrete/">Patios, Porches &amp; Pool Decks</a></li>
+          <li><a href="/services/concrete/">Driveways, Sidewalks &amp; Steps</a></li>
+          <li><a href="/services/concrete/">Stamped Concrete</a></li>
+          <li><a href="/services/concrete/">Drain &amp; Gutter Work</a></li>
+          <li><a href="/services/concrete/">Concrete Removal</a></li>
+          <li><a href="/services/concrete/">3/8-inch Concrete Pump Service</a></li>
         </ul>
       </div>
 

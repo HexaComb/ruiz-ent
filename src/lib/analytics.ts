@@ -1,4 +1,5 @@
 // Only fixed labels leave the page. Never send form values, link URLs or text.
+import { serviceNavigationTarget } from './service-navigation.ts';
 type EventName = 'navigation_click' | 'cta_click' | 'phone_click' | 'email_click' | 'generate_lead';
 const targets = new Set(['hero', 'our-services', 'engineering-public-works', 'our-work', 'our-story', 'our-process', 'reviews', 'faq', 'quote-builder']);
 export function trackEvent(name: EventName, target: string, area: string) {
@@ -21,6 +22,8 @@ export function registerClicks() {
       if (url.origin !== window.location.origin) return;
       const target = url.hash.slice(1);
       if (targets.has(target)) return trackEvent(target === 'quote-builder' ? 'cta_click' : 'navigation_click', target, area);
+      const serviceTarget = serviceNavigationTarget(url.pathname);
+      if (serviceTarget) return trackEvent('navigation_click', serviceTarget, area);
       if (url.pathname === '/' && !url.hash) trackEvent('navigation_click', 'home', area);
     } else if (element.id === 'submitBtn') {
       trackEvent('cta_click', 'estimate_submit_button', 'contact');
