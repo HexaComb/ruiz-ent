@@ -1,0 +1,25 @@
+---
+import Section from './Section.astro';
+import { serviceAreas, serviceAreaPath } from '../data/service-areas';
+---
+<Section id="service-areas" variant="light" ariaLabelledby="areas-heading">
+  <div class="section-header">
+    <h2 id="areas-heading" class="section-title">Based in Kingsburg. Serving your project.</h2>
+    <p class="section-subtitle">Our family team provides general engineering, concrete and masonry services in these six Central Valley communities. Choose your city for services and project-planning information.</p>
+  </div>
+  <div class="grid-cards">
+    {serviceAreas.map(area => (
+      <article class="card-surface stack stack--md">
+        <h3><a href={serviceAreaPath(area.slug)}>{area.name}, CA</a></h3>
+        <p>{area.summary}</p>
+        <a href={serviceAreaPath(area.slug)}>Plan a project in {area.name} <span aria-hidden="true">→</span></a>
+      </article>
+    ))}
+  </div>
+  <p class="area-directory"><a href="/service-areas/">View our service-area guide</a></p>
+</Section>
+<style>
+  h3 a { color: var(--text-dark); }
+  a { text-underline-offset: var(--space-1); }
+  .area-directory { margin-block-start: var(--space-8); }
+</style>

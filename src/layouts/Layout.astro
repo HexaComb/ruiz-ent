@@ -3,6 +3,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingCallButton from '../components/FloatingCallButton.astro';
+import { siteUrl, canonicalPath, organizationSchema, serializeSchema } from '../lib/seo';
 import '../styles/global.css';
 import '../styles/trade-motion.css';
 
@@ -10,30 +11,34 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  structuredData?: Record<string, unknown>[];
 }
 
 const {
   noindex = false,
+  structuredData = [],
   title = "General Engineering Contractor | Ruiz Family Enterprises | Central Valley",
-  description = "Family-led general engineering contractor serving the Central Valley, with concrete and masonry specialties for industrial, commercial, residential and custom projects."
+  description = "Kingsburg-based general engineering contractor serving Fresno, Madera, Visalia, Fowler and Hanford, with concrete and masonry for homes and businesses."
 } = Astro.props;
 
-const siteUrl = "https://ruizfamilyhardscapes.biz";
-const ogImageUrl = "https://ruiz-ent.marcode-chavez-jr.workers.dev/images/social/ruiz-general-engineering-og.png";
+const pagePath = canonicalPath(Astro.url.pathname);
+const canonicalUrl = new URL(pagePath, siteUrl).href;
+const ogImageUrl = "https://ruizfamilyhardscapes.biz/images/social/ruiz-general-engineering-og.png";
 const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor serving the Central Valley";
 
-// Business and FAQ structured data withheld until claims have verified sources.
+// Only supported organization/service facts; no storefront, ratings or license-status claims.
+const schema = { "@context": "https://schema.org", "@graph": [organizationSchema, ...structuredData] };
 
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-analytics-path={noindex ? "/" : pagePath}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {!noindex && <link rel="canonical" href={siteUrl} />}
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
 
     <!-- Google tag (gtag.js) -->
@@ -43,7 +48,10 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
       function gtag(){dataLayer.push(arguments);}
       // Keep campaign attribution without sharing arbitrary queries, click IDs,
       // hashes, or missing-page paths. Campaign labels must never contain PII.
-      const analyticsLocation = new URL('https://ruizfamilyhardscapes.biz/');
+      // Build-rendered canonical paths preserve city-page reporting without sending
+      // arbitrary request paths, queries or missing-page details.
+      const analyticsPath = document.documentElement.dataset.analyticsPath || '/';
+      const analyticsLocation = new URL(analyticsPath, 'https://ruizfamilyhardscapes.biz/');
       const campaignQuery = new URLSearchParams(window.location.search);
       for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_term', 'utm_content', 'utm_source_platform']) {
         const values = campaignQuery.getAll(key);
@@ -65,7 +73,7 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <meta property="og:site_name" content="Ruiz Family Enterprises Inc" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {!noindex && <meta property="og:url" content={siteUrl} />}
+    {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -89,6 +97,7 @@ const ogImageAlt = "Ruiz Family Enterprises — General Engineering Contractor s
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- JSON-LD Structured Data -->
+    {!noindex && <script type="application/ld+json" set:html={serializeSchema(schema)} />}
   </head>
   <body>
     <!-- Skip to main content for accessibility -->

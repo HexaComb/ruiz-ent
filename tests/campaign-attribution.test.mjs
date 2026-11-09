@@ -7,8 +7,8 @@ import { trackEvent } from '../src/lib/analytics.ts';
 const layout = readFileSync(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
 const bootstrap = layout.match(/<script is:inline>\s*([\s\S]*?)<\/script>/)[1];
 
-function configure(search = '', path = '/') {
-  const context = { URL, URLSearchParams, location: { search, pathname: path, hash: '#private' } };
+function configure(search = '', path = '/', renderedPath = '/') {
+  const context = { document: { documentElement: { dataset: { analyticsPath: renderedPath } } }, URL, URLSearchParams, location: { search, pathname: path, hash: '#private' } };
   context.window = context;
   vm.runInNewContext(bootstrap, context);
   return Array.from(context.dataLayer, entry => Array.from(entry));
@@ -56,4 +56,10 @@ test('clicks and confirmed leads inherit sanitized campaign config without overr
     assert.equal(Object.hasOwn(call[2], 'page_location'), false);
     assert.equal(call[2].page_referrer, '');
   }
+});
+
+test('built city canonical preserves useful page attribution without arbitrary request paths', () => {
+  const config = configure('?utm_source=ig&email=private', '/untrusted-path', '/service-areas/kingsburg/')[1][2];
+  assert.equal(config.page_location, 'https://ruizfamilyhardscapes.biz/service-areas/kingsburg/?utm_source=ig');
+  assert.doesNotMatch(JSON.stringify(config), /untrusted|email|private/);
 });

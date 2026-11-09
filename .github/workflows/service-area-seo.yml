@@ -1,0 +1,51 @@
+name: Service area SEO validation
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/llms.txt'
+      - 'tests/**'
+      - 'scripts/verify-service-area-build.mjs'
+      - 'scripts/service-area-preview.mjs'
+      - '.github/workflows/service-area-seo.yml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.mjs'
+permissions:
+  contents: read
+jobs:
+  service-area-seo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:seo
+      - name: Install isolated browser test dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/service-area-qa" --no-package-lock --ignore-scripts playwright@1.64.1
+          "$RUNNER_TEMP/service-area-qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify city pages and navigation without submitting forms
+        run: |
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist/client > /tmp/service-area-server.log 2>&1 &
+          for attempt in $(seq 1 30); do curl --silent --fail http://127.0.0.1:4321/ > /dev/null && break; sleep 1; done
+          node scripts/service-area-preview.mjs
+      - name: Save review screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: service-area-preview-${{ github.event.pull_request.head.sha }}
+          path: service-area-preview/
+          if-no-files-found: warn
+          retention-days: 7

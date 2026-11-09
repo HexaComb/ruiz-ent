@@ -53,7 +53,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
         <li><a href={`${homePath}#engineering-public-works`} class="nav-link">Engineering/Public Works</a></li>
         <li><a href={`${homePath}#our-work`} class="nav-link">Our Work</a></li>
         <li><a href={`${homePath}#our-story`} class="nav-link">Our Story</a></li>
-        <li><a href={`${homePath}#reviews`} class="nav-link">Reviews</a></li>
+        <li><a href="/service-areas/" class="nav-link">Service Areas</a></li>
       </ul>
     </nav>
 
@@ -99,6 +99,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
           <li><a href={`${homePath}#our-process`} class="mobile-nav-link">How We Work</a></li>
           <li><a href={`${homePath}#reviews`} class="mobile-nav-link">Customer Reviews</a></li>
           <li><a href={`${homePath}#faq`} class="mobile-nav-link">Frequently Asked Questions</a></li>
+          <li><a href="/service-areas/" class="mobile-nav-link">Service Areas</a></li>
         </ul>
       </nav>
 

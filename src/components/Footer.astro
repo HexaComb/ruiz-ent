@@ -1,5 +1,6 @@
 ---
 // Ruiz Family Enterprises - Site Footer Component
+import { serviceAreas, serviceAreaPath } from '../data/service-areas';
 // Keep homepage anchors local, but make shared navigation usable on error pages.
 const homePath = Astro.url.pathname === "/" ? "" : "/";
 ---
@@ -67,6 +68,7 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
         <nav class="footer-nav-list" aria-label="Footer Navigation">
           <a href={`${homePath}#hero`}>Home</a>
           <a href={`${homePath}#our-services`}>Services &amp; Disciplines</a>
+          <a href="/service-areas/">Service Areas</a>
           <a href={`${homePath}#engineering-public-works`}>Engineering/Public Works</a>
           <a href={`${homePath}#our-work`}>Project Footage</a>
           <a href={`${homePath}#our-story`}>The Ruiz Family Story</a>
@@ -107,8 +109,8 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
           </div>
 
           <div class="c-item">
-            <span class="c-label">Contact Location:</span>
-            <span class="c-value">Kingsburg, California 93631</span>
+            <span class="c-label">Home Base:</span>
+            <span class="c-value">Kingsburg, California · On-site services</span>
           </div>
 
           <div class="c-item">
@@ -122,7 +124,11 @@ const homePath = Astro.url.pathname === "/" ? "" : "/";
     <!-- Footer Bottom Strip -->
     <div class="footer-bottom">
       <p class="footer-seo-line">General Engineering · Masonry · Concrete · Stonework · Concrete Pumping</p>
-      <p class="footer-cities">Serving the Central Valley from Visalia to Modesto. Contact our Kingsburg-based team about your project.</p>
+      <nav class="footer-cities cluster cluster--center" aria-label="Service areas">
+        <span>Serving:</span>
+        {serviceAreas.map(area => <a href={serviceAreaPath(area.slug)}>{area.name}</a>)}
+      </nav>
+      <p>Services at customer properties. No public walk-in location.</p>
       <div class="footer-copyright-row">
         <span>&copy; {new Date().getFullYear()} Ruiz Family Enterprises Inc. All Rights Reserved.</span>
         <span>Three generations of craftsmanship.</span>
