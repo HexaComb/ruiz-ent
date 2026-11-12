@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { estimateHref, serviceNavigationTarget } from '../src/lib/service-navigation.ts';
 import { servicePages, servicePagePath } from '../src/data/service-pages.ts';
+import { serviceAreas, serviceAreaPath } from '../src/data/service-areas.ts';
 
 test('estimate links stay on pages with a form and recover to home everywhere else', () => {
   assert.equal(estimateHref('/'), '#quote-builder');
@@ -12,7 +13,12 @@ test('estimate links stay on pages with a form and recover to home everywhere el
     assert.equal(estimateHref(path.slice(0, -1)), '#quote-builder');
     assert.ok(serviceNavigationTarget(path), 'every service needs a fixed navigation label');
   }
-  for (const path of ['/services/', '/service-areas/', '/service-areas/kingsburg/', '/404', '/missing/', '/services/concrete/missing/']) {
+  for (const area of serviceAreas) {
+    const path = serviceAreaPath(area.slug);
+    assert.equal(estimateHref(path), '#quote-builder');
+    assert.equal(estimateHref(path.slice(0, -1)), '#quote-builder');
+  }
+  for (const path of ['/services/', '/service-areas/', '/service-areas/selma/', '/404', '/missing/', '/services/concrete/missing/']) {
     assert.equal(estimateHref(path), '/#quote-builder', path);
   }
 });

@@ -6,6 +6,13 @@ const serviceRoutes = new Map([
   ['/services/general-engineering/', { target: 'service_general_engineering', hasEstimateForm: true }]
 ]);
 
+// These six approved service-area routes render their own estimate form.
+// Keep this fixed allowlist aligned with service-areas.ts (covered by tests).
+const cityRoutesWithForms = new Set([
+  '/service-areas/kingsburg/', '/service-areas/fresno/', '/service-areas/madera/',
+  '/service-areas/visalia/', '/service-areas/fowler/', '/service-areas/hanford/'
+]);
+
 const normalizedPath = (pathname: string) => pathname.endsWith('/') ? pathname : pathname + '/';
 
 export function serviceNavigationTarget(pathname: string) {
@@ -13,7 +20,8 @@ export function serviceNavigationTarget(pathname: string) {
 }
 
 export function estimateHref(pathname: string) {
-  const hasEstimateForm = pathname === '/' || serviceRoutes.get(normalizedPath(pathname))?.hasEstimateForm;
-  // A local anchor preserves the selected service, an unfinished form and campaign parameters.
+  const route = normalizedPath(pathname);
+  const hasEstimateForm = pathname === '/' || serviceRoutes.get(route)?.hasEstimateForm || cityRoutesWithForms.has(route);
+  // A local anchor preserves the selected service/city, an unfinished form and campaign parameters.
   return hasEstimateForm ? '#quote-builder' : '/#quote-builder';
 }

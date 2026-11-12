@@ -23,7 +23,10 @@ try {
       assert.equal(await page.locator('h1').count(), 1);
       assert.ok((await page.locator('h1').innerText()).toLowerCase().includes(city));
       assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `https://ruizfamilyhardscapes.biz${route}`);
-      assert.equal(await page.locator('main a[href="/#quote-builder"]').count(), 3);
+      assert.equal(await page.locator('main a[href="#quote-builder"]').count(), city === 'kingsburg' ? 4 : 3);
+      assert.equal(await page.locator('#quoteForm').count(), 1);
+      assert.equal(await page.locator('#quoteForm').getAttribute('data-service-city'), city);
+      assert.equal(await page.locator('#clientCity').inputValue(), city[0].toUpperCase() + city.slice(1));
       assert.ok(await page.locator('main a[href="tel:+15592441922"]').count());
       assert.equal(await page.locator('footer nav[aria-label="Service areas"] a').count(), 6);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${city} overflow at ${width}`);
@@ -45,9 +48,12 @@ try {
           await page.keyboard.press('Escape');
           assert.equal(await toggle.getAttribute('aria-expanded'), 'false');
         }
-        await page.locator('main a[href="/#quote-builder"]').first().click();
-        await page.waitForURL('**/#quote-builder');
+        await page.locator('main a[href="#quote-builder"]').first().click();
+        assert.equal(new URL(page.url()).pathname, route, 'estimate CTA stays on city page');
         assert.equal(await page.locator('#quoteForm').count(), 1);
+        assert.equal(await page.locator('.city-proof-photos img').count(), 2);
+        await page.locator('#quoteForm').screenshot({ path: `${output}/kingsburg-form-${width}.png` });
+        await page.goto(`${base}/`, { waitUntil: 'networkidle' });
         assert.equal(await page.locator('#service-areas h3 a').count(), 6);
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `homepage overflow at ${width}`);
         await page.locator('#service-areas').screenshot({ path: `${output}/homepage-areas-${width}.png` });

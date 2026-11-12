@@ -32,7 +32,12 @@ for (const route of routes) {
     assert.equal(schema['@graph'][1].provider['@id'], `${origin}/#organization`);
     assert.equal(schema['@graph'][2].itemListElement.at(-1).item, `${origin}${route}`);
     assert.ok(html.includes(city.resource.url));
-    assert.ok(html.includes('href="/#quote-builder"'));
+    assert.ok(html.includes('href="#quote-builder"'), `${route}: on-page estimate link`);
+    assert.equal(html.includes('href="/#quote-builder"'), false, `${route}: no homepage estimate detour`);
+    assert.ok(html.includes('id="quoteForm"'), `${route}: on-page estimate form`);
+    assert.ok(html.includes(`data-service-city="${city.slug}"`), `${route}: city attribution`);
+    assert.ok(html.includes(`value="${city.name}"`), `${route}: city prefill`);
+    if (city.slug === 'kingsburg') assert.ok(html.includes('city-proof-photos'), 'Kingsburg: relevant existing photos');
     assert.ok(html.includes('href="tel:+15592441922"'));
   }
   const service = servicePages.find(page => route === servicePagePath(page.slug));

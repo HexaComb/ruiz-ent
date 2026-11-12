@@ -21,7 +21,7 @@ test('each service area has individual editorial content and an official plannin
     assert.ok(area.planning.length > 200);
     assert.ok(area.resource.text.length > 200);
     assert.equal(area.checklist.length, 3);
-    assert.equal(area.questions.length, 2);
+    assert.equal(area.questions.length, area.slug === 'kingsburg' ? 4 : 2);
     assert.ok(new URL(area.resource.url).hostname.endsWith('.gov') || new URL(area.resource.url).hostname === 'www.fowlercity.org');
     assert.equal(serviceAreaPath(area.slug), `/service-areas/${area.slug}/`);
   }
@@ -36,4 +36,17 @@ test('public summary matches coverage and does not retain withdrawn areas', () =
   const summary = fs.readFileSync(new URL('../public/llms.txt', import.meta.url), 'utf8');
   for (const area of serviceAreas) assert.ok(summary.includes(serviceAreaPath(area.slug)));
   assert.doesNotMatch(summary, /Modesto|Selma|Clovis|Chowchilla|Merced|Atwater|Turlock/);
+});
+
+
+test('city pages keep visitors on-page for estimates and prioritize Kingsburg proof', () => {
+  const city = fs.readFileSync(new URL('../src/pages/service-areas/[city].astro', import.meta.url), 'utf8');
+  assert.match(city, /<QuoteBuilder defaultCity=\{area\.name\}/);
+  assert.match(city, /href="#quote-builder"/);
+  assert.doesNotMatch(city, /href="\/#quote-builder"/);
+  assert.match(city, /area\.slug === 'kingsburg'/);
+  assert.match(city, /city-proof-photos/);
+  const form = fs.readFileSync(new URL('../src/components/QuoteBuilder.astro', import.meta.url), 'utf8');
+  assert.match(form, /data-service-city=\{defaultCity\.toLowerCase\(\)\}/);
+  assert.match(form, /value=\{defaultCity\}/);
 });

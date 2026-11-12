@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
+import QuoteBuilder from '../../components/QuoteBuilder.astro';
 import { serviceAreas, serviceAreaPath, type ServiceArea } from '../../data/service-areas';
 import { organizationId, siteUrl } from '../../lib/seo';
 
@@ -40,7 +41,7 @@ const structuredData = [
       <h1 id="city-heading" class="section-title on-dark">{area.slug === 'kingsburg' ? 'Concrete contractor' : 'Concrete & masonry'}<br />in {area.name}, CA</h1>
       <p class="section-subtitle on-dark">{area.intro}</p>
       <div class="cluster">
-        <a href="/#quote-builder" class="btn btn-primary">Request a free on-site estimate</a>
+        <a href="#quote-builder" class="btn btn-primary">Request a free on-site estimate</a>
         <a href="tel:+15592441922" class="btn btn-outline-light">Call (559) 244-1922</a>
       </div>
       <p class="city-note">General engineering contractor · Three generations of trade experience</p>
@@ -86,13 +87,38 @@ const structuredData = [
       </aside>
     </div>
   </Section>
+  {area.slug === 'kingsburg' && (
+    <Section variant="dark" ariaLabelledby="kingsburg-work-heading">
+      <div class="stack stack--lg">
+        <div class="section-header">
+          <p class="city-eyebrow">A look at the work</p>
+          <h2 id="kingsburg-work-heading" class="section-title on-dark">Concrete and masonry, up close.</h2>
+          <p class="section-subtitle on-dark">See Ruiz's existing concrete and masonry imagery before discussing your project. Individual photo locations are not specified.</p>
+        </div>
+        <div class="grid-2 city-proof-photos">
+          <figure class="card-surface stack stack--sm">
+            <img src="/images/services/custom-home-concrete-pour.jpg" alt="Concrete being placed alongside a home" width="1200" height="900" loading="lazy" decoding="async" />
+            <figcaption>Concrete placement and finishing</figcaption>
+          </figure>
+          <figure class="card-surface stack stack--sm">
+            <img src="/images/services/split-face-block-walls.jpg" alt="Close view of split-face masonry block wall construction" width="1200" height="900" loading="lazy" decoding="async" />
+            <figcaption>Block wall materials and finishes</figcaption>
+          </figure>
+        </div>
+        <div class="cluster">
+          <a class="btn btn-primary" href="#quote-builder">Discuss a Kingsburg project</a>
+          <a class="btn btn-outline-light" href="/services/concrete/">See concrete services</a>
+        </div>
+      </div>
+    </Section>
+  )}
   <Section variant="light" container="narrow" ariaLabelledby="city-questions-heading">
     <div class="stack stack--xl">
       <h2 id="city-questions-heading" class="section-title">Planning your {area.name} project</h2>
       {area.questions.map(item => (
         <div class="stack stack--md"><h3>{item.question}</h3><p>{item.answer}</p></div>
       ))}
-      <p>To get started, call <a href="tel:+15592441922">(559) 244-1922</a> or <a href="/#quote-builder">request a free on-site estimate</a>. Our family team serves customer properties; this page does not represent a separate office.</p>
+      <p>To get started, call <a href="tel:+15592441922">(559) 244-1922</a> or <a href="#quote-builder">request a free on-site estimate</a>. Our family team serves customer properties; this page does not represent a separate office.</p>
     </div>
   </Section>
   <Section variant="dark" density="compact" ariaLabelledby="city-next-heading">
@@ -100,7 +126,7 @@ const structuredData = [
       <h2 id="city-next-heading" class="section-title on-dark">Tell us what you have in mind.</h2>
       <p>Share your {area.name} project location, scope and photos or plans. We’ll talk through the work and scheduling.</p>
       <div class="cluster">
-        <a href="/#quote-builder" class="btn btn-primary">Discuss your project</a>
+        <a href="#quote-builder" class="btn btn-primary">Discuss your project</a>
         <a href="/#our-work" class="btn btn-outline-light">See our project footage</a>
       </div>
       <nav class="other-areas stack stack--md" aria-label="Other service areas">
@@ -109,6 +135,7 @@ const structuredData = [
       </nav>
     </div>
   </Section>
+  <QuoteBuilder defaultCity={area.name} />
 </Layout>
 <style>
   .breadcrumbs ol { list-style: none; padding: var(--space-0); }
@@ -119,4 +146,7 @@ const structuredData = [
   .resource-note { color: var(--text-dark-muted); }
   .grid-2 { align-items: start; }
   .other-areas { padding-block-start: var(--space-6); border-top: 1px solid var(--border-dark); }
+  .city-proof-photos { align-items: start; }
+  .city-proof-photos img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .city-proof-photos figcaption { color: var(--text-dark-secondary); font-size: .9rem; }
 </style>
