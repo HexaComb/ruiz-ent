@@ -5,7 +5,7 @@ Earn qualified non-branded searches in **Kingsburg, California** and convert the
 
 ## Implemented in this change
 - Kingsburg SEO title emphasizes **concrete contractor** while the copy also covers masonry and general engineering, without implying a retail storefront or additional location.
-- All six city guides keep estimate visitors on the same page using the existing accessible /api/contact form. The project-city input defaults to that guide's city **but remains editable**.
+- All six city guides keep estimate visitors on the same page using the existing accessible /api/contact form, including header, mobile-menu and footer estimate links. The project-city input defaults to that guide's city **but remains editable**.
 - Kingsburg includes two existing Ruiz site images. Their job locations are not asserted to be Kingsburg, and no fabricated city-specific reviews, job counts, guarantees or office addresses were added.
 - Kingsburg FAQ addresses new/replacement driveways and commercial engineering inquiries.
 - The form sends **estimate_form_start**, **estimate_form_error**, and **generate_lead** GA4 events. Successful leads remain gated on a 2xx API response with `sent: true`; a blocked honeypot or unsuccessful delivery never counts as a lead.
