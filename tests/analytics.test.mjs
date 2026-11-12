@@ -51,10 +51,30 @@ test('actual form handler emits one lead only on confirmed success, never failur
  const source=fs.readFileSync(new URL('../src/components/QuoteBuilder.astro',import.meta.url),'utf8').split('<script>')[1].split('</script>')[0].replace(/import .*?;\n/,'');
  for(const scenario of [{ok:true,sent:true,count:1},{ok:true,sent:false,count:0},{ok:false,sent:false,count:0},{throws:true,count:0}]){
   let submit; const events=[]; const button={querySelector:()=>({}),disabled:false}; const status={};
-  const form={querySelectorAll:()=>[],addEventListener:(name,fn)=>{if(name==='submit')submit=fn},reportValidity:()=>true,setAttribute(){},removeAttribute(){},reset(){},action:'https://example.test/api/contact'};
+  const form={dataset:{serviceCity:'kingsburg'},querySelector:()=>({value:'Concrete Flatwork & Finishes'}),querySelectorAll:()=>[],addEventListener:(name,fn)=>{if(name==='submit')submit=fn},reportValidity:()=>true,setAttribute(){},removeAttribute(){},reset(){},action:'https://example.test/api/contact'};
   const ctx={document:{querySelector:s=>s==='#quoteForm'?form:s==='#formStatus'?status:button},trackEvent:(...a)=>events.push(a),URLSearchParams,FormData:class{*[Symbol.iterator](){yield ['name','private example'];}},fetch:async()=>{if(scenario.throws)throw Error();return {ok:scenario.ok,json:async()=>({message:'Result',sent:scenario.sent})}}};
   vm.runInNewContext(stripTypeScriptTypes(source),ctx);
   await submit({preventDefault(){}});
-  assert.equal(events.length,scenario.count);assert(!JSON.stringify(events).includes('private'));
+  assert.equal(events.filter(e=>e[0]==='generate_lead').length,scenario.count);
+  assert.equal(events.filter(e=>e[0]==='estimate_form_error').length,scenario.throws || scenario.ok === false ? 1 : 0);
+  assert(!JSON.stringify(events).includes('private'));
  }
+});
+
+
+test('lead funnel context is allowlisted and never forwards visitor-entered values', () => {
+  const events=[];
+  globalThis.window={gtag:(...args)=>events.push(args)};
+  trackEvent('generate_lead','estimate_form','contact',{serviceCity:'kingsburg',projectType:'Block or Retaining Wall'});
+  assert.deepEqual(events[0][2],{
+    target:'estimate_form',area:'contact',service_city:'kingsburg',project_category:'block_wall',
+    page_referrer:'',page_title:'Ruiz Family Enterprises'
+  });
+  trackEvent('estimate_form_error','estimate_form','contact',{
+    serviceCity:'private@example.com',projectType:'private name',errorType:'private'
+  });
+  assert.equal(events[1][2].service_city,'unspecified');
+  assert.equal(events[1][2].project_category,'other');
+  assert.equal(events[1][2].error_category,'other');
+  assert.doesNotMatch(JSON.stringify(events),/private|example.com/);
 });

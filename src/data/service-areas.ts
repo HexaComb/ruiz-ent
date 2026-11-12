@@ -4,8 +4,8 @@
 export const serviceAreas = [
   {
     slug: 'kingsburg', name: 'Kingsburg',
-    title: 'Concrete Contractor in Kingsburg, CA | Ruiz Family Enterprises',
-    description: 'Plan concrete patios, driveways, block walls and masonry in Kingsburg, CA with Ruiz Family Enterprises. Call our family team for a free on-site estimate.',
+    title: 'Kingsburg Concrete Contractor | Ruiz Family Enterprises',
+    description: 'Kingsburg concrete contractor for patios, driveways, stamped finishes and block walls. Family-led general engineering and masonry. Request a free on-site estimate.',
     summary: 'Our home base for general engineering, concrete and masonry projects.',
     intro: 'Our family team is based in Kingsburg, serving homeowners and businesses with general engineering, concrete and masonry work. From a new patio to a block wall or commercial concrete scope, we start with your property, your plans and how the finished space needs to work.',
     planningTitle: 'Plan the whole space, not just the pour',
@@ -14,7 +14,9 @@ export const serviceAreas = [
     resource: { title: 'City of Kingsburg Building Department', url: 'https://www.cityofkingsburg-ca.gov/149/Building-Department', text: 'Kingsburg provides building applications, residential and commercial submittal checklists, and inspection information. Its permit lookup covers permits started in January 2024 or later. For an older property record or a new scope, check with the department rather than assuming an online search is the full history.' },
     questions: [
       { question: 'Can I discuss a patio and masonry together?', answer: 'Yes. Describe the concrete surface and any block wall, retaining wall, decorative stone or brick work in the same inquiry. Include how the pieces connect so we can discuss the combined scope.' },
-      { question: 'Where do we meet about a Kingsburg project?', answer: 'Call our family team to discuss a free on-site estimate at your project location. We provide services at customer properties and do not list a public walk-in office.' }
+      { question: 'Where do we meet about a Kingsburg project?', answer: 'Call our family team to discuss a free on-site estimate at your project location. We provide services at customer properties and do not list a public walk-in office.' },
+      { question: 'Do you install concrete driveways and patios in Kingsburg?', answer: 'Yes. Driveways, patios, walkways and stamped finishes are among our concrete services. Tell us whether you want a new surface or removal and replacement, along with site access and approximate dimensions.' },
+      { question: 'Can Kingsburg businesses discuss commercial concrete and general engineering?', answer: 'Yes. Our published work includes commercial concrete flatwork and general engineering. Send the plans, site location and the portion of work you want to discuss so our team can review the scope.' }
     ]
   },
   {

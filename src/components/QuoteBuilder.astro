@@ -1,7 +1,7 @@
 ---
 // Ruiz Family Enterprises - Interactive Quote Builder & Estimate Form Component (Polished per Impeccable guidelines)
-interface Props { defaultProjectType?: string; }
-const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
+interface Props { defaultProjectType?: string; defaultCity?: string; }
+const { defaultProjectType = 'Concrete Flatwork & Finishes', defaultCity = '' } = Astro.props;
 ---
 
 <section class="section section--dark estimate-cta-section" id="quote-builder" aria-labelledby="quote-heading">
@@ -53,7 +53,7 @@ const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
 
       <!-- Right Column: Interactive Project Request Form -->
       <div class="estimate-form-col">
-        <form class="quote-form-card" id="quoteForm" action="/api/contact" method="post">
+        <form class="quote-form-card" id="quoteForm" action="/api/contact" method="post" data-service-city={defaultCity.toLowerCase()}>
           <div class="form-header">
             <h3 class="form-title">What Are You Building?</h3>
             <p class="form-sub">Request a free on-site estimate for your general engineering, concrete or masonry project. Share your location, approximate size and preferred finish so our family team can understand the scope.</p>
@@ -154,7 +154,7 @@ const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
 
               <div class="form-group">
                 <label for="clientCity" class="input-label">Project City or Address *</label>
-                <input type="text" id="clientCity" name="city" class="form-input" maxlength="254" required placeholder="Your project city" />
+                <input type="text" id="clientCity" name="city" class="form-input" maxlength="254" value={defaultCity} required placeholder="Your project city" />
                 <span class="field-error" id="cityError" hidden>Please enter your city.</span>
               </div>
             </div>
@@ -523,6 +523,16 @@ const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
     };
     form.addEventListener('change', syncSelection);
     let submitting = false;
+    let started = false;
+    const leadContext = () => ({
+      serviceCity: form.dataset.serviceCity,
+      projectType: form.querySelector<HTMLInputElement>('input[name="projectType"]:checked')?.value
+    });
+    form.addEventListener('input', () => {
+      if (started) return;
+      started = true;
+      trackEvent('estimate_form_start', 'estimate_form', 'contact', leadContext());
+    });
 
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -548,12 +558,16 @@ const { defaultProjectType = 'Concrete Flatwork & Finishes' } = Astro.props;
         statusBox.className = response.ok ? 'form-status is-success' : 'form-status is-error';
         if (response.ok) {
           if ('sent' in result && result.sent === true) {
-            trackEvent('generate_lead', 'estimate_form', 'contact');
+            trackEvent('generate_lead', 'estimate_form', 'contact', leadContext());
           }
           form.reset();
           syncSelection();
+          started = false;
+        } else {
+          trackEvent('estimate_form_error', 'estimate_form', 'contact', { ...leadContext(), errorType: 'server_rejected' });
         }
       } catch {
+        trackEvent('estimate_form_error', 'estimate_form', 'contact', { ...leadContext(), errorType: 'network_or_parse' });
         statusBox.className = 'form-status is-error';
         statusBox.textContent = 'We could not confirm your request was sent. Please try again or call (559) 244-1922.';
       } finally {
