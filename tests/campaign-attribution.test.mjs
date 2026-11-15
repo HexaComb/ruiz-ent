@@ -7,8 +7,8 @@ import { trackEvent } from '../src/lib/analytics.ts';
 const layout = readFileSync(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
 const bootstrap = layout.match(/<script is:inline>\s*([\s\S]*?)<\/script>/)[1];
 
-function configure(search = '', path = '/', renderedPath = '/') {
-  const context = { document: { documentElement: { dataset: { analyticsPath: renderedPath } } }, URL, URLSearchParams, location: { search, pathname: path, hash: '#private' } };
+function configure(search = '', path = '/', renderedPath = '/', referrer = '') {
+  const context = { document: { referrer, documentElement: { dataset: { analyticsPath: renderedPath } } }, URL, URLSearchParams, location: { search, pathname: path, hash: '#private' } };
   context.window = context;
   vm.runInNewContext(bootstrap, context);
   return Array.from(context.dataLayer, entry => Array.from(entry));
@@ -20,8 +20,27 @@ test('Instagram bio UTMs reach GA4 config without Facebook click IDs or other qu
   assert.equal(calls[1][1], 'G-G35MWF4BT4');
   assert.equal(calls[1][2].page_location, 'https://ruizfamilyhardscapes.biz/?utm_source=ig&utm_medium=social&utm_content=link_in_bio');
   assert.equal(calls[1][2].page_referrer, '');
-  assert.equal(calls[1][2].page_title, 'Ruiz Family Enterprises');
+  assert.equal(Object.hasOwn(calls[1][2], 'page_title'), false);
   assert.doesNotMatch(JSON.stringify(calls), /private|fbclid|email|person|example\.com/);
+});
+
+
+test('GA4 preserves external referrer origins without sending paths, queries or credentials', () => {
+  for (const [referrer, expected] of [
+    ['https://www.google.com/search?q=private+query#fragment', 'https://www.google.com/'],
+    ['https://user:secret@www.bing.com/search?q=private', 'https://www.bing.com/'],
+    ['http://referrer.example/route?email=private%40example.com', 'http://referrer.example/'],
+    ['https://ruizfamilyhardscapes.biz/services/concrete/?token=private', 'https://ruizfamilyhardscapes.biz/'],
+    ['', ''],
+    ['not a URL', ''],
+    ['javascript:alert(1)', ''],
+    ['data:text/plain,private', ''],
+  ]) {
+    const pageConfig = configure('', '/', '/', referrer)[1][2];
+    assert.equal(pageConfig.page_referrer, expected);
+    assert.equal(Object.hasOwn(pageConfig, 'page_title'), false);
+    assert.doesNotMatch(pageConfig.page_referrer, /private|secret|email|query|token/);
+  }
 });
 
 test('all supported campaign labels survive encoded values without inventing a campaign', () => {
@@ -54,7 +73,8 @@ test('clicks and confirmed leads inherit sanitized campaign config without overr
   assert.equal(calls.length, 5);
   for (const call of calls) {
     assert.equal(Object.hasOwn(call[2], 'page_location'), false);
-    assert.equal(call[2].page_referrer, '');
+    assert.equal(Object.hasOwn(call[2], 'page_referrer'), false);
+    assert.equal(Object.hasOwn(call[2], 'page_title'), false);
   }
 });
 
