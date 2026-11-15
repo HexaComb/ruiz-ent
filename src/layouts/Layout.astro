@@ -60,11 +60,20 @@ const schema = { "@context": "https://schema.org", "@graph": [organizationSchema
           analyticsLocation.searchParams.set(key, value);
         }
       }
+      // Preserve the referring source for GA4 attribution, but never send the
+      // referrer's path, query, hash or credentials (which can contain PII).
+      let safeReferrer = '';
+      try {
+        const source = new URL(document.referrer);
+        if (source.protocol === 'https:' || source.protocol === 'http:') {
+          safeReferrer = source.origin + '/';
+        }
+      } catch { /* Direct visits and invalid referrers have no usable source. */ }
       gtag('js', new Date());
       gtag('config', 'G-G35MWF4BT4', {
         page_location: analyticsLocation.href,
-        page_referrer: '',
-        page_title: 'Ruiz Family Enterprises'
+        page_referrer: safeReferrer
+        // page_title defaults to each page's real document.title.
       });
     </script>
 
