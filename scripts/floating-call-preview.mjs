@@ -60,7 +60,7 @@ try {
     assert.equal(events.calls.length, 3);
     for (const event of events.calls) {
       assert.deepEqual(event, ['event', 'phone_click', {
-        target: 'business_phone', area: 'floating_call', page_referrer: '', page_title: 'Ruiz Family Enterprises'
+        target: 'business_phone', area: 'floating_call'
       }]);
     }
 
