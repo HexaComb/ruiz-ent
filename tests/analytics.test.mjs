@@ -30,13 +30,13 @@ test('service navigation emits one fixed label with its area and no URL or query
   ['/services/general-engineering/#private-details','service_general_engineering','header']
  ]) {
   events.length=0; click({target:new Anchor(href,area)});
-  assert.deepEqual(events,[['event','navigation_click',{target,area,page_referrer:'',page_title:'Ruiz Family Enterprises'}]]);
+  assert.deepEqual(events,[['event','navigation_click',{target,area}]]);
  }
  for (const href of ['/services/missing-private/', '/services/concrete/private/', 'https://example.com/services/concrete/']) {
   events.length=0; click({target:new Anchor(href,'header')}); assert.deepEqual(events,[]);
  }
  events.length=0; click({target:new Anchor('/services/masonry/?email=private@example.com#quote-builder','header')});
- assert.deepEqual(events,[['event','cta_click',{target:'quote-builder',area:'header',page_referrer:'',page_title:'Ruiz Family Enterprises'}]]);
+ assert.deepEqual(events,[['event','cta_click',{target:'quote-builder',area:'header'}]]);
 });
 
 test('lead only emitted inside confirmed server success; no auto form_submit duplication',()=>{
@@ -67,8 +67,7 @@ test('lead funnel context is allowlisted and never forwards visitor-entered valu
   globalThis.window={gtag:(...args)=>events.push(args)};
   trackEvent('generate_lead','estimate_form','contact',{serviceCity:'kingsburg',projectType:'Block or Retaining Wall'});
   assert.deepEqual(events[0][2],{
-    target:'estimate_form',area:'contact',service_city:'kingsburg',project_category:'block_wall',
-    page_referrer:'',page_title:'Ruiz Family Enterprises'
+    target:'estimate_form',area:'contact',service_city:'kingsburg',project_category:'block_wall'
   });
   trackEvent('estimate_form_error','estimate_form','contact',{
     serviceCity:'private@example.com',projectType:'private name',errorType:'private'
