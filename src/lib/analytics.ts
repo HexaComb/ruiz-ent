@@ -25,8 +25,9 @@ export function trackEvent(name: EventName, target: string, area: string, form?:
       }
     : {};
   try {
-    // Inherit the sanitized campaign page_location from the shared GA4 config.
-    analytics.gtag?.('event', name, { target, area, ...safeForm, page_referrer: '', page_title: 'Ruiz Family Enterprises' });
+    // Inherit the canonical page location and privacy-safe referrer from GA4 config.
+    // Let GA4 use the document's actual title instead of forcing a generic one.
+    analytics.gtag?.('event', name, { target, area, ...safeForm });
   } catch { /* Analytics must never interrupt navigation or a successful inquiry. */ }
 }
 export function registerClicks() {
