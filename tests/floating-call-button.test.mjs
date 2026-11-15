@@ -32,7 +32,7 @@ test('floating call clicks use existing privacy-safe analytics without preventin
   const event = { target: new Anchor(), preventDefault() { assert.fail('Native dialing must remain available'); } };
   click(event);
   assert.deepEqual(events, [['event', 'phone_click', {
-    target: 'business_phone', area: 'floating_call', page_referrer: '', page_title: 'Ruiz Family Enterprises'
+    target: 'business_phone', area: 'floating_call'
   }]]);
   window.gtag = () => { throw new Error('Analytics blocked'); };
   assert.doesNotThrow(() => click(event));
