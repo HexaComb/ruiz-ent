@@ -23,7 +23,7 @@ try {
       assert.equal(await page.locator('h1').count(), 1);
       assert.ok((await page.locator('h1').innerText()).toLowerCase().includes(city));
       assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `https://ruizfamilyhardscapes.biz${route}`);
-      assert.equal(await page.locator('main a[href="#quote-builder"]').count(), city === 'kingsburg' ? 4 : 3);
+      assert.equal(await page.locator('main a[href="#quote-builder"]').count(), city === 'kingsburg' ? 5 : 3);
       assert.equal(await page.locator('#quoteForm').count(), 1);
       assert.equal(await page.locator('#quoteForm').getAttribute('data-service-city'), city);
       assert.equal(await page.locator('#clientCity').inputValue(), city[0].toUpperCase() + city.slice(1));

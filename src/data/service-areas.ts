@@ -5,7 +5,7 @@ export const serviceAreas = [
   {
     slug: 'kingsburg', name: 'Kingsburg',
     title: 'Kingsburg Concrete Contractor | Ruiz Family Enterprises',
-    description: 'Kingsburg concrete contractor for patios, driveways, stamped finishes and block walls. Family-led general engineering and masonry. Request a free on-site estimate.',
+    description: 'Kingsburg concrete contractor for driveways, patios, stamped finishes and block walls. Discuss your project with Ruiz Family Enterprises. Free on-site estimates.',
     summary: 'Our home base for general engineering, concrete and masonry projects.',
     intro: 'Our family team is based in Kingsburg, serving homeowners and businesses with general engineering, concrete and masonry work. From a new patio to a block wall or commercial concrete scope, we start with your property, your plans and how the finished space needs to work.',
     planningTitle: 'Plan the whole space, not just the pour',
